@@ -23,7 +23,7 @@ public class FeignUploadController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiOperation(value = "文件上传", notes = "请选择文件上传")
     public String imageUpload(@ApiParam(value = "文件上传", required = true) @RequestPart(value = "file") FilePart file) {
-        return fileUploadFeignClient.fileUpload(file).block();
+        return fileUploadFeignClient.fileUpload(file);
     }
 
 }

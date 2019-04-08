@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
-import reactor.core.publisher.Mono;
 
 @FeignClient(value = "service-file")
 public interface FileUploadFeignClient {
@@ -20,6 +19,6 @@ public interface FileUploadFeignClient {
      */
     @PostMapping(value = "/uploadFile/server", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE},
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    Mono<String> fileUpload(@RequestPart FilePart file);
+    String fileUpload(@RequestPart FilePart file);
 
 }
