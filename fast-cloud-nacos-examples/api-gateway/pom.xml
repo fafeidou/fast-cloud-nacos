@@ -4,24 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>fast-cloud-nacos-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.fast.nacos</groupId>
-    <artifactId>service-feign</artifactId>
+    <groupId>fast.cloud.nacos</groupId>
+    <artifactId>api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-feign</name>
-    <description>Demo project for Spring Boot</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <name>api-gateway</name>
 
     <dependencies>
         <dependency>
-            <groupId>fast.cloud.nacos</groupId>
-            <artifactId>open-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
         <dependency>
