@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fast-cloud-nacos-examples</module>
+        <module>fast-common</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -32,6 +33,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
