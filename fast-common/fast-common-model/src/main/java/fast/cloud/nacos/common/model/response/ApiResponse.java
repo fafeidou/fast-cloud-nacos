@@ -17,109 +17,109 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 public class ApiResponse<T> {
 
-	/**
-	 * 系统状态
-	 */
-	@JsonProperty("code")
-	private Integer code;
+    /**
+     * 系统状态
+     */
+    @JsonProperty("code")
+    private Integer code;
 
-	/**
-	 * 错误消息
-	 */
-	@JsonProperty("message")
-	private String message;
+    /**
+     * 错误消息
+     */
+    @JsonProperty("message")
+    private String message;
 
-	/**
-	 * 错误内容列表
-	 */
-	@JsonProperty("errors")
-	private List<ErrorEntity> errors;
+    /**
+     * 错误内容列表
+     */
+    @JsonProperty("errors")
+    private List<ErrorEntity> errors;
 
-	/**
-	 * 返回结果内容
-	 */
-	@JsonProperty("data")
-	private T data;
+    /**
+     * 返回结果内容
+     */
+    @JsonProperty("data")
+    private T data;
 
-	/**
-	 * 成功，没数据
-	 */
-	public ApiResponse() {
-		this(ApiResponseErrorCode.CODE_0.getCode(),
-				ApiResponseErrorCode.CODE_0.getMessage(), null, null);
-	}
+    /**
+     * 成功，没数据
+     */
+    public ApiResponse() {
+        this(ApiResponseErrorCode.CODE_0.getCode(),
+                ApiResponseErrorCode.CODE_0.getMessage(), null, null);
+    }
 
-	/**
-	 * 成功，有数据
-	 */
-	public ApiResponse(T data) {
-		this(ApiResponseErrorCode.CODE_0.getCode(),
-				ApiResponseErrorCode.CODE_0.getMessage(), data, null);
-	}
+    /**
+     * 成功，有数据
+     */
+    public ApiResponse(T data) {
+        this(ApiResponseErrorCode.CODE_0.getCode(),
+                ApiResponseErrorCode.CODE_0.getMessage(), data, null);
+    }
 
-	/**
-	 * 指定code/message
-	 */
-	public ApiResponse(ApiResponseErrorCode apiResponseErrorCode) {
-		this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
-				null, null);
-	}
+    /**
+     * 指定code/message
+     */
+    public ApiResponse(ApiResponseErrorCode apiResponseErrorCode) {
+        this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
+                null, null);
+    }
 
-	/**
-	 * 指定code + data
-	 */
-	public ApiResponse(ApiResponseErrorCode apiResponseErrorCode, T data) {
-		this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
-				data, null);
-	}
+    /**
+     * 指定code + data
+     */
+    public ApiResponse(ApiResponseErrorCode apiResponseErrorCode, T data) {
+        this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
+                data, null);
+    }
 
-	/**
-	 * 指定code + errors
-	 */
-	public ApiResponse(ApiResponseErrorCode apiResponseErrorCode,
+    /**
+     * 指定code + errors
+     */
+    public ApiResponse(ApiResponseErrorCode apiResponseErrorCode,
                        List<ErrorEntity> errors) {
-		this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
-				null, errors);
-	}
+        this(apiResponseErrorCode.getCode(), apiResponseErrorCode.getMessage(),
+                null, errors);
+    }
 
-	protected ApiResponse(Integer code, String message, T data,
+    protected ApiResponse(Integer code, String message, T data,
                           List<ErrorEntity> errors) {
-		this.code = code;
-		this.message = message;
-		this.errors = errors;
-		this.data = data;
-	}
+        this.code = code;
+        this.message = message;
+        this.errors = errors;
+        this.data = data;
+    }
 
-	public Integer getCode() {
-		return code;
-	}
+    public Integer getCode() {
+        return code;
+    }
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public List<ErrorEntity> getErrors() {
-		return errors;
-	}
+    public List<ErrorEntity> getErrors() {
+        return errors;
+    }
 
-	public void setErrors(List<ErrorEntity> errors) {
-		this.errors = errors;
-	}
+    public void setErrors(List<ErrorEntity> errors) {
+        this.errors = errors;
+    }
 
-	public T getData() {
-		return data;
-	}
+    public T getData() {
+        return data;
+    }
 
-	public void setData(T data) {
-		this.data = data;
-	}
+    public void setData(T data) {
+        this.data = data;
+    }
 
 }

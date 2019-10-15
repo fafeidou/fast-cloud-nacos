@@ -8,49 +8,55 @@ import java.util.Map;
 
 /**
  * 错误内容定义
- * 
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class ErrorEntity {
 
-	/** 字段名称 */
-	private String field;
+    /**
+     * 字段名称
+     */
+    private String field;
 
-	/** 错误文言 */
-	private String message;
+    /**
+     * 错误文言
+     */
+    private String message;
 
-	/** 错误消息参数 */
-	private Map<String, Object> params;
+    /**
+     * 错误消息参数
+     */
+    private Map<String, Object> params;
 
-	public ErrorEntity(String field, String message){
-		this.field = field;
-		this.message = message;
-	}
-	public ErrorEntity(){
-	}
+    public ErrorEntity(String field, String message) {
+        this.field = field;
+        this.message = message;
+    }
 
-	public String getField() {
-		return field;
-	}
+    public ErrorEntity() {
+    }
 
-	public void setField(String field) {
-		this.field = field;
-	}
+    public String getField() {
+        return field;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public void setField(String field) {
+        this.field = field;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public Map<String, Object> getParams() {
-		return params;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setParams(Map<String, Object> params) {
-		this.params = params;
-	}
+    public Map<String, Object> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, Object> params) {
+        this.params = params;
+    }
 }

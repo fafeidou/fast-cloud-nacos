@@ -12,40 +12,40 @@ import java.util.stream.Collectors;
  */
 public class RequestParamNotValidException extends RuntimeException {
 
-	private final BindingResult bindingResult;
+    private final BindingResult bindingResult;
 
-	/**
-	 * custom message
-	 */
-	private String message;
+    /**
+     * custom message
+     */
+    private String message;
 
-	public RequestParamNotValidException(BindingResult bindingResult) {
-		this.bindingResult = bindingResult;
-		List<String> messages = bindingResult.getAllErrors().stream()
-				.map(ObjectError::getCode).collect(Collectors.toList());
-		this.message = StringUtils.join(messages, ",");
-	}
+    public RequestParamNotValidException(BindingResult bindingResult) {
+        this.bindingResult = bindingResult;
+        List<String> messages = bindingResult.getAllErrors().stream()
+                .map(ObjectError::getCode).collect(Collectors.toList());
+        this.message = StringUtils.join(messages, ",");
+    }
 
-	public BindingResult getBindingResult() {
-		return this.bindingResult;
-	}
+    public BindingResult getBindingResult() {
+        return this.bindingResult;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	/**
-	 * use custom message, if any
-	 *
-	 * @return
-	 */
-	@Override
-	public String getMessage() {
+    /**
+     * use custom message, if any
+     *
+     * @return
+     */
+    @Override
+    public String getMessage() {
 
-		if (StringUtils.isEmpty(message)) {
-			return super.getMessage();
-		}
-		return message;
-	}
+        if (StringUtils.isEmpty(message)) {
+            return super.getMessage();
+        }
+        return message;
+    }
 
 }
