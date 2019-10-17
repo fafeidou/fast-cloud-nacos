@@ -1,0 +1,45 @@
+server:
+  port: 8763
+
+spring:
+  application:
+    name: ${SW_AGENT_NAME:service-producer}
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://106.15.102.20:9411/
+    sender:
+      type: kafka
+    discovery-client-enabled: false
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 106.14.227.31:9092
+          zkNodes: 106.14.227.31:2181
+  kafka:
+    producer:
+      bootstrap-servers: 106.14.227.31:9092
+    consumer:
+      bootstrap-servers: 106.14.227.31:9092
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
+
+#logging:
+#  level:
+#    org.springframework: debug

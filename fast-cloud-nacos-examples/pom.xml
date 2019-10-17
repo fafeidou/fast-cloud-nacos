@@ -18,6 +18,7 @@
         <module>service-feign</module>
         <module>service-file</module>
         <module>service-hi</module>
+        <module>nacos-zipkin</module>
     </modules>
 
     <dependencies>
