@@ -1,2 +1,5 @@
 server:
   port: 8888
+spring:
+  messages:
+    basename: i18n/messages
