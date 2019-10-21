@@ -5,26 +5,24 @@ import fast.cloud.nacos.common.model.response.ApiResponse;
 import fast.cloud.nacos.common.model.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.*;
 
 @ControllerAdvice(annotations = RestController.class)
 @SuppressWarnings({"unchecked"})
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler */ {
 
     private static final Logger logger = LoggerFactory
             .getLogger(GlobalExceptionHandler.class);
@@ -32,52 +30,52 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * 定制请求参数注解验证错误的处理
      */
-    @Override
-    protected ResponseEntity handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers,
-            HttpStatus status, WebRequest request) {
-
-        logger.warn("参数验证错误：{}", ex.getMessage());
-
-        try {
-            // 错误对象
-            ApiResponse domain = new ApiResponse();
-            List<ErrorEntity> errorEntitys = new ArrayList<>();
-
-            // 获取错误信息
-            BindingResult errors = ex.getBindingResult();
-
-            errors.getFieldErrors().forEach(error -> {
-                ErrorEntity apiError = new ErrorEntity();
-                apiError.setField(error.getField());
-                apiError.setMessage(error.getDefaultMessage());
-                if (Objects.nonNull(error.getArguments())
-                        && Objects.nonNull(error.getArguments()[0])) {
-                    if (error.getArguments()[0] instanceof Map) {
-                        apiError.setParams((Map) error.getArguments()[0]);
-                    }
-                }
-                errorEntitys.add(apiError);
-            });
-
-            domain.setErrors(errorEntitys);
-            domain.setCode(ApiResponseErrorCode.CODE_101.getCode());
-            domain.setMessage(ApiResponseErrorCode.CODE_101.getMessage());
-
-            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
-
-        } catch (Exception e) {
-
-            logger.error("GlobalHandle构建response发生错误：", ex);
-
-            ApiResponseErrorCode apiResponseErrorCode = ApiResponseErrorCode.CODE_999;
-
-            // 错误对象
-            ApiResponse domain = new ApiResponse(apiResponseErrorCode);
-
-            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @Override
+//    protected ResponseEntity handleMethodArgumentNotValid(
+//            MethodArgumentNotValidException ex, HttpHeaders headers,
+//            HttpStatus status, WebRequest request) {
+//
+//        logger.warn("参数验证错误：{}", ex.getMessage());
+//
+//        try {
+//            // 错误对象
+//            ApiResponse domain = new ApiResponse();
+//            List<ErrorEntity> errorEntitys = new ArrayList<>();
+//
+//            // 获取错误信息
+//            BindingResult errors = ex.getBindingResult();
+//
+//            errors.getFieldErrors().forEach(error -> {
+//                ErrorEntity apiError = new ErrorEntity();
+//                apiError.setField(error.getField());
+//                apiError.setMessage(error.getDefaultMessage());
+//                if (Objects.nonNull(error.getArguments())
+//                        && Objects.nonNull(error.getArguments()[0])) {
+//                    if (error.getArguments()[0] instanceof Map) {
+//                        apiError.setParams((Map) error.getArguments()[0]);
+//                    }
+//                }
+//                errorEntitys.add(apiError);
+//            });
+//
+//            domain.setErrors(errorEntitys);
+//            domain.setCode(ApiResponseErrorCode.CODE_101.getCode());
+//            domain.setMessage(ApiResponseErrorCode.CODE_101.getMessage());
+//
+//            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
+//
+//        } catch (Exception e) {
+//
+//            logger.error("GlobalHandle构建response发生错误：", ex);
+//
+//            ApiResponseErrorCode apiResponseErrorCode = ApiResponseErrorCode.CODE_999;
+//
+//            // 错误对象
+//            ApiResponse domain = new ApiResponse(apiResponseErrorCode);
+//
+//            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     /**
      * 请求参数业务验证错误
@@ -187,6 +185,55 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(e.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
 
+    }
+
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
+    public ApiResponse resolveConstraintViolationException(ConstraintViolationException ex) {
+        ApiResponse apiResponse = new ApiResponse(ApiResponseErrorCode.CODE_101);
+        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+        if (!CollectionUtils.isEmpty(constraintViolations)) {
+            StringBuilder msgBuilder = new StringBuilder();
+            for (ConstraintViolation constraintViolation : constraintViolations) {
+                msgBuilder.append(constraintViolation.getMessage()).append(",");
+            }
+            String errorMessage = msgBuilder.toString();
+            if (errorMessage.length() > 1) {
+                errorMessage = errorMessage.substring(0, errorMessage.length() - 1);
+            }
+            apiResponse.setMessage(errorMessage);
+            return apiResponse;
+        }
+        apiResponse.setMessage(ex.getMessage());
+        return apiResponse;
+    }
+
+    /**
+     * 用来处理bean validation异常
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ApiResponse resolveMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        ApiResponse apiResponse = new ApiResponse(ApiResponseErrorCode.CODE_101);
+        List<ObjectError> objectErrors = ex.getBindingResult().getAllErrors();
+        if (!CollectionUtils.isEmpty(objectErrors)) {
+            StringBuilder msgBuilder = new StringBuilder();
+            for (ObjectError objectError : objectErrors) {
+                msgBuilder.append(objectError.getDefaultMessage()).append(",");
+            }
+            String errorMessage = msgBuilder.toString();
+            if (errorMessage.length() > 1) {
+                errorMessage = errorMessage.substring(0, errorMessage.length() - 1);
+            }
+            apiResponse.setMessage(errorMessage);
+            return apiResponse;
+        }
+        apiResponse.setMessage(ex.getMessage());
+        return apiResponse;
     }
 
 }
