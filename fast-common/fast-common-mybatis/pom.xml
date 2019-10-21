@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>fast-common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-common</artifactId>
+    <artifactId>fast-common-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>fast-common-model</module>
-        <module>fast-common-mybatis</module>
-    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
     <dependencies>
 
     </dependencies>
