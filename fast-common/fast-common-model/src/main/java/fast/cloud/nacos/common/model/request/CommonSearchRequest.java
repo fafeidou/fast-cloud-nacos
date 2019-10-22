@@ -1,13 +1,12 @@
 package fast.cloud.nacos.common.model.request;
 
-import fast.cloud.nacos.common.model.condition.SearchCondition;
 import lombok.Data;
 
 import java.io.*;
 import java.util.List;
 
 @Data
-public class CommonSearchRequest<T extends SearchCondition> implements Serializable {
+public abstract class CommonSearchRequest<T> implements Serializable {
     private List<String> fields;
     private T condition;
     private Sort sortBy;
