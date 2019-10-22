@@ -31,6 +31,12 @@ public class ExceptionDemoController {
         return "validate1";
     }
 
+    /**
+     * http://localhost:8888/exception/validate2?lang=en_US
+     * http://localhost:8888/exception/validate2?lang=zh_CN
+     * @param user
+     * @return
+     */
     @PostMapping("/validate2")
     @ResponseBody
     public String validate2(@Valid

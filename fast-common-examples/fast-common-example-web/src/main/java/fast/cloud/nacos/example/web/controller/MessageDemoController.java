@@ -14,6 +14,11 @@ public class MessageDemoController {
     @Autowired
     private MessageSource messageSource;
 
+    /**
+     * ## http://localhost:8888/message/getMessageByKey?lang=zh_CN
+     * ## http://localhost:8888/message/getMessageByKey?lang=en_US
+     * @return
+     */
     @RequestMapping("getMessageByKey")
     public String getMessageByKey() {
         return getMessage("hello");
