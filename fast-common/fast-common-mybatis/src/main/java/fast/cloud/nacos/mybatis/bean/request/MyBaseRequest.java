@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * COPYRIGHT © 2005-2018 CHARLESKEITH ALL RIGHTS RESERVED.
  *
  * @author Batman.qin
  * @create 2018-12-10 16:18
@@ -23,14 +22,6 @@ public class MyBaseRequest<T> extends CommonSearchRequest<T> {
             queryWrapper.orderBy(true, this.getSortBy().getDirection() == 1 ? true : false, this.getSortBy().getField());
         }
 
-        //设置fields
-//        if (!CollectionUtils.isEmpty(needFieldList)) {
-//            org.springframework.data.mongodb.core.query.Field needFields = query.fields();
-//            for (String str : needFieldList) {
-//                needFields.include(str);
-//            }
-//
-//        }
         MyBaseRequest request = this;
         if (request.getCondition() == null) {
             return queryWrapper;

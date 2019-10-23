@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class PageCondition implements Serializable {
-    private Integer page;
-    private Integer size;
+    private Integer page=1;
+    private Integer size=10;
 }
