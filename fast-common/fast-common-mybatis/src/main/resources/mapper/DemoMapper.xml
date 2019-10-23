@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fast.cloud.nacos.mybatis.mapper.DemoMapper">
 
+    <select id="selectDemoPage" resultType="fast.cloud.nacos.mybatis.entity.DemoEntity">
+        select  * from demo
+    </select>
 </mapper>

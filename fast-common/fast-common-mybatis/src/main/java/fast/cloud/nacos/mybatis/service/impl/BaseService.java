@@ -27,4 +27,18 @@ public class BaseService<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
         paginationResponse.setTotal(result.getTotal());
         return paginationResponse;
     }
+
+    public <CONDITION extends PageCondition> Page<T> initPage(MyBaseRequest<CONDITION> request) {
+        Page<T> page = new Page<>();
+        page.setCurrent(request.getCondition().getPage());
+        page.setSize(request.getCondition().getSize());
+        if (request.getSortBy() != null) {
+            if (request.getSortBy().getDirection() == 1) {
+                page.setAsc(request.getSortBy().getField());
+            } else {
+                page.setDesc(request.getSortBy().getField());
+            }
+        }
+        return page;
+    }
 }
