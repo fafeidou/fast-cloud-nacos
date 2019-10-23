@@ -14,6 +14,7 @@
     <modules>
         <module>fast-common-model</module>
         <module>fast-common-mybatis</module>
+        <module>fast-common-es</module>
     </modules>
     <dependencies>
 
