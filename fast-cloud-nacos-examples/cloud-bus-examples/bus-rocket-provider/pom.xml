@@ -4,26 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>cloud-bus-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>bus-rocket-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <modules>
-        <module>api-gateway</module>
-        <module>open-api</module>
-        <module>service-feign</module>
-        <module>service-file</module>
-        <module>service-hi</module>
-        <module>nacos-zipkin</module>
-        <module>cloud-bus-examples</module>
-    </modules>
+    <properties>
+    </properties>
 
     <dependencies>
-
     </dependencies>
 
 </project>
