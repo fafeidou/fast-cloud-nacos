@@ -1,10 +1,10 @@
-package fast.cloud.nacos.examples.rocket;
+package fast.cloud.nacos.example.rabbitmq;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BusRocketProviderApplicationTests {
+class BusRabbitProviderApplicationTests {
 
     @Test
     void contextLoads() {

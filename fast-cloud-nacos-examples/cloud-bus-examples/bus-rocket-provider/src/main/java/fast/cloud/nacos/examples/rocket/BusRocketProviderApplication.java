@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.support.DefaultMessageBuilderFactory;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 
 @SpringBootApplication
-@EnableBinding({BusRocketProviderApplication.MySource.class })
+@EnableBinding({BusRocketProviderApplication.MySource.class})
 public class BusRocketProviderApplication {
 
     public static void main(String[] args) {
@@ -48,7 +48,6 @@ public class BusRocketProviderApplication {
 
     public static class CustomRunner implements CommandLineRunner {
 
-        private static final DefaultMessageBuilderFactory MessageBuilder = ;
         private final String bindingName;
 
         public CustomRunner(String bindingName) {
