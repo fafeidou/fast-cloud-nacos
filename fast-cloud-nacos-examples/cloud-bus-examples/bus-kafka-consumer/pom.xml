@@ -4,22 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos-examples</artifactId>
+        <artifactId>cloud-bus-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>cloud-bus-examples</artifactId>
+    <artifactId>bus-kafka-consumer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>bus-rocket-consumer</module>
-        <module>bus-rocket-provider</module>
-        <module>bus-rabbit-provider</module>
-        <module>bus-rabbit-consumer</module>
-        <module>bus-kafka-consumer</module>
-        <module>bus-kafka-provider</module>
-    </modules>
+    <name>bus-kafka-consumer</name>
+    <description>Demo project for Spring Boot</description>
+
     <properties>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

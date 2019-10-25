@@ -1,0 +1,14 @@
+server:
+  port: 9999
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        nanhuiMqSpringStreamConsumer:
+          destination: NANHUI_MQ_SPRING_STREAM_BEGIN
+          group: PAAS_MYSQL_PROVIDER

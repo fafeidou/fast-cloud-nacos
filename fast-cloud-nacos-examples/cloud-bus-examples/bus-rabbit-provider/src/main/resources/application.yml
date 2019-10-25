@@ -1,0 +1,14 @@
+server:
+  port: 8888
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        nanhuiMqSpringStreamProducer:
+          destination: NANHUI_MQ_SPRING_STREAM_BEGIN
+          exchangeType: topic
