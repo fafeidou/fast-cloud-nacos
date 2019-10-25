@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 106.14.227.31:9092
+      bindings:
+        nanhuiMqSpringStreamConsumer:
+          destination: greetings
+          contentType: application/json
+server:
+  port: 9999
