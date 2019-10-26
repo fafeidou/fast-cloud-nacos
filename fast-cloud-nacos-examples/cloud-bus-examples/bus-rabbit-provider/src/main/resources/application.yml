@@ -12,3 +12,11 @@ spring:
         nanhuiMqSpringStreamProducer:
           destination: NANHUI_MQ_SPRING_STREAM_BEGIN
           exchangeType: topic
+          routing-key-expression: '''addProduct.*'''  # 需要用这个来指定 RoutingKey
+        example-topic-output:
+          destination: delay-topic
+      rabbit:
+        bindings:
+          example-topic-output:
+            producer:
+               delayed-exchange: true

@@ -3,3 +3,20 @@ server:
 spring:
   messages:
     basename: i18n/messages
+
+batman:
+  swagger:
+    title: api manage RESTful Content APIs
+    description: <font color="red">接口文档</font>
+    version: 1.0
+    modules:
+    - {
+      model-name: model_one,
+      packages: ["fast.cloud.nacos.example.web.controller"],
+      group-name: model_one
+    }
+    - {
+      model-name: model_two,
+      packages: ["fast.cloud.nacos.example.web.controller"],
+      group-name: model_two
+    }

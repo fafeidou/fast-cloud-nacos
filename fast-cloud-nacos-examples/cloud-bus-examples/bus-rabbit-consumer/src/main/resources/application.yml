@@ -10,5 +10,15 @@ spring:
         contentType: application/json
       bindings:
         nanhuiMqSpringStreamConsumer:
+          bindingRoutingKey: addProduct.*  # 用来绑定消费者的 routing key
           destination: NANHUI_MQ_SPRING_STREAM_BEGIN
-          group: PAAS_MYSQL_PROVIDER
+          group: PAAS_MYSQL_PROVIDER   #用于持久化分组
+        example-topic-input:
+          destination: delay-topic
+          group: test
+
+      rabbit:
+        bindings:
+          example-topic-input:
+            consumer:
+              delayed-exchange: true
