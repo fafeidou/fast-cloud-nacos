@@ -15,6 +15,8 @@ spring:
           routing-key-expression: '''addProduct.*'''  # 需要用这个来指定 RoutingKey
         example-topic-output:
           destination: delay-topic
+        distribute-topic-output:
+          destination: distribute-topic
       rabbit:
         bindings:
           example-topic-output:

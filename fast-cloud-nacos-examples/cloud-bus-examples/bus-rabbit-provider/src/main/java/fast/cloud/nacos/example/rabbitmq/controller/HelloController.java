@@ -1,6 +1,7 @@
 package fast.cloud.nacos.example.rabbitmq.controller;
 
 import fast.cloud.nacos.example.rabbitmq.producer.DelayStreamMessage;
+import fast.cloud.nacos.example.rabbitmq.producer.DistributeStreamMessageProducer;
 import fast.cloud.nacos.example.rabbitmq.producer.SpringStreamMessageProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class HelloController {
     @Autowired
     private DelayStreamMessage delayStreamMessage;
 
+    @Autowired
+    private DistributeStreamMessageProducer distributeStreamMessageProducer;
+
     @GetMapping("/hello")
     public void hello(String message) {
         producer.produce(message);
@@ -27,6 +31,7 @@ public class HelloController {
 
     /**
      * 测试死信队列
+     *
      * @param message
      * @return
      */
@@ -36,4 +41,17 @@ public class HelloController {
         delayStreamMessage.produce(message);
         return "ok";
     }
+
+    /**
+     *
+     * @param message
+     * @return
+     */
+    @GetMapping("/distributeMessage")
+    public String distributeMessage(@RequestParam String message) {
+        log.info("Send: " + message);
+        distributeStreamMessageProducer.produce(message);
+        return "ok";
+    }
+
 }

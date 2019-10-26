@@ -1,6 +1,5 @@
 package fast.cloud.nacos.example.consumer.consumer;
 
-import fast.cloud.nacos.example.consumer.channel.SpringStreamChannel;
 import fast.cloud.nacos.example.consumer.channel.TestDelayChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.EnableBinding;

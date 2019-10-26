@@ -16,7 +16,9 @@ spring:
         example-topic-input:
           destination: delay-topic
           group: test
-
+        distribute-topic-iutput:
+          destination: distribute-topic
+          group: distribute
       rabbit:
         bindings:
           example-topic-input:
