@@ -3,7 +3,7 @@ server:
 spring:
   messages:
     basename: i18n/messages
-
+  application: example-web
 batman:
   swagger:
     title: api manage RESTful Content APIs

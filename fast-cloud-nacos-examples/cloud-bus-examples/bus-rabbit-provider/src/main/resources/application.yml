@@ -17,6 +17,8 @@ spring:
           destination: delay-topic
         distribute-topic-output:
           destination: distribute-topic
+        handler-exception1-topic-output:
+          destination: handler-exception1-topic
       rabbit:
         bindings:
           example-topic-output:

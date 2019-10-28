@@ -19,6 +19,11 @@ spring:
         distribute-topic-iutput:
           destination: distribute-topic
           group: distribute
+        handler-exception1-topic-input:
+          destination: handler-exception1-topic
+          group: handler-exception1
+          consumer:
+            max-attempts: 1
       rabbit:
         bindings:
           example-topic-input:
