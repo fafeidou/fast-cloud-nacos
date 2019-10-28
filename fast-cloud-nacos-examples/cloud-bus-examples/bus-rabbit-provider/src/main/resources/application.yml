@@ -19,6 +19,8 @@ spring:
           destination: distribute-topic
         handler-exception1-topic-output:
           destination: handler-exception1-topic
+        handler-dlq-topic-output:
+          destination: handler-dlq-topic
       rabbit:
         bindings:
           example-topic-output:

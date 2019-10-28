@@ -24,8 +24,18 @@ spring:
           group: handler-exception1
           consumer:
             max-attempts: 1
+        handler-dlq-topic-input:
+          destination: handler-dlq-topic
+          group: handler-dlq
+          consumer:
+            max-attempts: 1
       rabbit:
         bindings:
           example-topic-input:
             consumer:
               delayed-exchange: true
+          handler-dlq-topic-input: #私信队列配置
+            consumer:
+              auto-bind-dlq: true
+              dlq-ttl: 50000
+              republish-to-dlq: true
