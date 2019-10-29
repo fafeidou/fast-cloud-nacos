@@ -1,0 +1,30 @@
+#dubbo:
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  registry:
+#    address: spring-cloud://localhost
+#  scan:
+#    base-packages: fast.cloud.nacos.dubbo.server
+#  application:
+#    qos-enable: false
+#
+server:
+  port: 8000
+dubbo:
+  scan:
+    base-packages: fast.cloud.nacos.dubbo.server
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://localhost
+spring:
+  application:
+    name: dubbo-spring-cloud-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true

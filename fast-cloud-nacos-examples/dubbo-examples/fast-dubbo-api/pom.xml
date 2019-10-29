@@ -4,24 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>dubbo-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>fast-dubbo-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>fast-dubbo-api</name>
+    <description>Demo project for Spring Boot</description>
 
-    <modules>
-        <module>api-gateway</module>
-        <module>open-api</module>
-        <module>service-feign</module>
-        <module>service-file</module>
-        <module>service-hi</module>
-        <module>nacos-zipkin</module>
-        <module>cloud-bus-examples</module>
-        <module>dubbo-examples</module>
-    </modules>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
 

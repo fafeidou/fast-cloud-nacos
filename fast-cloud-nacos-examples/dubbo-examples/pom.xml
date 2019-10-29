@@ -7,24 +7,18 @@
         <artifactId>fast-cloud-nacos</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>dubbo-examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <packaging>pom</packaging>
     <modules>
-        <module>api-gateway</module>
-        <module>open-api</module>
-        <module>service-feign</module>
-        <module>service-file</module>
-        <module>service-hi</module>
-        <module>nacos-zipkin</module>
-        <module>cloud-bus-examples</module>
-        <module>dubbo-examples</module>
+        <module>fast-dubbo-api</module>
+        <module>fast-dubbo-client</module>
+        <module>fast-dubbo-server</module>
     </modules>
-
     <dependencies>
 
     </dependencies>
+
 
 </project>

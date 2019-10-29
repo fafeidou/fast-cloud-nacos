@@ -1,0 +1,40 @@
+#dubbo:
+#  cloud:
+#    subscribed-services: alibaba-dubbo-server
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  registry:
+#    address: spring-cloud://localhost
+#server:
+#  port: 8002
+#spring:
+#  application:
+#    name: alibaba-dubbo-client
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#  main:
+#    allow-bean-definition-overriding: true
+
+
+server:
+  port: 8080
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services: dubbo-spring-cloud-provider
+spring:
+  application:
+    name: dubbo-spring-cloud-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true
