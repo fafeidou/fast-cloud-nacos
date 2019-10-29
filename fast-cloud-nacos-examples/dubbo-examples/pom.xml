@@ -15,6 +15,7 @@
         <module>fast-dubbo-api</module>
         <module>fast-dubbo-client</module>
         <module>fast-dubbo-server</module>
+        <module>fast-dubbo-cloud-consumer</module>
     </modules>
     <dependencies>
 
