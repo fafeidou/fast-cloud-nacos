@@ -13,15 +13,10 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>api-gateway</module>
-        <module>open-api</module>
-        <module>service-feign</module>
-        <module>service-file</module>
-        <module>service-hi</module>
-        <module>nacos-zipkin</module>
         <module>cloud-bus-examples</module>
         <module>dubbo-examples</module>
         <module>sentinel-examples</module>
+        <module>cloud-rpc-examples</module>
     </modules>
 
     <dependencies>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fast.cloud.nacos</groupId>
+        <artifactId>fast-cloud-nacos-examples</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>fast.cloud.nacos</groupId>
+    <artifactId>cloud-rpc-examples</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>cloud-rpc-examples</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <packaging>pom</packaging>
+    <modules>
+        <module>api-gateway</module>
+        <module>open-api</module>
+        <module>service-feign</module>
+        <module>service-file</module>
+        <module>service-hi</module>
+        <module>nacos-zipkin</module>
+    </modules>
+
+
+</project>
