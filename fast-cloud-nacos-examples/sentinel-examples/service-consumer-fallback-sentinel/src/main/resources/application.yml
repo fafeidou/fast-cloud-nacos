@@ -1,0 +1,21 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: service-consumer-fallback-sentinel
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8887
+        port: 8718
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-methods: '*'
+feign:
+  sentinel:
+    enabled: true
