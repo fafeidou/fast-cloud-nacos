@@ -1,0 +1,21 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: service-consumer-sentinel
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8887
+        port: 8719
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-methods: '*'
+feign:
+  sentinel:
+    enabled: true #对feign开启sentinel,跟hystrix用法一样
