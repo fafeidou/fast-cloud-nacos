@@ -4,28 +4,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>fast-cloud-nacos-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>sentinel-examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <name>sentinel-examples</name>
+    <packaging>pom</packaging>
     <modules>
-        <module>api-gateway</module>
-        <module>open-api</module>
-        <module>service-feign</module>
-        <module>service-file</module>
-        <module>service-hi</module>
-        <module>nacos-zipkin</module>
-        <module>cloud-bus-examples</module>
-        <module>dubbo-examples</module>
-        <module>sentinel-examples</module>
+        <module>service-consumer-fallback-sentinel</module>
+        <module>service-consumer-sentinel</module>
+        <module>service-gateway-sentinel</module>
+        <module>service-provider-sentinel</module>
+        <module>service-sentinel-nacos</module>
     </modules>
-
     <dependencies>
-
     </dependencies>
+
 
 </project>
