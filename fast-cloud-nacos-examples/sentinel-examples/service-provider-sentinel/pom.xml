@@ -12,5 +12,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>service-provider-sentinel</name>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>

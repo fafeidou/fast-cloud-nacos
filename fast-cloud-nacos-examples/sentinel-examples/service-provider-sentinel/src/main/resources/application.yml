@@ -1,1 +1,18 @@
-
+server:
+  port: 8082
+spring:
+  application:
+    name: service-provider-sentinel
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8887
+        port: 8721
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-methods: '*'
