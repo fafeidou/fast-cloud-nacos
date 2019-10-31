@@ -1,0 +1,23 @@
+server:
+  port: 28080
+spring:
+  application:
+    name: service-gateway-sentinel
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8887
+        port: 8717
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+      - id: consumer_server
+        uri: lb://service-consumer-fallback-sentinel
+        predicates:
+          - Path=/service-consumer-fallback-sentinel/**
