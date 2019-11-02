@@ -1,14 +1,11 @@
 batman:
   swagger:
-    description: <font color="red">接口文档</font>
-    modules:
-    -   group-name: openapi
-        model-name: openapi
-        packages:
-        - fast.cloud.nacos.feign.openapi1234
-    -   group-name: model_two
-        model-name: model_two
-        packages:
-        - fast.cloud.nacos.servicehi.controller123
     title: api manage RESTful Content APIs
+    description: <font color="red">接口文档</font>
     version: 1.0
+    modules:
+    - {
+      model-name: serviceHi,
+      packages: ["fast.cloud.nacos.servicehi.controller"],
+      group-name: serviceHi
+    }

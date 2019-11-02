@@ -6,8 +6,9 @@
 
 ## service-consumer-fallback-sentinel 消费者熔断引入sentinel
 
-## service-gateway-sentinel  spring cloud gateway 引入sentinel
+## service-gateway-sentinel  spring cloud gateway 引入sentinel 
+-Dcsp.sentinel.app.type=1
 
 ## service-sentinel-nacos  sentinel使用nacos存储限流规则
 
-a
+
