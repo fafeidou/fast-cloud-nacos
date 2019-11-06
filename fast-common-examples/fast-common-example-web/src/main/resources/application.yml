@@ -20,3 +20,8 @@ batman:
       packages: ["fast.cloud.nacos.example.web.controller"],
       group-name: model_two
     }
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
