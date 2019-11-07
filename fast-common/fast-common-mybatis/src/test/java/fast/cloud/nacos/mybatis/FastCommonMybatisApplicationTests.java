@@ -1,5 +1,6 @@
 package fast.cloud.nacos.mybatis;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fast.cloud.nacos.common.model.request.CommonSearchRequest;
 import fast.cloud.nacos.common.model.response.PaginationResponse;
@@ -43,6 +44,9 @@ public class FastCommonMybatisApplicationTests {
         request.setSortBy(sort);
         Page<DemoEntity> demoEntityPage = demoService.initPage(request);
         demoMapper.selectDemoPage(demoEntityPage);
+
+
+
     }
 
 }

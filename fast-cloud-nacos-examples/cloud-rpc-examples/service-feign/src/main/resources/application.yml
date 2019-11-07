@@ -1,11 +1,11 @@
-# service instance name
-spring:
-  application:
-    name: service-feign
-  # nacos discovery config
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-server:
-  port: 9100
+batman:
+  swagger:
+    title: api manage RESTful Content APIs
+    description: <font color="red">接口文档</font>
+    version: 1.0
+    modules:
+    - {
+      model-name: service-feign,
+      packages: ["fast.cloud.nacos.controller"],
+      group-name: service-feign
+    }

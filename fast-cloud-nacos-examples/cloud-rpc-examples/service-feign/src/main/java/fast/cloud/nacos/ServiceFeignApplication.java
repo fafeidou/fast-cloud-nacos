@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
+//@ComponentScan(basePackages = {"com.batman", "fast.cloud.nacos"})
 public class ServiceFeignApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceFeignApplication.class, args);
