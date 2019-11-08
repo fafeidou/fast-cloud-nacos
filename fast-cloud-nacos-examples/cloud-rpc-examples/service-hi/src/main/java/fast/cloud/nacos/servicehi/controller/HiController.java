@@ -1,9 +1,10 @@
 package fast.cloud.nacos.servicehi.controller;
 
-import fast.cloud.nacos.feign.openapi.SchedualServiceHi;
+import fast.cloud.nacos.feign.openapi.ServiceHi;
 import fast.cloud.nacos.servicehi.test.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope
-public class HiController implements SchedualServiceHi {
+public class HiController implements ServiceHi {
     @Value(value = "${test.name:}")
     private String testName;
 
@@ -23,11 +24,14 @@ public class HiController implements SchedualServiceHi {
     @Autowired
     private Test test;
 
+    @Value("${server.port}")
+    private String port ;
+
     @Override
     public String sayHiFromClientOne(String name) {
-        System.out.println(testName);
-        System.out.println(version);
-        System.out.println(test.getName());
-        return "hi " + name + " ,i am from port:" + name;
+        if (name.equals("123")) {
+            throw new RuntimeException("非法输入");
+        }
+        return "hi " + name + " ,i am from port:" + port;
     }
 }

@@ -5,22 +5,6 @@ management:
         include: '*'
 server:
   port: 18085
-#spring:
-#  application:
-#    name: service-gateway
-#  cloud:
-#        gateway:
-#          routes:
-#    #        -   filters:
-#    #              - StripPrefix=1
-#             id: nacos-route
-#             predicates:
-#                  -   args[pattern]: /service-feign/**
-#                      name: Path
-#                uri: lb://service-feign
-#    nacos:
-#      discovery:
-#        server-addr: 127.0.0.1:8848
 spring:
   application:
     name: api-gateway
@@ -37,18 +21,6 @@ spring:
             - Path=/service-hi/**
           filters:
             - StripPrefix=1
-        - id: service-file
-          uri: lb://service-file
-          predicates:
-            - Path=/service-file/**
-          filters:
-            - StripPrefix=1
-#        - id: service-feign
-#          uri: lb://service-feign
-#          predicates:
-#            - Path=/service-feign/**
-#          filters:
-#            - StripPrefix=1
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Batman.qin
  * @create 2018-11-23 19:36
  */
-//@Api("SchedualServiceHi")
-@FeignClient(value = "service-hi")
-public interface SchedualServiceHi {
-    Logger logger = LoggerFactory.getLogger(SchedualServiceHi.class);
+//@Api("ServiceHi")
+@FeignClient(value = "service-hi",fallback = ServiceHiFallback.class/*fallbackFactory = ServiceHiFactory.class*/)
+public interface ServiceHi {
+    Logger logger = LoggerFactory.getLogger(ServiceHi.class);
 
     @RequestMapping(value = "/hi", method = RequestMethod.GET)
 //    @ApiOperation(value = "sayHiFromClientOne", notes = "sayHiFromClientOne")
