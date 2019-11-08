@@ -15,13 +15,25 @@ feign:
     enabled: true
 
 ribbon:
-  ReadTimeout: 7000
-  ConnectTimeout: 7000
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
 
 hystrix:
   command:
     default:  #default全局有效，service id指定应用有效
+      circuitBreaker:
+        # 当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
+        requestVolumeThreshold: 1
+        # 触发短路的时间值，当该值设为5000时，则当触发 circuit break 后的5000毫秒内都会拒绝request
+        # 也就是5000毫秒后才会关闭circuit。默认5000
+        sleepWindowInMilliseconds: 1000
+        # 强制打开熔断器，如果打开这个开关，那么拒绝所有request，默认false
+        forceOpen: false
+        # 强制关闭熔断器 如果这个开关打开，circuit将一直关闭且忽略，默认false
+        forceClosed: false
+        #打开断路器
+        enabled: true
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 3000 #断路器超时时间，默认1000ms
+            timeoutInMilliseconds: 7000 #断路器超时时间，默认1000ms
