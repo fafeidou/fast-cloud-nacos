@@ -8,4 +8,9 @@ public class ServiceHiFallback implements ServiceHi{
     public String sayHiFromClientOne(String name) {
         return "this is service hi fallback";
     }
+
+    @Override
+    public String hello(String name) {
+        return "this is service hi hello fallback";
+    }
 }

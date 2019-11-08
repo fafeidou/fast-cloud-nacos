@@ -21,4 +21,9 @@ public class HiController {
     public String sayHi(@RequestParam String name) {
         return serviceHi.sayHiFromClientOne(name);
     }
+
+    @GetMapping(value = "/hello")
+    public String hello(@RequestParam String name) {
+        return serviceHi.hello(name);
+    }
 }

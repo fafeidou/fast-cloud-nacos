@@ -13,3 +13,15 @@ server:
 feign:
   hystrix:
     enabled: true
+
+ribbon:
+  ReadTimeout: 7000
+  ConnectTimeout: 7000
+
+hystrix:
+  command:
+    default:  #default全局有效，service id指定应用有效
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000 #断路器超时时间，默认1000ms
