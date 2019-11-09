@@ -12,15 +12,15 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RouterConfig {
-    static final String prefix = "";
+    static final String prefix = "/admin";
 
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("SERVICE-FEIGN", r ->
-                        r.path(prefix + "/service-feign/**").
-                                filters(f -> f.rewritePath(prefix + "service-feign/(?<remaining>.*)", "/$\\{remaining}"))
-                                .uri("lb://service-feign"))
+                        r.path(prefix + "/service-hi/**").
+                                filters(f -> f.rewritePath(prefix + "/service-hi/(?<remaining>.*)", "/$\\{remaining}"))
+                                .uri("lb://service-hi"))
                 .build();
 
     }
