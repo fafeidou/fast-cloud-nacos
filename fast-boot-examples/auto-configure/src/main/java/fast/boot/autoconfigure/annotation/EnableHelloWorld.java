@@ -1,6 +1,5 @@
 package fast.boot.autoconfigure.annotation;
 
-import fast.boot.autoconfigure.configuration.HelloWorldConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -9,6 +8,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 //@Import(HelloWorldConfiguration.class)
-@Import(HelloWorldImportSelector.class)
+//@Import(HelloWorldImportSelector.class)
+@Import(HelloWorldImportBeanDefinitionRegistrar.class)
 public @interface EnableHelloWorld {
 }
