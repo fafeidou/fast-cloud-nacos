@@ -17,6 +17,7 @@
         <module>fast-cloud-nacos-examples</module>
         <module>fast-common</module>
         <module>fast-common-examples</module>
+        <module>fast-boot-examples</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
