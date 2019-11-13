@@ -14,6 +14,7 @@
     <modules>
         <module>auto-configure</module>
         <module>spring-webmvc</module>
+        <module>spring-webmvc-annotation</module>
     </modules>
 
 
