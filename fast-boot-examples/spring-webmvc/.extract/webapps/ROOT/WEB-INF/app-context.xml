@@ -10,9 +10,9 @@
 
     <context:component-scan base-package="fast.spring.webmvc"/>
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.fast.cloud.nacos.webflux.annotation.RequestMappingHandlerMapping"/>
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.method.fast.cloud.nacos.webflux.annotation.RequestMappingHandlerAdapter"/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

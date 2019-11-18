@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>spring-webmvc-annotation</artifactId>
+    <artifactId>spring-webmvc-fast.cloud.nacos.webflux.annotation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-webmvc-annotation</name>
+    <name>spring-webmvc-fast.cloud.nacos.webflux.annotation</name>
     <packaging>war</packaging>
 
     <properties>

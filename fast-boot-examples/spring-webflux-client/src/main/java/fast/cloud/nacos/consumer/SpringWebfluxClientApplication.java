@@ -1,18 +1,22 @@
 package fast.cloud.nacos.consumer;
 
 import fast.cloud.nacos.consumer.service.IUserApi;
+import fast.cloud.nacos.webflux.annotation.ApiServerScan;
 import fast.cloud.nacos.webflux.interfaces.ProxyCreator;
 import fast.cloud.nacos.webflux.proxys.JDKProxyCreator;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackages = "fast.cloud.nacos")
+@ApiServerScan(packages = "fast.cloud.nacos.consumer.service")
 public class SpringWebfluxClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringWebfluxClientApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SpringWebfluxClientApplication.class, args);
+
     }
 
     /**
@@ -20,7 +24,7 @@ public class SpringWebfluxClientApplication {
      *
      * @return
      */
-    @Bean
+   /* @Bean
     ProxyCreator jdkProxyCreator() {
         return new JDKProxyCreator();
     }
@@ -34,14 +38,12 @@ public class SpringWebfluxClientApplication {
                 return IUserApi.class;
             }
 
-            /**
-             * 返回代理对象
-             */
+
             @Override
             public IUserApi getObject() {
                 return (IUserApi) proxyCreator
                         .createProxy(this.getObjectType());
             }
         };
-    }
+    }*/
 }

@@ -14,7 +14,7 @@
     <modules>
         <module>auto-configure</module>
         <module>spring-webmvc</module>
-        <module>spring-webmvc-annotation</module>
+        <module>spring-webmvc-fast.cloud.nacos.webflux.annotation</module>
         <module>spring-webflux</module>
         <module>spring-boot-servlet</module>
         <module>spring-webflux-client</module>
