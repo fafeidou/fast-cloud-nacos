@@ -25,4 +25,6 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848 # 使用nacos作为注册中心
 
-
+logging:
+  level:
+    fast.cloud.nacos.apigateway: debug
