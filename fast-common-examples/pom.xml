@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>fast-common-example-web</module>
+        <module>fast-common-webflux-client</module>
     </modules>
     <dependencies>
 
