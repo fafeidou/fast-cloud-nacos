@@ -50,7 +50,7 @@ public class JDKProxyCreator implements ProxyCreator {
                         MethodInfo methodInfo = extractMethodInfo(method, args);
                         log.info("methodInfo:" + methodInfo);
                         // 调用rest
-                        return handler.invokeRest(methodInfo);
+                        return handler.invokeRest(methodInfo, serverInfo);
                     }
 
                     /**
@@ -199,7 +199,7 @@ public class JDKProxyCreator implements ProxyCreator {
         ApiServer anno = type.getAnnotation(ApiServer.class);
 
         serverInfo.setUrl(anno.value());
-
+        serverInfo.setMicroName(anno.microName());
         return serverInfo;
     }
 

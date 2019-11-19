@@ -6,18 +6,20 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@ApiServer("http://localhost:8080/user")
+@ApiServer(value = "http://localhost:8080/user", microName = "webflux-server")
 public interface IUserApi {
 
-    @GetMapping("/")
+    String ROOT = "/user";
+
+    @GetMapping(ROOT + "/")
     Flux<User> getAllUser();
 
-    @GetMapping("/{id}")
+    @GetMapping(ROOT + "/{id}")
     Mono<User> getUserById(@PathVariable("id") String id);
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(ROOT + "/{id}")
     Mono<Void> deleteUserById(@PathVariable("id") String id);
 
-    @PostMapping("/")
+    @PostMapping(ROOT + "/")
     Mono<User> createUser(@RequestBody Mono<User> user);
 }

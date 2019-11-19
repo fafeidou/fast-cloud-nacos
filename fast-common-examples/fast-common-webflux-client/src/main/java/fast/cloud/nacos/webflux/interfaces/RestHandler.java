@@ -22,6 +22,6 @@ public interface RestHandler {
      * @param methodInfo
      * @return
      */
-    Object invokeRest(MethodInfo methodInfo);
+    Object invokeRest(MethodInfo methodInfo,ServerInfo serverInfo);
 
 }

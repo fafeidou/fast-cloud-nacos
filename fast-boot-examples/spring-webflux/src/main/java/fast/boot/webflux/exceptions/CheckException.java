@@ -1,7 +1,9 @@
 package fast.boot.webflux.exceptions;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CheckException extends RuntimeException {
 

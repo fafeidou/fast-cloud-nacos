@@ -19,4 +19,6 @@ public class ServerInfo {
 	 */
 	private String url;
 
+	private String microName;
+
 }

@@ -13,4 +13,6 @@ import java.lang.annotation.Target;
 public @interface ApiServer {
 
     String value() default "";
+
+    String microName() default "";
 }

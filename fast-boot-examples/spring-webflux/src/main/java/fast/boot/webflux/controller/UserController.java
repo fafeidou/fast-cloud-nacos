@@ -3,6 +3,7 @@ package fast.boot.webflux.controller;
 import fast.boot.webflux.domain.User;
 import fast.boot.webflux.repository.UserRepository;
 import fast.boot.webflux.util.CheckUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Value("${server.port}")
+    private String port;
 
     private final UserRepository repository;
 
@@ -108,6 +111,7 @@ public class UserController {
     @GetMapping("/{id}")
     public Mono<ResponseEntity<User>> findUserById(
             @PathVariable("id") String id) {
+        System.out.println("port===>" + port);
         return this.repository.findById(id)
                 .map(u -> new ResponseEntity<User>(u, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
