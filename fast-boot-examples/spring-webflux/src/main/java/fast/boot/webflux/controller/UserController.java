@@ -163,4 +163,9 @@ public class UserController {
         return this.repository.oldUser();
     }
 
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    Mono<String> hello(@RequestParam(value = "name") String name) {
+        return Mono.just("hi " + name + " ,i am from port:" + port);
+    }
 }

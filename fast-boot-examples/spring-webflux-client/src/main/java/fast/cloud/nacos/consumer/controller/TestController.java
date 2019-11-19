@@ -4,6 +4,7 @@ import fast.cloud.nacos.consumer.service.IUserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class TestController {
@@ -13,7 +14,7 @@ public class TestController {
     IUserApi userApi;
 
     @GetMapping("/")
-    public void test() {
+    public Mono<String> test(String name) {
         // 测试信息提取
         // 不订阅, 不会实际发出请求, 但会进入我们的代理类
         // userApi.getAllUser();
@@ -46,7 +47,7 @@ public class TestController {
         // userApi.createUser(
         // Mono.just(User.builder().name("batman").age(22).build()))
         // .subscribe(System.out::println);
-
+        return userApi.hello(name);
     }
 
 }

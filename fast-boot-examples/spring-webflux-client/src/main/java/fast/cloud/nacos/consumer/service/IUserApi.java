@@ -22,4 +22,7 @@ public interface IUserApi {
 
     @PostMapping(ROOT + "/")
     Mono<User> createUser(@RequestBody Mono<User> user);
+
+    @RequestMapping(value = ROOT + "/hello", method = RequestMethod.GET)
+    Mono<String> hello(@RequestParam(value = "name") String name);
 }
