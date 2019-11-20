@@ -1,5 +1,6 @@
 package fast.boot.webflux.controller;
 
+import fast.boot.webflux.bean.DemoResponse;
 import fast.boot.webflux.domain.User;
 import fast.boot.webflux.repository.UserRepository;
 import fast.boot.webflux.util.CheckUtil;
@@ -164,8 +165,10 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    Mono<String> hello(@RequestParam(value = "name") String name) {
-        return Mono.just("hi " + name + " ,i am from port:" + port);
+    @RequestMapping(value = "/hello/{name}", method = RequestMethod.GET)
+    Mono<DemoResponse> hello(@PathVariable("name") String name) {
+        DemoResponse demoResponse = new DemoResponse();
+        demoResponse.setMemo("hi " + name + " ,i am from port:" + port);
+        return Mono.just(demoResponse);
     }
 }

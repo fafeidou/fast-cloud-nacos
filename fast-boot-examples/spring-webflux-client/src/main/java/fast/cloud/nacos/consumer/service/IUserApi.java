@@ -1,5 +1,6 @@
 package fast.cloud.nacos.consumer.service;
 
+import fast.cloud.nacos.consumer.bean.DemoResponse;
 import fast.cloud.nacos.consumer.domain.User;
 import fast.cloud.nacos.webflux.ApiServer;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,6 @@ public interface IUserApi {
     @PostMapping(ROOT + "/")
     Mono<User> createUser(@RequestBody Mono<User> user);
 
-    @RequestMapping(value = ROOT + "/hello", method = RequestMethod.GET)
-    Mono<String> hello(@RequestParam(value = "name") String name);
+    @GetMapping(value = ROOT + "/hello/{name}")
+    Mono<DemoResponse> hello(@PathVariable("name") String name);
 }
