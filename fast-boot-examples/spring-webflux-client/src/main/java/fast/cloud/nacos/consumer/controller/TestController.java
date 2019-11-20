@@ -52,6 +52,11 @@ public class TestController {
         // .subscribe(System.out::println);
         AtomicReference<String> str = new AtomicReference<>("");
         Mono<DemoResponse> hello = userApi.hello(name);
+//        Mono<DemoResponse> callWrappedWithHystrix = HystrixCommands
+//                .from(hello)
+//                .fallback(Mono.just(DemoResponse.builder().memo("出错了").build()))
+////                .commandName("getWeatherByCityName")
+//                .toMono();
         return hello;
     }
 
