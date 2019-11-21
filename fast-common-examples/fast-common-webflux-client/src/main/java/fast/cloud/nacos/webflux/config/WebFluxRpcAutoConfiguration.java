@@ -2,6 +2,7 @@ package fast.cloud.nacos.webflux.config;
 
 import fast.cloud.nacos.webflux.ApiServer;
 import fast.cloud.nacos.webflux.annotation.ApiServerScan;
+import fast.cloud.nacos.webflux.interfaces.ProxyCreator;
 import fast.cloud.nacos.webflux.proxys.JDKProxyCreator;
 import fast.cloud.nacos.webflux.utils.ClassNameUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -105,8 +106,8 @@ public class WebFluxRpcAutoConfiguration {
                     // 创建代理类
                     Class<?> target = Class.forName(className);
                     Object invoker = new Object();
-                    JDKProxyCreator jdkProxyCreator = new JDKProxyCreator();
-                    Object proxy = jdkProxyCreator.createProxy(target);
+                    ProxyCreator proxyCreator = new JDKProxyCreator();
+                    Object proxy = proxyCreator.createProxy(target);
 //                    InvocationHandler invocationHandler = new GrpcServiceProxy<>(target, invoker);
 //                    Object proxy = Proxy.newProxyInstance(GrpcService.class.getClassLoader(), new Class[]{target}, invocationHandler);
 

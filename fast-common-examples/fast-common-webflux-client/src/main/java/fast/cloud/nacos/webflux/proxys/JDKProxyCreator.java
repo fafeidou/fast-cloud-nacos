@@ -17,10 +17,10 @@ import java.lang.reflect.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static fast.cloud.nacos.webflux.utils.Util.emptyToNull;
+
 /**
  * 使用jdk动态代理实现代理类
- *
- * @author 晓风轻
  */
 @Slf4j
 public class JDKProxyCreator implements ProxyCreator {
@@ -44,7 +44,7 @@ public class JDKProxyCreator implements ProxyCreator {
 
                     @Override
                     public Object invoke(Object proxy, Method method,
-                                         Object[] args) throws Throwable {
+                                         Object[] args) {
 
                         // 根据方法和参数得到调用信息
                         MethodInfo methodInfo = extractMethodInfo(method, args);
@@ -180,6 +180,21 @@ public class JDKProxyCreator implements ProxyCreator {
 
                                 methodInfo.setUrl(a.value()[0]);
                                 methodInfo.setMethod(HttpMethod.DELETE);
+                            }
+                            // request mapping
+                            else if (annotation instanceof RequestMapping) {
+                                RequestMapping methodMapping = (RequestMapping) annotation;
+                                RequestMethod[] methods = methodMapping.method();
+                                if (methods.length == 0) {
+                                    methods = new RequestMethod[]{RequestMethod.GET};
+                                }
+                                methodInfo.setMethod(HttpMethod.valueOf(methods[0].name()));
+                                if (methodMapping.value().length > 0) {
+                                    String pathValue = emptyToNull(methodMapping.value()[0]);
+                                    if (pathValue != null) {
+                                        methodInfo.setUrl(pathValue);
+                                    }
+                                }
                             }
 
                         }
