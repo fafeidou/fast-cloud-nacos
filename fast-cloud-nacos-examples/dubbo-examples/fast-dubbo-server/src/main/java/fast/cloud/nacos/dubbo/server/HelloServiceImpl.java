@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 // 注意：是 org.apache.dubbo.config.fast.cloud.nacos.webflux.annotation.Service 注解
-@Service(version = "1.0.0")
+@Service
 @RestController
 public class HelloServiceImpl implements HelloService {
 

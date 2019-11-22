@@ -13,6 +13,7 @@ public class DemoController {
 
     @Autowired
     private RestTemplate restTemplate;
+
     @GetMapping("/test/feign")
     public String hello(String name) {
         return userRemote.hello(name);
@@ -20,6 +21,6 @@ public class DemoController {
 
     @GetMapping("/test/restTemplate")
     public String restTemplate(String name) {
-        return restTemplate.getForObject("http://dubbo-spring-cloud-provider/test?name="+name, String.class);
+        return restTemplate.getForObject("http://dubbo-spring-cloud-provider/test?name=" + name, String.class);
     }
 }

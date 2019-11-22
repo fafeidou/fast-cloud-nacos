@@ -38,3 +38,4 @@ spring:
         server-addr: localhost:8848
   main:
     allow-bean-definition-overriding: true
+

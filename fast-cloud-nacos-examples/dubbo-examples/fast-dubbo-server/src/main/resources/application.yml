@@ -1,16 +1,5 @@
-#dubbo:
-#  protocol:
-#    name: dubbo
-#    port: -1
-#  registry:
-#    address: spring-cloud://localhost
-#  scan:
-#    base-packages: fast.cloud.nacos.dubbo.server
-#  application:
-#    qos-enable: false
-#
 server:
-  port: 8000
+  port: 9090
 dubbo:
   scan:
     base-packages: fast.cloud.nacos.dubbo.server
