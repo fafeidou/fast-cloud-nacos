@@ -4,20 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>fast-common-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-common-examples</artifactId>
+    <artifactId>fast-common-es-example</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>fast-common-es-example</name>
     <packaging>pom</packaging>
     <modules>
-        <module>fast-common-example-web</module>
-        <module>fast-common-webflux-client</module>
-        <module>fast-common-es-example</module>
+        <module>fast-common-es-jest-client-example</module>
+        <module>fast-common-es-jpa-example</module>
+        <module>fast-common-es-rest-client-example</module>
     </modules>
-    <dependencies>
-
-    </dependencies>
 
 </project>
