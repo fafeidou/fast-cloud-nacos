@@ -1,0 +1,9 @@
+server:
+  port: ${port:40100}
+spring:
+  application:
+    name: rest-client-example
+
+restClient:
+     elasticsearch:
+              hostlist: ${eshostlist:127.0.0.1:9200} #多个结点中间用逗号分隔
