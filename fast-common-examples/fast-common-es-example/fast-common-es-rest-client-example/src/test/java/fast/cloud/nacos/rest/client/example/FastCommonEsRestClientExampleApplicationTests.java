@@ -31,6 +31,11 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.SuggestionBuilder;
+import org.elasticsearch.search.suggest.term.TermSuggestion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +77,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
                 "}", XContentType.JSON);
         //创建索引客户端
         IndicesClient indices = client.indices();
-        CreateIndexResponse createIndexResponse = indices.create(createIndexRequest,RequestOptions.DEFAULT);
+        CreateIndexResponse createIndexResponse = indices.create(createIndexRequest, RequestOptions.DEFAULT);
         boolean acknowledged = createIndexResponse.isAcknowledged();
         log.info("isAcknowledged:{}", acknowledged);
     }
@@ -381,6 +386,42 @@ public class FastCommonEsRestClientExampleApplicationTests {
 
             log.info("name:{}=====sourceAsString:{}", name, sourceAsString);
         });
+    }
+
+    @Test
+    public void testSuggest() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("hello_es");
+        searchRequest.types("doc");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+
+        //做查询建议
+        //词项建议
+        SuggestionBuilder termSuggestionBuilder =
+                SuggestBuilders.termSuggestion("name").text("spri");
+        SuggestBuilder suggestBuilder = new SuggestBuilder();
+        suggestBuilder.addSuggestion("suggest_user", termSuggestionBuilder);
+        searchSourceBuilder.suggest(suggestBuilder);
+
+        searchRequest.source(searchSourceBuilder);
+        //3、发送请求
+        SearchResponse searchResponse = client.search(searchRequest);
+
+        //4、处理响应
+        //搜索结果状态信息
+        if (RestStatus.OK.equals(searchResponse.status())) {
+            // 获取建议结果
+            Suggest suggest = searchResponse.getSuggest();
+            TermSuggestion termSuggestion = suggest.getSuggestion("suggest_user");
+            for (TermSuggestion.Entry entry : termSuggestion.getEntries()) {
+                log.info("text: " + entry.getText().string());
+                for (TermSuggestion.Entry.Option option : entry) {
+                    String suggestText = option.getText().string();
+                    log.info("   suggest option : " + suggestText);
+                }
+
+            }
+        }
     }
 
 }
