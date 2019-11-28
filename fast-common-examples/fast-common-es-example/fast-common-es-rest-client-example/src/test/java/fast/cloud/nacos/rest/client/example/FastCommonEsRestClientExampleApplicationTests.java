@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.get.GetRequest;
@@ -12,6 +11,7 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.IndicesClient;
@@ -43,6 +43,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -60,18 +61,20 @@ public class FastCommonEsRestClientExampleApplicationTests {
     public void testCreateIndex() throws IOException {
         //创建索引请求对象
         CreateIndexRequest createIndexRequest = new CreateIndexRequest("hello_es");
-        createIndexRequest.settings(Settings.builder().put("number_of_shards", 1)
-                .put("number_of_replicas", 0).build());
+        createIndexRequest.settings(Settings.builder().put("number_of_shards", 2)
+                .put("number_of_replicas", 1).build());
         createIndexRequest.mapping("doc", "{\n" +
                 "\t\"properties\": {\n" +
                 "\t\t\"name\": {\n" +
-                "\t\t\t\"type\": \"text\"\n" +
+                "\t\t\t\"type\": \"text\",\n" +
+                "\t\t\t\"analyzer\":\"ik_max_word\",\n" +
+                "           \"search_analyzer\":\"ik_smart\"\n" +
                 "\t\t},\n" +
                 "\t\t\"description\": {\n" +
-                "\t\t\t\"type\": \"text\"\n" +
-                "\t\t},\n" +
-                "\t\t\"studymodel\": {\n" +
-                "\t\t\t\"type\": \"keyword\"\n" +
+                "\t\t\t\"type\": \"text\",\n" +
+                "\t\t\t\"analyzer\": \"ik_max_word\",\n" +
+                "            \"search_analyzer\":\"ik_smart\"\n" +
+                "\t\t\n" +
                 "\t\t}\n" +
                 "\t}\n" +
                 "}", XContentType.JSON);
@@ -85,7 +88,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
     @Test
     public void testDeleteIndex() throws IOException {
         DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest("hello_es");
-        DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
+        AcknowledgedResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest,RequestOptions.DEFAULT);
         boolean acknowledged = deleteIndexResponse.isAcknowledged();
         log.info("isAcknowledged:{}", acknowledged);
 
@@ -103,9 +106,8 @@ public class FastCommonEsRestClientExampleApplicationTests {
 //                "\t\"studymodel\": \"201001\"\n" +
 //                "}", XContentType.JSON);
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("name", "spring cloud实战");
+        jsonMap.put("name", "曾经沧海难为水");
         jsonMap.put("description", "本课程主要从四个章节进行讲解: 1.微服务架构入门 2.spring cloud基础入门3.实战SpringBoot4.注册中心eureka");
-        jsonMap.put("studymodel", "201001");
         indexRequest.source(jsonMap);
         client.index(indexRequest, RequestOptions.DEFAULT);
     }
@@ -354,7 +356,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         SearchRequest searchRequest = new SearchRequest("hello_es");
         searchRequest.types("doc");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        searchSourceBuilder.query(QueryBuilders.matchQuery("name","曾经"));
 
         searchSourceBuilder.fetchSource(new String[]{"name", "description", "studymodel"}, Strings.EMPTY_ARRAY);
         // 设置高亮字段
@@ -398,7 +400,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         //做查询建议
         //词项建议
         SuggestionBuilder termSuggestionBuilder =
-                SuggestBuilders.termSuggestion("name").text("spri");
+                SuggestBuilders.termSuggestion("name").text("曾经沧海难");
         SuggestBuilder suggestBuilder = new SuggestBuilder();
         suggestBuilder.addSuggestion("suggest_user", termSuggestionBuilder);
         searchSourceBuilder.suggest(suggestBuilder);
@@ -422,6 +424,73 @@ public class FastCommonEsRestClientExampleApplicationTests {
 
             }
         }
+    }
+
+    //Highlight
+    @Test
+    public void testHighlight() throws IOException {
+        //搜索请求对象
+        SearchRequest searchRequest = new SearchRequest("hello_es");
+        //指定类型
+        searchRequest.types("doc");
+        //搜索源构建对象
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //设置源字段过虑,第一个参数结果集包括哪些字段，第二个参数表示结果集不包括哪些字段
+        searchSourceBuilder.fetchSource(new String[]{"name","studymodel","price","timestamp"},new String[]{});
+
+        //设置高亮
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.preTags("<tag>");
+        highlightBuilder.postTags("</tag>");
+        highlightBuilder.fields().add(new HighlightBuilder.Field("name"));
+//        highlightBuilder.fields().add(new HighlightBuilder.Field("description"));
+        searchSourceBuilder.highlighter(highlightBuilder);
+
+        //向搜索请求对象中设置搜索源
+        searchRequest.source(searchSourceBuilder);
+        //执行搜索,向ES发起http请求
+        SearchResponse searchResponse = client.search(searchRequest);
+        //搜索结果
+        SearchHits hits = searchResponse.getHits();
+        //匹配到的总记录数
+        long totalHits = hits.getTotalHits();
+        //得到匹配度高的文档
+        SearchHit[] searchHits = hits.getHits();
+        //日期格式化对象
+        for(SearchHit hit:searchHits){
+            //文档的主键
+            String id = hit.getId();
+            //源文档内容
+            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+            //源文档的name字段内容
+            String name = (String) sourceAsMap.get("name");
+            //取出高亮字段
+            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+            if(highlightFields!=null){
+                //取出name高亮字段
+                HighlightField nameHighlightField = highlightFields.get("name");
+                if(nameHighlightField!=null){
+                    Text[] fragments = nameHighlightField.getFragments();
+                    StringBuffer stringBuffer = new StringBuffer();
+                    for(Text text:fragments){
+                        stringBuffer.append(text);
+                    }
+                    name = stringBuffer.toString();
+                }
+            }
+
+            //由于前边设置了源文档字段过虑，这时description是取不到的
+            String description = (String) sourceAsMap.get("description");
+            //学习模式
+            String studymodel = (String) sourceAsMap.get("studymodel");
+            //价格
+            Double price = (Double) sourceAsMap.get("price");
+            //日期
+            System.out.println(name);
+            System.out.println(studymodel);
+            System.out.println(description);
+        }
+
     }
 
 }
