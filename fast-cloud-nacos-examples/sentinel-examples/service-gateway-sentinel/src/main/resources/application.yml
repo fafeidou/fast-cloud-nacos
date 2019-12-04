@@ -11,6 +11,13 @@ spring:
       transport:
         dashboard: localhost:8887
         port: 8717
+      datasource:
+        ds:
+          nacos:
+            server-addr: localhost:8848
+            dataId: service-gateway-sentinel-nacos
+            groupId: DEFAULT_GROUP
+            rule-type: flow
     gateway:
       enabled: true
       discovery:
@@ -21,3 +28,5 @@ spring:
         uri: lb://service-consumer-fallback-sentinel
         predicates:
           - Path=/service-consumer-fallback-sentinel/**
+        filters:
+          - StripPrefix=1

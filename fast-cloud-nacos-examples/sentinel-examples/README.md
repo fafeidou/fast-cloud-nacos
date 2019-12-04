@@ -12,3 +12,8 @@
 ## service-sentinel-nacos  sentinel使用nacos存储限流规则
 
 
+https://www.cnblogs.com/yinjihuan/p/10772558.html
+
+
+https://www.cnblogs.com/babycomeon/p/11516011.html
+
