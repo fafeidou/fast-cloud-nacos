@@ -97,14 +97,6 @@ public class FastCommonEsRestClientExampleApplicationTests {
     @Test
     public void testAddDoc() throws IOException {
         IndexRequest indexRequest = new IndexRequest("hello_es", "doc");
-        //一、给json格式
-//        indexRequest.source("{\n" +
-//                "\t\"name\": \"Bootstrap开发框架\",\n" +
-//                "\n" +
-//                "\t\"description\": \"Bootstrap是由Twitter推出的一个前台页面开发框架，在行业之中使用较为广泛。此开发框架包含了大量的CSS、JS程序代码，可以帮助开发者(尤其是不擅长页面开发的程序人员)轻松的实现一个不受浏览器限制的 精美界面效果。\",\n" +
-//                "\n" +
-//                "\t\"studymodel\": \"201001\"\n" +
-//                "}", XContentType.JSON);
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("name", "曾经沧海难为水");
         jsonMap.put("description", "本课程主要从四个章节进行讲解: 1.微服务架构入门 2.spring cloud基础入门3.实战SpringBoot4.注册中心eureka");
@@ -358,7 +350,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("name","曾经"));
 
-        searchSourceBuilder.fetchSource(new String[]{"name", "description", "studymodel"}, Strings.EMPTY_ARRAY);
+        searchSourceBuilder.fetchSource(new String[]{"name", "description"}, Strings.EMPTY_ARRAY);
         // 设置高亮字段
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.requireFieldMatch(true).field("name")
@@ -407,7 +399,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
 
         searchRequest.source(searchSourceBuilder);
         //3、发送请求
-        SearchResponse searchResponse = client.search(searchRequest);
+        SearchResponse searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
 
         //4、处理响应
         //搜索结果状态信息
