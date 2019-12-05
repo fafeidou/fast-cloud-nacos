@@ -1,6 +1,8 @@
 server:
   port: 28080
 spring:
+  main:
+     allow-bean-definition-overriding: true
   application:
     name: service-gateway-sentinel
   cloud:
@@ -17,7 +19,7 @@ spring:
             server-addr: localhost:8848
             dataId: service-gateway-sentinel-nacos
             groupId: DEFAULT_GROUP
-            rule-type: flow
+            rule-type: gw-flow
     gateway:
       enabled: true
       discovery:
