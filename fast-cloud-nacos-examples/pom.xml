@@ -17,6 +17,7 @@
         <module>dubbo-examples</module>
         <module>sentinel-examples</module>
         <module>cloud-rpc-examples</module>
+        <module>spring-security-examples</module>
     </modules>
 
     <dependencies>

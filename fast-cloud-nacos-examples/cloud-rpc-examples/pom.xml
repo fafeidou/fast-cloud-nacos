@@ -24,6 +24,7 @@
         <module>service-file</module>
         <module>service-hi</module>
         <module>nacos-zipkin</module>
+        <module>gateway-limiter</module>
     </modules>
 
 

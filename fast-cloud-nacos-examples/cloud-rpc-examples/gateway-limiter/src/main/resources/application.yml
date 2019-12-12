@@ -1,0 +1,57 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #打开endpoint
+server:
+  port: 18086
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true  #gateway可以通过开启以下配置来打开根据服务的serviceId来匹配路由,默认是false大写
+          enabled: true # 是否可以通过其他服务的serviceId来转发到具体的服务实例。默认为false
+          routes:
+            - id: service-hi
+              uri: lb://service-hi # lb://serviceId
+              predicates:
+                - Path=/service-hi/**  # 如果请求地址满足/service-hi/**,则转发到service-hi服务
+              filters:
+                - StripPrefix=1 # 去除请求url中的/admin/service-hi/
+                - name: RequestRateLimiter
+                  args:
+                    # 令牌桶每秒填充平均速率
+                    redis-rate-limiter.replenishRate: 1
+                    # 令牌桶的上限
+                    redis-rate-limiter.burstCapacity: 1
+                    # 使用SpEL表达式从Spring容器中获取Bean对象
+                    key-resolver: "#{@remoteAddrKeyResolver}"
+            - id: rateLimit_route
+              uri: http://localhost:8000/hello/rateLimit
+              order: 0
+              predicates:
+                - Path=/test/rateLimit
+              filters:
+                #filter名称必须是RequestRateLimiter
+                - name: RequestRateLimiter
+                  args:
+                    #使用SpEL按名称引用bean
+                    key-resolver: "#{@remoteAddrKeyResolver}"
+                    #允许用户每秒处理多少个请求
+                    redis-rate-limiter.replenishRate: 1
+                    #令牌桶的容量，允许在一秒钟内完成的最大请求数
+                    redis-rate-limiter.burstCapacity: 1
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 使用nacos作为注册中心
+  redis:
+    host: localhost
+    port: 6379
+logging:
+  level:
+    fast.cloud.nacos.gatewaylimiter: debug
+
+
