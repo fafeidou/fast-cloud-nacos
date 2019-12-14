@@ -1,4 +1,4 @@
-package fast.cloud.nacos.securityprovider;
+package com.batman.nacos.securityprovider;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

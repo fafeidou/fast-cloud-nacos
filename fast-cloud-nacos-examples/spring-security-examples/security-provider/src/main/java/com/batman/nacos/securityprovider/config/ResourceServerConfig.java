@@ -1,4 +1,4 @@
-package fast.cloud.nacos.securityprovider.config;
+package com.batman.nacos.securityprovider.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
