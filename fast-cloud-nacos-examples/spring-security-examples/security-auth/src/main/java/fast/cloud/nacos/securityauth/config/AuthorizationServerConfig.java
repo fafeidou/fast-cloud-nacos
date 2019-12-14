@@ -42,7 +42,7 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private CustomUserAuthenticationConverter customUserAuthenticationConverter;
 
-    //读取密钥的配置
+    //读取密钥的配置，keytool配置的密钥
     @Bean("keyProp")
     public KeyProperties keyProperties(){
         return new KeyProperties();
@@ -51,13 +51,14 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Resource(name = "keyProp")
     private KeyProperties keyProperties;
 
-
-    //客户端配置
+    //客户端配置，JDBC 方式实现获取已注册的客户端详情
     @Bean
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
     }
+
     @Override
+    //配置客户端详情（Client Details）
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(this.dataSource).clients(this.clientDetails());
     }
@@ -68,6 +69,8 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
         //使用jwt保存令牌
         return new JwtTokenStore(jwtAccessTokenConverter);
     }
+
+    //使用同一个密钥来编码 JWT 中的  OAuth2 令牌
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter(CustomUserAuthenticationConverter customUserAuthenticationConverter) {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
@@ -80,7 +83,7 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
         accessTokenConverter.setUserTokenConverter(customUserAuthenticationConverter);
         return converter;
     }
-    //授权服务器端点配置
+    //授权服务器端点配置，//告诉Spring Security Token的生成方式
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.accessTokenConverter(jwtAccessTokenConverter)
@@ -92,14 +95,12 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     //授权服务器的安全配置
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-//        oauthServer.checkTokenAccess("isAuthenticated()");//校验token需要认证通过，可采用http basic认证
         oauthServer.allowFormAuthenticationForClients()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                //允许所有资源服务器访问公钥端点（/oauth/token_key）
+                //只允许验证用户访问令牌解析端点（/oauth/check_token）
+                .tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
-
-
 
 }
 

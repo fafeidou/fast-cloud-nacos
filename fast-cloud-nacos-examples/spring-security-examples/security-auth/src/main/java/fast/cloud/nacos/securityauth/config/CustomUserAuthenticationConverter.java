@@ -43,6 +43,4 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
 
         return response;
     }
-
-
 }

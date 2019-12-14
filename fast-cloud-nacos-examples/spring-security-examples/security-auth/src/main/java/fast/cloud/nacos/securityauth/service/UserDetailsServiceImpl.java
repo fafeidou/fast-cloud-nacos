@@ -42,8 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         FooUserExt userext = new FooUserExt();
-        userext.setUsername("itcast");
-        userext.setPassword(new BCryptPasswordEncoder().encode("123"));
+        userext.setUsername("batman");
+        userext.setPassword(new BCryptPasswordEncoder().encode("batman"));
         userext.setPermissions(new ArrayList<FooMenu>());
         if (userext == null) {
             return null;
