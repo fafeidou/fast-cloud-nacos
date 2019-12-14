@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>security-auth</module>
+		<module>security-provider</module>
 	</modules>
 	<dependencies>
 
