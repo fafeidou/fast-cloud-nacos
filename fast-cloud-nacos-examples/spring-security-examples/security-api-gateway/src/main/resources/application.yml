@@ -1,0 +1,30 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #打开endpoint
+server:
+  port: 18085
+spring:
+  application:
+    name: security-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true  #gateway可以通过开启以下配置来打开根据服务的serviceId来匹配路由,默认是false大写
+          enabled: true # 是否可以通过其他服务的serviceId来转发到具体的服务实例。默认为false
+#      routes:
+#        - id: service-hi
+#          uri: lb://service-hi # lb://serviceId
+#          predicates:
+#            - Path=/admin/service-hi/**  # 如果请求地址满足/service-hi/**,则转发到service-hi服务
+#          filters:
+#            - StripPrefix=2 # 去除请求url中的/admin/service-hi/
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 使用nacos作为注册中心
+
+logging:
+  level:
+    fast.cloud.nacos.apigateway: debug

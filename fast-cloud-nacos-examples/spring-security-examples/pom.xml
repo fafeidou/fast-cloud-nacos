@@ -16,6 +16,7 @@
 	<modules>
 		<module>security-auth</module>
 		<module>security-provider</module>
+		<module>security-api-gateway</module>
 	</modules>
 	<dependencies>
 
