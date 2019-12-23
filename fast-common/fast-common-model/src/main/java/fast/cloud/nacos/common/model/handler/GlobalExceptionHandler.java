@@ -1,6 +1,7 @@
 package fast.cloud.nacos.common.model.handler;
 
 import fast.cloud.nacos.common.model.exception.*;
+import fast.cloud.nacos.common.model.model.ResultCode;
 import fast.cloud.nacos.common.model.response.ApiResponse;
 import fast.cloud.nacos.common.model.utils.JsonUtils;
 import org.slf4j.Logger;
@@ -27,55 +28,15 @@ public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler */ 
     private static final Logger logger = LoggerFactory
             .getLogger(GlobalExceptionHandler.class);
 
-    /**
-     * 定制请求参数注解验证错误的处理
-     */
-//    @Override
-//    protected ResponseEntity handleMethodArgumentNotValid(
-//            MethodArgumentNotValidException ex, HttpHeaders headers,
-//            HttpStatus status, WebRequest request) {
-//
-//        logger.warn("参数验证错误：{}", ex.getMessage());
-//
-//        try {
-//            // 错误对象
-//            ApiResponse domain = new ApiResponse();
-//            List<ErrorEntity> errorEntitys = new ArrayList<>();
-//
-//            // 获取错误信息
-//            BindingResult errors = ex.getBindingResult();
-//
-//            errors.getFieldErrors().forEach(error -> {
-//                ErrorEntity apiError = new ErrorEntity();
-//                apiError.setField(error.getField());
-//                apiError.setMessage(error.getDefaultMessage());
-//                if (Objects.nonNull(error.getArguments())
-//                        && Objects.nonNull(error.getArguments()[0])) {
-//                    if (error.getArguments()[0] instanceof Map) {
-//                        apiError.setParams((Map) error.getArguments()[0]);
-//                    }
-//                }
-//                errorEntitys.add(apiError);
-//            });
-//
-//            domain.setErrors(errorEntitys);
-//            domain.setCode(ApiResponseErrorCode.CODE_101.getCode());
-//            domain.setMessage(ApiResponseErrorCode.CODE_101.getMessage());
-//
-//            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
-//
-//        } catch (Exception e) {
-//
-//            logger.error("GlobalHandle构建response发生错误：", ex);
-//
-//            ApiResponseErrorCode apiResponseErrorCode = ApiResponseErrorCode.CODE_999;
-//
-//            // 错误对象
-//            ApiResponse domain = new ApiResponse(apiResponseErrorCode);
-//
-//            return new ResponseEntity(domain, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    //捕获CustomException此类异常
+    @ExceptionHandler(CustomException.class)
+    @ResponseBody
+    public ApiResponse customException(CustomException customException) {
+        //记录日志
+        logger.error("catch exception:{}", customException.getMessage());
+        ResultCode resultCode = customException.getResultCode();
+        return new ApiResponse(resultCode);
+    }
 
     /**
      * 请求参数业务验证错误

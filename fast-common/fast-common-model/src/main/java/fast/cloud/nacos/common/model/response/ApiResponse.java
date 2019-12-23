@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fast.cloud.nacos.common.model.exception.ApiResponseErrorCode;
 import fast.cloud.nacos.common.model.exception.ErrorEntity;
+import fast.cloud.nacos.common.model.model.ResultCode;
 
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class ApiResponse<T> {
      */
     @JsonProperty("data")
     private T data;
+
+    public ApiResponse(ResultCode resultCode) {
+        this(resultCode.code(), ApiResponseErrorCode.CODE_0.getMessage(), null, null);
+    }
 
     /**
      * 成功，没数据

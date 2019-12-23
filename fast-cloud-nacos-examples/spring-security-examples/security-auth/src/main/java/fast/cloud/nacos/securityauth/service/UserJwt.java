@@ -1,12 +1,14 @@
 package fast.cloud.nacos.securityauth.service;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 public class UserJwt extends User {

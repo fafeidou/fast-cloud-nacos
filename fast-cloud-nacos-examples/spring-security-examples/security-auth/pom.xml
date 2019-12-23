@@ -73,7 +73,15 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>fast.cloud.nacos</groupId>
+            <artifactId>fast-common-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
