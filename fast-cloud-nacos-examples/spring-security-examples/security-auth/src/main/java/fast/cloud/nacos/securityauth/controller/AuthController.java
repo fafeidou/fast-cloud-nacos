@@ -1,5 +1,7 @@
 package fast.cloud.nacos.securityauth.controller;
 
+import fast.cloud.nacos.common.model.exception.AuthCode;
+import fast.cloud.nacos.common.model.exception.ExceptionCast;
 import fast.cloud.nacos.common.model.response.ApiResponse;
 import fast.cloud.nacos.securityauth.model.AuthToken;
 import fast.cloud.nacos.securityauth.model.LoginRequest;
@@ -34,10 +36,10 @@ public class AuthController {
     @PostMapping("/userlogin")
     public ApiResponse<String> login(LoginRequest loginRequest) {
         if (loginRequest == null || StringUtils.isEmpty(loginRequest.getUsername())) {
-//            ExceptionCast.cast(AuthCode.AUTH_USERNAME_NONE);
+            ExceptionCast.cast(AuthCode.AUTH_USERNAME_NONE);
         }
         if (loginRequest == null || StringUtils.isEmpty(loginRequest.getPassword())) {
-//            ExceptionCast.cast(AuthCode.AUTH_PASSWORD_NONE);
+            ExceptionCast.cast(AuthCode.AUTH_PASSWORD_NONE);
         }
         //账号
         String username = loginRequest.getUsername();

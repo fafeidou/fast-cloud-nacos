@@ -1,6 +1,8 @@
 package fast.cloud.nacos.securityauth.service;
 
 import com.alibaba.fastjson.JSON;
+import fast.cloud.nacos.common.model.exception.AuthCode;
+import fast.cloud.nacos.common.model.exception.ExceptionCast;
 import fast.cloud.nacos.securityauth.model.AuthToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class AuthService {
         //请求spring security申请令牌
         AuthToken authToken = this.applyToken(username, password, clientId, clientSecret);
         if (authToken == null) {
-            log.error("申请令牌失败");
+            ExceptionCast.cast(AuthCode.AUTH_LOGIN_APPLYTOKEN_FAIL);
         }
         //用户身份令牌
         String access_token = authToken.getAccess_token();
@@ -54,7 +56,7 @@ public class AuthService {
         //将令牌存储到redis
         boolean result = this.saveToken(access_token, jsonString, tokenValiditySeconds);
         if (!result) {
-            log.error("存储令牌失败");
+            ExceptionCast.cast(AuthCode.AUTH_LOGIN_TOKEN_SAVEFAIL);
         }
         return authToken;
     }
