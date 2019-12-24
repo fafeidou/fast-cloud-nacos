@@ -13,6 +13,9 @@ import org.springframework.web.reactive.function.server.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 全局异常 handler
+ */
 public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     public JsonExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
