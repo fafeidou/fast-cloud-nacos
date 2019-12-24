@@ -116,6 +116,16 @@ public class AuthService {
                 bodyMap.get("access_token") == null ||
                 bodyMap.get("refresh_token") == null ||
                 bodyMap.get("jti") == null) {
+
+            //解析spring security返回的错误信息
+            if(bodyMap!=null && bodyMap.get("error_description")!=null){
+                String error_description = (String) bodyMap.get("error_description");
+                if(error_description.indexOf("UserDetailsService returned null")>=0){
+                    ExceptionCast.cast(AuthCode.AUTH_ACCOUNT_NOTEXISTS);
+                }else if(error_description.indexOf("坏的凭证")>=0){
+                    ExceptionCast.cast(AuthCode.AUTH_CREDENTIAL_ERROR);
+                }
+            }
             return null;
         }
         AuthToken authToken = new AuthToken();
