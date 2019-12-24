@@ -15,13 +15,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.*;
 
-@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice
 @SuppressWarnings({"unchecked"})
 public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler */ {
 
