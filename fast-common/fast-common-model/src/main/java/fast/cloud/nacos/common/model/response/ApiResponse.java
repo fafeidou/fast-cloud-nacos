@@ -46,6 +46,10 @@ public class ApiResponse<T> {
         this(resultCode.code(), ApiResponseErrorCode.CODE_0.getMessage(), null, null);
     }
 
+    public ApiResponse(ResultCode resultCode,T data) {
+        this(resultCode.code(), ApiResponseErrorCode.CODE_0.getMessage(), data, null);
+    }
+
     /**
      * 成功，没数据
      */
