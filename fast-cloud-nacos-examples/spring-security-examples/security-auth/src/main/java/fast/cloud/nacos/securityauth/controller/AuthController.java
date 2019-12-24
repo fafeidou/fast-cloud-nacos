@@ -6,6 +6,7 @@ import fast.cloud.nacos.common.model.response.ApiResponse;
 import fast.cloud.nacos.securityauth.model.AuthToken;
 import fast.cloud.nacos.securityauth.model.LoginRequest;
 import fast.cloud.nacos.securityauth.service.AuthService;
+import fast.cloud.nacos.securityauth.utils.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,8 +52,8 @@ public class AuthController {
 
         //用户身份令牌
         String access_token = authToken.getAccess_token();
-//        //将令牌存储到cookie
-//        this.saveCookie(access_token);
+        //将令牌存储到cookie
+        this.saveCookie(access_token);
 
         return new ApiResponse<>(access_token);
     }
@@ -62,7 +63,7 @@ public class AuthController {
 
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         //HttpServletResponse response,String domain,String path, String name, String value, int maxAge,boolean httpOnly
-//        CookieUtil.addCookie(response, cookieDomain, "/", "uid", token, cookieMaxAge, false);
+        CookieUtil.addCookie(response, cookieDomain, "/", "uid", token, cookieMaxAge, false);
 
     }
 

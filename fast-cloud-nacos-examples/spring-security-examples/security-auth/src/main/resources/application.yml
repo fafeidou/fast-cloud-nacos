@@ -33,7 +33,7 @@ auth:
   tokenValiditySeconds: 1200  #token存储到redis的过期时间
   clientId: batman
   clientSecret: batman
-  cookieDomain: 127.0.0.1
+  cookieDomain: batman.com
   cookieMaxAge: -1
 encrypt:
   key-store:
