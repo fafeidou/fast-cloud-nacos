@@ -12,3 +12,11 @@ batman:
       packages: ["com.batman.nacos.securityprovider.controller"], #扫描的包路径
       group-name: model_one  #分组名称
     }
+
+spring:
+  application:
+    name: security-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 使用nacos作为注册中心
