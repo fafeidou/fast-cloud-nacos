@@ -8,20 +8,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @Slf4j
-@ControllerAdvice(annotations = {RestController.class, Controller.class})
+@ControllerAdvice(annotations = {RestController.class})
 public class ApiResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         String returnTypeName = returnType.getParameterType().getName();
         return !"fast.cloud.nacos.common.model.response.ApiResponse".equals(returnTypeName) &&
-                !"org.springframework.http.ResponseEntity".equals(returnTypeName) && returnType.hasMethodAnnotation(ResponseBody.class);
+                !"org.springframework.http.ResponseEntity".equals(returnTypeName);
     }
 
     @SuppressWarnings("rawtypes")

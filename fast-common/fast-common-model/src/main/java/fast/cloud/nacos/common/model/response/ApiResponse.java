@@ -43,7 +43,7 @@ public class ApiResponse<T> {
     private T data;
 
     public ApiResponse(ResultCode resultCode) {
-        this(resultCode.code(), ApiResponseErrorCode.CODE_0.getMessage(), null, null);
+        this(resultCode.code(), resultCode.message(), null, null);
     }
 
     public ApiResponse(ResultCode resultCode,T data) {

@@ -122,7 +122,7 @@ public class AuthService {
                 String error_description = (String) bodyMap.get("error_description");
                 if(error_description.indexOf("UserDetailsService returned null")>=0){
                     ExceptionCast.cast(AuthCode.AUTH_ACCOUNT_NOTEXISTS);
-                }else if(error_description.indexOf("坏的凭证")>=0){
+                }else if(error_description.indexOf("用户名或密码错误")>=0){
                     ExceptionCast.cast(AuthCode.AUTH_CREDENTIAL_ERROR);
                 }
             }

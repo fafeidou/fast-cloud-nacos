@@ -40,7 +40,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/userlogin")
-    public ApiResponse<String> login(LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest) {
         if (loginRequest == null || StringUtils.isEmpty(loginRequest.getUsername())) {
             ExceptionCast.cast(AuthCode.AUTH_USERNAME_NONE);
         }
@@ -60,7 +60,7 @@ public class AuthController {
         //将令牌存储到cookie
         this.saveCookie(access_token);
 
-        return new ApiResponse<>(access_token);
+        return access_token;
     }
 
     //将令牌存储到cookie

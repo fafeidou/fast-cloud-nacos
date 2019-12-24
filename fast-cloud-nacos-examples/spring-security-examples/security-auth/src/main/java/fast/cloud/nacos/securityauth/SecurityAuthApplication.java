@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"fast.cloud.nacos.common.model","fast.cloud.nacos.securityauth"})
 public class SecurityAuthApplication {
     @Bean
     public RestTemplate restTemplate() {
