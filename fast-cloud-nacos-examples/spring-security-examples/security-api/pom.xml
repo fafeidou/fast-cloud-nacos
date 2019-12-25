@@ -11,7 +11,6 @@
     <artifactId>security-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>security-api</name>
-    <packaging>pom</packaging>
 
     <dependencies>
         <!-- Spring Web MVC 依赖 -->
@@ -31,5 +30,28 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>    <!--默认关掉单元测试 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

@@ -7,6 +7,16 @@ import org.springframework.stereotype.Component;
 public class ServiceHiFactory implements FallbackFactory<ServiceHi> {
     @Override
     public ServiceHi create(Throwable cause) {
-        return name -> "service hi fallback";
+        return new ServiceHi() {
+            @Override
+            public String sayHiFromClientOne(String name) {
+                return null;
+            }
+
+            @Override
+            public String hello(String name) {
+                return null;
+            }
+        };
     }
 }
