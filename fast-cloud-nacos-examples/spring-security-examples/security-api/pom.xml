@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fast.cloud.nacos</groupId>
+        <artifactId>spring-security-examples</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>fast.cloud.nacos</groupId>
+    <artifactId>security-api</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>security-api</name>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <!-- Spring Web MVC 依赖 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

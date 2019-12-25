@@ -42,5 +42,10 @@
             <artifactId>fast-common-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>fast.cloud.nacos</groupId>
+            <artifactId>security-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
