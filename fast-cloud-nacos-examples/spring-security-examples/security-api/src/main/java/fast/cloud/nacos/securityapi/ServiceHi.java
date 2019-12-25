@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "security-provider")
 public interface ServiceHi {
     String ROOT = "security";
-    @RequestMapping(value = ROOT+"/hello", method = RequestMethod.GET)
-    public String hello();
 
-    @RequestMapping(value = ROOT +"/hello2", method = RequestMethod.GET)
+    @RequestMapping(value = ROOT + "/hello", method = RequestMethod.GET)
+    String hello();
+
+    @RequestMapping(value = ROOT + "/hello2", method = RequestMethod.GET)
 //    @ApiOperation(value = "sayHiFromClientOne", notes = "sayHiFromClientOne")
-    public String hello2();
+    String hello2();
 }
