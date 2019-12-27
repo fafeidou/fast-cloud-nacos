@@ -25,6 +25,9 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -43,7 +46,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +90,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
     @Test
     public void testDeleteIndex() throws IOException {
         DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest("hello_es");
-        AcknowledgedResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest,RequestOptions.DEFAULT);
+        AcknowledgedResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest, RequestOptions.DEFAULT);
         boolean acknowledged = deleteIndexResponse.isAcknowledged();
         log.info("isAcknowledged:{}", acknowledged);
 
@@ -98,7 +100,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
     public void testAddDoc() throws IOException {
         IndexRequest indexRequest = new IndexRequest("hello_es", "doc");
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("name", "曾经沧海难为水");
+        jsonMap.put("name", "springcloud");
         jsonMap.put("description", "本课程主要从四个章节进行讲解: 1.微服务架构入门 2.spring cloud基础入门3.实战SpringBoot4.注册中心eureka");
         indexRequest.source(jsonMap);
         client.index(indexRequest, RequestOptions.DEFAULT);
@@ -348,7 +350,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         SearchRequest searchRequest = new SearchRequest("hello_es");
         searchRequest.types("doc");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("name","曾经"));
+        searchSourceBuilder.query(QueryBuilders.matchQuery("name", "曾经"));
 
         searchSourceBuilder.fetchSource(new String[]{"name", "description"}, Strings.EMPTY_ARRAY);
         // 设置高亮字段
@@ -399,7 +401,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
 
         searchRequest.source(searchSourceBuilder);
         //3、发送请求
-        SearchResponse searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
         //4、处理响应
         //搜索结果状态信息
@@ -428,7 +430,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         //搜索源构建对象
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //设置源字段过虑,第一个参数结果集包括哪些字段，第二个参数表示结果集不包括哪些字段
-        searchSourceBuilder.fetchSource(new String[]{"name","studymodel","price","timestamp"},new String[]{});
+        searchSourceBuilder.fetchSource(new String[]{"name", "studymodel", "price", "timestamp"}, new String[]{});
 
         //设置高亮
         HighlightBuilder highlightBuilder = new HighlightBuilder();
@@ -449,7 +451,7 @@ public class FastCommonEsRestClientExampleApplicationTests {
         //得到匹配度高的文档
         SearchHit[] searchHits = hits.getHits();
         //日期格式化对象
-        for(SearchHit hit:searchHits){
+        for (SearchHit hit : searchHits) {
             //文档的主键
             String id = hit.getId();
             //源文档内容
@@ -458,13 +460,13 @@ public class FastCommonEsRestClientExampleApplicationTests {
             String name = (String) sourceAsMap.get("name");
             //取出高亮字段
             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
-            if(highlightFields!=null){
+            if (highlightFields != null) {
                 //取出name高亮字段
                 HighlightField nameHighlightField = highlightFields.get("name");
-                if(nameHighlightField!=null){
+                if (nameHighlightField != null) {
                     Text[] fragments = nameHighlightField.getFragments();
                     StringBuffer stringBuffer = new StringBuffer();
-                    for(Text text:fragments){
+                    for (Text text : fragments) {
                         stringBuffer.append(text);
                     }
                     name = stringBuffer.toString();
@@ -484,5 +486,66 @@ public class FastCommonEsRestClientExampleApplicationTests {
         }
 
     }
+
+    @Test
+    public void testAgg() {
+
+        try {
+            Map<String, Long> groupMap = getTermsAgg(QueryBuilders.matchAllQuery(), "name", "hello_es");
+            groupMap.forEach((key, value) -> System.out.println(key + " -> " + value.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Map<String, Long> getTermsAgg(QueryBuilder queryBuilder, String field, String... indexs) throws IOException {
+        Map<String, Long> groupMap = new HashMap<>();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(0);
+
+        AggregationBuilder aggregationBuilder = AggregationBuilders.terms("agg").field(field);
+        searchSourceBuilder.aggregation(aggregationBuilder);
+
+        SearchRequest searchRequest = new SearchRequest(indexs);
+        searchRequest.source(searchSourceBuilder);
+
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        Terms terms = searchResponse.getAggregations().get("agg");
+        for (Terms.Bucket entry : terms.getBuckets()) {
+            groupMap.put(entry.getKey().toString(), entry.getDocCount());
+        }
+        return groupMap;
+    }
+
+
+    public Map<String, Map<String, Long>> getTermsAggTwoLevel(QueryBuilder queryBuilder, String field1, String field2, String... indexs) throws IOException {
+        Map<String, Map<String, Long>> groupMap = new HashMap<>();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(0);
+
+        AggregationBuilder agg1 = AggregationBuilders.terms("agg1").field(field1);
+        AggregationBuilder agg2 = AggregationBuilders.terms("agg2").field(field2);
+        agg1.subAggregation(agg2);
+        searchSourceBuilder.aggregation(agg1);
+
+        SearchRequest searchRequest = new SearchRequest(indexs);
+        searchRequest.source(searchSourceBuilder);
+
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        Terms terms1 = searchResponse.getAggregations().get("agg1");
+        Terms terms2;
+        for (Terms.Bucket bucket1 : terms1.getBuckets()) {
+            terms2 = bucket1.getAggregations().get("agg2");
+            Map<String, Long> map2 = new HashMap<>();
+            for (Terms.Bucket bucket2 : terms2.getBuckets()) {
+                map2.put(bucket2.getKey().toString(), bucket2.getDocCount());
+            }
+            groupMap.put(bucket1.getKey().toString(), map2);
+        }
+        return groupMap;
+    }
+
 
 }

@@ -6,4 +6,4 @@ spring:
 
 restClient:
      elasticsearch:
-              hostlist: ${eshostlist:47.101.167.46:9200} #多个结点中间用逗号分隔
+              hostlist: ${eshostlist:localhost:9200} #多个结点中间用逗号分隔
