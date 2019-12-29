@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "53f6f4e4-fa91-410c-b680-d18e9324428e",
+		"name": "spring security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:40400/auth/userlogin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "itcast",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:40400/auth/userlogin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"userlogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:40400/auth/oauth/token?grant_type=authorization_code&code=5vVRSQ&redirect_uri=http://localhost",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "batman",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "batman",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:40400/auth/oauth/token?grant_type=authorization_code&code=6tolWt&redirect_uri=http://localhost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code"
+						},
+						{
+							"key": "code",
+							"value": "6tolWt"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过用户名和密码申请令牌",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "batman",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "batman",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:40400/auth/oauth/token?grant_type=password&redirect_uri=http://localhost&username=batman&password=batman",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost"
+						},
+						{
+							"key": "username",
+							"value": "batman"
+						},
+						{
+							"key": "password",
+							"value": "batman"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "校验令牌",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:40400/auth/oauth/check_token?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzExNDEwMywianRpIjoiMjk4MWRiZmEtNzI0Yi00NmEwLWFjZDktOWY0N2VlMWMyYzE1IiwiY2xpZW50X2lkIjoiYmF0bWFuIn0.WoeKDQaQZg86eRutrhYQdstDpgqjjqbxrj6dWwAI5rJueSeH1AqDj5ZwDoi_M8bfEG9EJVGwFk1bPeu84v7m0N_z9RLJ-sOkct5yuSWmHZrK85Ms1Elutvh0jxzKuUPcOlNkfXclnfPbQ22ugQzX7Q9M1cElfBSxggUSauO0qyRGp3FLTEWFT_tqpg514s1ahmOx6trtyukqyK6E6s7IkMmsc8IJs9KodjAXKXBS3flu88Qam2NlT8PE5rY8aEeGzY5T1kr1tTwuB5LYPsSsG5uiw352ZjZtBWExdJ8Gu5Y56lNuauIq-k1YLMHpYXD-HvyWeQsl9421brXktymlMQ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"oauth",
+						"check_token"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzExNDEwMywianRpIjoiMjk4MWRiZmEtNzI0Yi00NmEwLWFjZDktOWY0N2VlMWMyYzE1IiwiY2xpZW50X2lkIjoiYmF0bWFuIn0.WoeKDQaQZg86eRutrhYQdstDpgqjjqbxrj6dWwAI5rJueSeH1AqDj5ZwDoi_M8bfEG9EJVGwFk1bPeu84v7m0N_z9RLJ-sOkct5yuSWmHZrK85Ms1Elutvh0jxzKuUPcOlNkfXclnfPbQ22ugQzX7Q9M1cElfBSxggUSauO0qyRGp3FLTEWFT_tqpg514s1ahmOx6trtyukqyK6E6s7IkMmsc8IJs9KodjAXKXBS3flu88Qam2NlT8PE5rY8aEeGzY5T1kr1tTwuB5LYPsSsG5uiw352ZjZtBWExdJ8Gu5Y56lNuauIq-k1YLMHpYXD-HvyWeQsl9421brXktymlMQ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刷新令牌",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:40400/auth/oauth/token?grant_type=refresh_token&refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJhdGkiOiJjYWUwMDJlMy1mNDhkLTQ1ZTYtYjRjMy0zMzQ2YTA4ZGM5ZTQiLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzEwOTY3NywianRpIjoiZGRiZDE5OTktMzZkNi00MjRmLWEzN2MtOTEyOWQxOWI1NjRjIiwiY2xpZW50X2lkIjoiYmF0bWFuIn0.FFfthhGy2vBhIylwOgWICWunhjALfbT8NrFX-jnMJG10pq8_fLl7vnCaDmY9ytrrgazd1lQyEH8Eg-BjvWXc6W4T5uYwLA-Yh888Hua68DxM_1eGwI4h6Fp-FNOlbgsVk0rucanEwbvWSjw0_yM13DVvDWvNZP9mv6aw017bRW-jCaoHpUolaGRDBWH6IiB4sI6gHYh0PSkUzR2wFdvdP2dcru6FSeADzvi4yo2SsYqrtNCp8idRPEQap8tNgppni4jNETtc4bbJ6ArzDE1Pl8XQfKlPgK2XD0hLGs4n5skfV4AhsbIW28WgvcXIyk-wMlwLYVPQm58unHTFQCJGNQ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token"
+						},
+						{
+							"key": "refresh_token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJhdGkiOiJjYWUwMDJlMy1mNDhkLTQ1ZTYtYjRjMy0zMzQ2YTA4ZGM5ZTQiLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzEwOTY3NywianRpIjoiZGRiZDE5OTktMzZkNi00MjRmLWEzN2MtOTEyOWQxOWI1NjRjIiwiY2xpZW50X2lkIjoiYmF0bWFuIn0.FFfthhGy2vBhIylwOgWICWunhjALfbT8NrFX-jnMJG10pq8_fLl7vnCaDmY9ytrrgazd1lQyEH8Eg-BjvWXc6W4T5uYwLA-Yh888Hua68DxM_1eGwI4h6Fp-FNOlbgsVk0rucanEwbvWSjw0_yM13DVvDWvNZP9mv6aw017bRW-jCaoHpUolaGRDBWH6IiB4sI6gHYh0PSkUzR2wFdvdP2dcru6FSeADzvi4yo2SsYqrtNCp8idRPEQap8tNgppni4jNETtc4bbJ6ArzDE1Pl8XQfKlPgK2XD0hLGs4n5skfV4AhsbIW28WgvcXIyk-wMlwLYVPQm58unHTFQCJGNQ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "spring security oauth2 接口访问",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "batman",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "batman",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://batman.com:40400/auth/userlogin",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"userlogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "退出接口",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://batman.com:40400/auth/userlogout",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"userlogout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取jwt令牌",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://batman.com:40400/auth/userjwt",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "40400",
+					"path": [
+						"auth",
+						"userjwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "访问服务提供者接口",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzUwNjQzNCwiYXV0aG9yaXRpZXMiOlsiYmF0bWFuIl0sImp0aSI6IjgxMzYxOWVhLWRkN2UtNGM2Yi05OTY2LWJiMjQ2MDAwNmJkMiIsImNsaWVudF9pZCI6ImJhdG1hbiJ9.NFGJZVC1Yiucr9DWFuD9Xlf-KVbbyPzfXRTGg4n9NfKdzBtrDr0Q92fObXyCKhlv4uCMTrCtbO24-KWwQcE6RObOg5NbS3A7gqT-xlbvQitbvSqRLXTcI6WvmGF_0j5HLv2fhXU1_nOHgHV4QfwarNc0akN2XlmcGtObZ3yYliV3pVtf1Lp91PH4S-E3jE2DNZ1HeDUub8lsiqtU-HFmscbRtU7qQ4VF1jyL28McL84GHpRTa_7FGk21rbMGM44t4tvapTMINsKn2Ih9wgCtKRIYrMjwPXZJKVnZkDvj5m2Q570X-N9YgKTN7pKbvdCjzeQQ0VVp6PYZSj4n4EPK-g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://batman.com:8888/security/hello",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "8888",
+					"path": [
+						"security",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过网关访问服务提供者接口",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzU0MDEwMSwiYXV0aG9yaXRpZXMiOlsiYmF0bWFuIl0sImp0aSI6ImNmMTEyMjRlLWUyODYtNDJhNy05MGEwLTE4YjYyOTA1MGQ2ZiIsImNsaWVudF9pZCI6ImJhdG1hbiJ9.V1j0kt6UXZFiBBkfpm6hlhxXO7FT8ro2R7zNd5Bg2Us-Zr7oqLmQg2f1aODOMC33KA5bRxgemnMiT2sgGV5YyqRgmCRHpdOhgF2-nqMo1ixL7H9W8qGwsuyEGquM525rZVfR5hhF8fxfz3Icy8Q6BuQV8GR-SqFwnH_WDUA4Bwfl9rAeBPk52pdYUQDSGFblybNtorSNM2hpWO6AtYqFApc2P9Dh5sbkA_9BSc0WTff2mjXOkS5o7uJ84qsu5yCvCZKZwhH5EEx0m41IZRAiQ2sd5_Ycqp19AID1vpc34OhjjymEO-5dSGdgbwg6EfePyUHzgpnh_Z7vRnAbuZO5lg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://batman.com:18085/security-provider/security/hello",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "18085",
+					"path": [
+						"security-provider",
+						"security",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "调用没有权限接口",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzI4NDc2NCwiYXV0aG9yaXRpZXMiOlsiYmF0bWFuIl0sImp0aSI6IjIwOWI4OTFlLTM5MDAtNDQ0YS1hZGZhLTUzNGFiOGU5ODgwNSIsImNsaWVudF9pZCI6ImJhdG1hbiJ9.YfSmX-rMKKSh3SYN5kaNwq6XrDdSZCa4iiVNtBlnOyjNyiV32oimFO5dsceERvnPHp13GDxwxRrbj0WZgw_JFJL7vTj0d-4l3EOYhOqJPOgL5mFs096SlZ7qlUdxZ4_KZd-1hV2CltGvw62sCssC20BIbd4GV7z7ecn2RayF9yp56DVUIQQrkOUGLzcMizP6l2Dk--6M-qoLsN71mdwPkl_8BVQQG2xYOeikDs4NoL-e29qvhUB1J7jorznZfT25H-d7VGkMppL32s0dSoGhO7g6xWpX75vMy3vrURmSoeS-a1DsoL5QD4ufSJ0LKcz5-jKTH-S0kIlvD3OrV_kicw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://batman.com:18085/security-provider/security/hello2",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "18085",
+					"path": [
+						"security-provider",
+						"security",
+						"hello2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "服务消费者调用",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOm51bGwsInVzZXJwaWMiOm51bGwsInVzZXJfbmFtZSI6ImJhdG1hbiIsInNjb3BlIjpbImFwcCJdLCJuYW1lIjpudWxsLCJ1dHlwZSI6bnVsbCwiaWQiOm51bGwsImV4cCI6MTU3NzU0MDEwMSwiYXV0aG9yaXRpZXMiOlsiYmF0bWFuIl0sImp0aSI6ImNmMTEyMjRlLWUyODYtNDJhNy05MGEwLTE4YjYyOTA1MGQ2ZiIsImNsaWVudF9pZCI6ImJhdG1hbiJ9.V1j0kt6UXZFiBBkfpm6hlhxXO7FT8ro2R7zNd5Bg2Us-Zr7oqLmQg2f1aODOMC33KA5bRxgemnMiT2sgGV5YyqRgmCRHpdOhgF2-nqMo1ixL7H9W8qGwsuyEGquM525rZVfR5hhF8fxfz3Icy8Q6BuQV8GR-SqFwnH_WDUA4Bwfl9rAeBPk52pdYUQDSGFblybNtorSNM2hpWO6AtYqFApc2P9Dh5sbkA_9BSc0WTff2mjXOkS5o7uJ84qsu5yCvCZKZwhH5EEx0m41IZRAiQ2sd5_Ycqp19AID1vpc34OhjjymEO-5dSGdgbwg6EfePyUHzgpnh_Z7vRnAbuZO5lg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://batman.com:18085/security-consumer/test/hello",
+					"protocol": "http",
+					"host": [
+						"batman",
+						"com"
+					],
+					"port": "18085",
+					"path": [
+						"security-consumer",
+						"test",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
