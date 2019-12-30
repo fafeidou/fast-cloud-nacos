@@ -14,7 +14,7 @@ public class OutOfMemory01 {
     }
 }
 // javac OutOfMemory01.java   | javac -d . OutOfMemory01.java 带有包名编译
-//java -Xmx5m OutOfMemory01   | java -Xmx5m com.batman.jvm.OutOfMemory01
+//java -Xmx5m OutOfMemory01   | java -Xmx5m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./gc.hprof -XX:+PrintGCDetails -XX:+PrintGCDetails -Xloggc:./gc.log com.batman.jvm.OutOfMemory01
 
 //-d .（点） ：代表的是把class 文件打到哪个目录里
 
@@ -29,3 +29,4 @@ public class OutOfMemory01 {
 //        at com.batman.jvm.OutOfMemory01.main(OutOfMemory01.java:12)
 
 
+//java -Xmx5m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./gc.hprof -XX:+PrintGCDetails -XX:+PrintGCDetails -Xloggc:./gc.log com.batman.jvm.OutOfMemory01
