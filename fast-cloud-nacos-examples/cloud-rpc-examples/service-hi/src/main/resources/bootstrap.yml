@@ -14,5 +14,5 @@ spring:
         shared-dataids: service-common.yaml
         refreshable-dataids: service-common.yaml
 server:
-  port: 9900
+  port: 9901
 

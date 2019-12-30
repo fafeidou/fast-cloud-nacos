@@ -15,6 +15,7 @@
         <module>fast-common-example-web</module>
         <module>fast-common-webflux-client</module>
         <module>fast-common-es-example</module>
+        <module>fast-common-jvm-example</module>
     </modules>
     <dependencies>
 
