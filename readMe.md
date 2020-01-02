@@ -50,6 +50,11 @@ fast-cloud-nacos
                 |---------------service-provider-sentinel          提供方整合sentinel
                 |---------------service-sentinel-nacos             sentinel规则存储到nacos
        |---------------spring-security-examples
+                |---------------security-api                       通用feign接口
+                |---------------security-api-gateway               auth2整合网关
+                |---------------security-auth                      auth2认证服务
+                |---------------security-consumer                  服务消费方，集成security，并且实现feign的token传递
+                |---------------security-provider                  实现jwt认证，非对称加密
 |---------------fast-common
        |---------------fast-common-es         es通用 TODO
        |---------------fast-common-model      工程公用的model
