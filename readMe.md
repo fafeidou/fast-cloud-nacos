@@ -1,16 +1,8 @@
-# fast-cloud-nacos descrption
-
-## nacos集成zipkin实现链路追踪
-## nacos集成open-feign远程调用
-## nacos集成springcloud-gateway路由分发
-## 通用工程的抽取，包括异常处理和参数校验功能的封装
-
-
 # fast-cloud-nacos
 
 ## 前言
 
-`fast-cloud-nacos`项目致力于打造一个基于nacos为注册中心，结合企业开发习惯，总结的一些基本的实现方式。
+> `fast-cloud-nacos`项目致力于打造一个基于nacos为注册中心，结合企业开发习惯，总结的一些基本的实现方式。
 
 ### 组织结构
 
