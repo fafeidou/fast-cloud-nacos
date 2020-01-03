@@ -1,7 +1,9 @@
 package fast.cloud.nacos.fastcommongrpcexample.grpc;
 
+import fast.cloud.nacos.fastcommongrpcexample.io.grpc.LocalNameResolverProvider;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.util.RoundRobinLoadBalancerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +17,12 @@ public class SimpleClient {
     }
 
     private SimpleClient(ManagedChannelBuilder<?> channelBuilder) {
-        channel = channelBuilder.build();
+        channel = channelBuilder
+                //添加负载均衡
+                .loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
+                //负载均衡策略
+                .nameResolverFactory(new LocalNameResolverProvider())
+                .build();
         greeterBlockingStub = GreeterGrpc.newBlockingStub(channel);
     }
 
