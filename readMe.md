@@ -57,6 +57,8 @@ fast-cloud-nacos
                 |---------------fast-common-es-jpa-example            jap es客户端
                 |---------------fast-common-es-rest-client-example    rest es 客户端
        |---------------fast-common-example-web                        做国际化和swagger统一配置、异常处理
+       |---------------fast-common-grpc-example                       grpc 提供客户端服务端
+       |---------------fast-common-grpc-proto                         grpc idl proto生成
        |---------------fast-common-jvm-example                        jvm的案例
        |---------------fast-common-webflux-client                     webflux的通用客户端
 ```
