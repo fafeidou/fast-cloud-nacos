@@ -1,0 +1,17 @@
+syntax = "proto3";  //语法声明
+
+// Greeter 微服务
+service Greeter {
+// Sends a greeting
+rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// HelloRequest 请求数据格式
+message HelloRequest {
+string name = 1;
+}
+
+// HelloReply 响应数据格式
+message HelloReply {
+string message = 1;
+}
