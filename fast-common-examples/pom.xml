@@ -18,6 +18,7 @@
         <module>fast-common-jvm-example</module>
         <module>fast-common-grpc-example</module>
         <module>fast-common-grpc-proto</module>
+        <module>fast-common-nacos-grpc-example</module>
     </modules>
     <dependencies>
 
