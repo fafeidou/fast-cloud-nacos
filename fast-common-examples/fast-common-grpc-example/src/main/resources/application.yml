@@ -1,5 +1,5 @@
 gRPC:
   host: localhost
-  port: 50053
+  port: 50052
 server:
-  port: 8080
+  port: 8081

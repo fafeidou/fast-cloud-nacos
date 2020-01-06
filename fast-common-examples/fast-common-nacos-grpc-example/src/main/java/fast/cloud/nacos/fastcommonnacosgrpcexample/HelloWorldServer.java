@@ -25,7 +25,7 @@ public class HelloWorldServer {
         URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
         Properties properties = new Properties();
         properties = NacosUtils.buildNacosProperties(uri, properties);
-        server.init(port, properties, bindableServices);
+        server.init(50052, properties, bindableServices);
         server.start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             // Use stderr here since the logger may have been reset by its JVM shutdown hook.

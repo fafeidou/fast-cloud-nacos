@@ -5,6 +5,7 @@ import fast.cloud.nacos.fastcommonnacosgrpcexample.internal.NacosNameResolverPro
 import io.grpc.Attributes;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.util.RoundRobinLoadBalancerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ public class HelloWorldClient {
     public HelloWorldClient(int port, URI uri, String nacosServiceId) {
         this(ManagedChannelBuilder.forTarget("nacos://" + nacosServiceId)
                 .nameResolverFactory(new NacosNameResolverProvider(uri, Attributes.newBuilder().build()))
+                .loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
                 .usePlaintext(true)
                 .build());
     }
@@ -33,10 +35,11 @@ public class HelloWorldClient {
         System.out.println(response);
     }
 
-    public static void main(String[] args) {
-        int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
-        URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
-        HelloWorldClient client = new HelloWorldClient(port, uri, "GrpcTestService");
-        client.reqString("AAA");
+    public static void main(String[] args) throws InterruptedException {
+            int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
+            URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
+            HelloWorldClient client = new HelloWorldClient(port, uri, "GrpcTestService");
+            Thread.sleep(3000);
+            client.reqString("AAA");
     }
 }
