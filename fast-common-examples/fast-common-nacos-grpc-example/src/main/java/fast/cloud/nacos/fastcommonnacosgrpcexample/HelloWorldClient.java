@@ -38,8 +38,10 @@ public class HelloWorldClient {
     public static void main(String[] args) throws InterruptedException {
             int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
             URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
-            HelloWorldClient client = new HelloWorldClient(port, uri, "GrpcTestService");
+            HelloWorldClient client = new HelloWorldClient(port, uri, "demo");
             Thread.sleep(3000);
+        for (int i = 0; i < 100; i++) {
             client.reqString("AAA");
+        }
     }
 }

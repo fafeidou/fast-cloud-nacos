@@ -53,7 +53,7 @@ public class GrpcServer {
 
     private NamingService namingService = null;
 
-    public void init(int port, Properties properties, BindableService[] bindableServices) {
+    public void init(int port, Properties properties, BindableService[] bindableServices) throws NacosException {
         this.port = port;
         this.server = NettyServerBuilder.forPort(port).fallbackHandlerRegistry(handlerRegistry).build();
         try {
@@ -64,7 +64,13 @@ public class GrpcServer {
         for (BindableService bindableService : bindableServices) {
             registerService(bindableService);
         }
+        registerNacos(properties);
     }
+
+    private void registerNacos(Properties properties) throws NacosException {
+        namingService.registerInstance(properties.getProperty("serviceName", "test"), createInstance());
+    }
+
 
     public void start() {
         if (started) {
