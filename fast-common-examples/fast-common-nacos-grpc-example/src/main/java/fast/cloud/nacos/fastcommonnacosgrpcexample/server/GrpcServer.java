@@ -93,7 +93,6 @@ public class GrpcServer {
         serviceInfo.put(bindableService, serverServiceDefinition);
 
         try {
-            namingService.registerInstance(serverServiceDefinition.getServiceDescriptor().getName(), createInstance());
             handlerRegistry.addService(serverServiceDefinition);
             invokerCnt.incrementAndGet();
         } catch (Exception e) {
