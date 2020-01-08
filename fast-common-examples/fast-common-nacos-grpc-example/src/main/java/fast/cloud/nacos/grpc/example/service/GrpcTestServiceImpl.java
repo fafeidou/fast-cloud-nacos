@@ -13,11 +13,6 @@ public class GrpcTestServiceImpl extends GrpcTestServiceGrpc.GrpcTestServiceImpl
     public void reqString(GrpcTestService_Request_String request,
                           StreamObserver<GrpcTestService_Response_String> responseObserver) {
         String name = request.getName();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         responseObserver.onNext(GrpcTestService_Response_String.newBuilder().setResult("success:2" + name).build());
         responseObserver.onCompleted();
     }

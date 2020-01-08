@@ -1,44 +1,39 @@
 package fast.cloud.nacos.grpc.example.service.client;
 
-import fast.cloud.nacos.grpc.example.HelloWorldClient;
-import fast.cloud.nacos.grpc.example.grpc.GrpcNacosOptions;
-import fast.cloud.nacos.grpc.example.grpc.GrpcNacosProto;
+import fast.cloud.nacos.grpc.example.grpc.GrpcTestServiceGrpc;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestService_Request_String;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestService_Response_String;
 import fast.cloud.nacos.grpc.example.service.GrpcTestServiceImpl;
+import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
+import javax.annotation.PostConstruct;
 
 @Service
 public class HelloService {
+    @Value("${grpc.port}")
+    private int port;
+
     @Autowired
-    GrpcTestServiceImpl grpcTestService;
+    ManagedChannel managedChannel;
+
+    private  GrpcTestServiceGrpc.GrpcTestServiceBlockingStub blockingStub;
 
     public void hello() {
-//        URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
-//        HelloWorldClient client = new HelloWorldClient(uri, "GrpcTestService");
-//        client.reqString("AAA");
-        grpcTestService.reqString(GrpcTestService_Request_String
+        GrpcTestService_Response_String grpcTestService_response_string = blockingStub.reqString(GrpcTestService_Request_String
                 .newBuilder()
                 .setName("BBB")
-                .build(), new StreamObserver<GrpcTestService_Response_String>() {
-            @Override
-            public void onNext(GrpcTestService_Response_String grpcTestService_response_string) {
-                System.out.println(grpcTestService_response_string);
-            }
+                .build());
 
-            @Override
-            public void onError(Throwable throwable) {
+        System.out.println(grpcTestService_response_string+"port:"+ port);
+    }
 
-            }
 
-            @Override
-            public void onCompleted() {
-
-            }
-        });
+    @PostConstruct
+    private void initializeClient() {
+        blockingStub = GrpcTestServiceGrpc.newBlockingStub(managedChannel);
     }
 }
