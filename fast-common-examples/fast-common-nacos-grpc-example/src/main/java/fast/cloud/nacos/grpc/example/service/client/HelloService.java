@@ -14,8 +14,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class HelloService {
-    @Value("${grpc.port}")
-    private int port;
+
 
     @Autowired
     ManagedChannel managedChannel;
@@ -28,7 +27,7 @@ public class HelloService {
                 .setName("BBB")
                 .build());
 
-        System.out.println(grpcTestService_response_string+"port:"+ port);
+        System.out.println(grpcTestService_response_string);
     }
 
 
