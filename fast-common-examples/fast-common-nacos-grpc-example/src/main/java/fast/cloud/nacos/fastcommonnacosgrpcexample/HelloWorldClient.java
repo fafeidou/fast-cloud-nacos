@@ -17,7 +17,7 @@ public class HelloWorldClient {
     private final ManagedChannel channel;
     private final GrpcTestServiceGrpc.GrpcTestServiceBlockingStub blockingStub;
 
-    public HelloWorldClient(int port, URI uri, String nacosServiceId) {
+    public HelloWorldClient(URI uri, String nacosServiceId) {
         this(ManagedChannelBuilder.forTarget("nacos://" + nacosServiceId)
                 .nameResolverFactory(new NacosNameResolverProvider(uri, Attributes.newBuilder().build()))
                 .loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
@@ -31,15 +31,18 @@ public class HelloWorldClient {
     }
 
     public void reqString(String req) {
-        GrpcTestService_Response_String response = blockingStub.reqString(GrpcTestService_Request_String.newBuilder().setName(req).build());
+        GrpcTestService_Response_String response = blockingStub.reqString(
+                GrpcTestService_Request_String
+                .newBuilder()
+                .setName(req)
+                .build());
         System.out.println(response);
     }
 
     public static void main(String[] args) throws InterruptedException {
-            int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
-            URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
-            HelloWorldClient client = new HelloWorldClient(port, uri, "demo");
-            Thread.sleep(3000);
+        URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
+        HelloWorldClient client = new HelloWorldClient(uri, "demo");
+        Thread.sleep(3000);
         for (int i = 0; i < 100; i++) {
             client.reqString("AAA");
         }
