@@ -21,8 +21,6 @@ public class HelloWorldServer {
 
     private void start(BindableService[] bindableServices) throws NacosException {
         server = new GrpcServer();
-
-        int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
         URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
         Properties properties = new Properties();
         properties.setProperty("serviceName", "demo");

@@ -10,9 +10,8 @@ import java.net.URI;
 @Service
 public class HelloService {
     public void hello() {
-        int port = GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.grpcNacosPort);
         URI uri = URI.create(GrpcNacosOptions.getDescriptor().getOptions().getExtension(GrpcNacosProto.nacosUri));
-        HelloWorldClient client = new HelloWorldClient(port, uri, "GrpcTestService");
+        HelloWorldClient client = new HelloWorldClient(uri, "GrpcTestService");
         client.reqString("AAA");
     }
 }
