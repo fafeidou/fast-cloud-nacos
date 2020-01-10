@@ -1,4 +1,4 @@
-package fast.cloud.nacos.grpc.example.service;
+package fast.cloud.nacos.grpc.example.service.server;
 
 import fast.cloud.nacos.common.grpc.annoation.GRpcService;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestServiceGrpc;

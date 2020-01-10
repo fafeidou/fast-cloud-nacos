@@ -1,11 +1,11 @@
 package fast.cloud.nacos.grpc.example;
 
 import com.alibaba.nacos.api.exception.NacosException;
+import fast.cloud.nacos.common.grpc.utils.NacosUtils;
 import fast.cloud.nacos.grpc.example.grpc.GrpcNacosOptions;
 import fast.cloud.nacos.grpc.example.grpc.GrpcNacosProto;
 import fast.cloud.nacos.grpc.example.server.GrpcServer;
-import fast.cloud.nacos.grpc.example.service.GrpcTestServiceImpl;
-import fast.cloud.nacos.grpc.example.utils.NacosUtils;
+import fast.cloud.nacos.grpc.example.service.server.GrpcTestServiceImpl;
 import io.grpc.BindableService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

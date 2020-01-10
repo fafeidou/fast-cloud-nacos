@@ -4,7 +4,7 @@ import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import fast.cloud.nacos.grpc.example.utils.NetUtils;
+import fast.cloud.nacos.common.grpc.utils.NetUtils;
 import io.grpc.BindableService;
 import io.grpc.ServerServiceDefinition;
 import io.grpc.netty.NettyServerBuilder;
