@@ -51,6 +51,7 @@ fast-cloud-nacos
        |---------------fast-common-es         es通用 TODO
        |---------------fast-common-model      工程公用的model
        |---------------fast-common-mybatis    mybatis-plus 整理到接口
+       |---------------fast-common-grpc       grpc端口注册到nacos并且实现负载均衡
 |---------------fast-common-examples
        |---------------fast-common-es-example
                 |---------------fast-common-es-jest-client-example    jest es客户端
