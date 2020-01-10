@@ -1,7 +1,7 @@
 package fast.cloud.nacos.grpc.example;
 
+import fast.cloud.nacos.common.grpc.internal.NacosNameResolverProvider;
 import fast.cloud.nacos.grpc.example.grpc.*;
-import fast.cloud.nacos.grpc.example.internal.NacosNameResolverProvider;
 import io.grpc.Attributes;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

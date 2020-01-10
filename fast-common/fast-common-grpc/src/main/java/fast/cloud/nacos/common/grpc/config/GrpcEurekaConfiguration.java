@@ -14,13 +14,13 @@ import java.net.URI;
 
 @Configuration
 public class GrpcEurekaConfiguration {
-    @Value("${spring.cloud.naocs.discovery.server-addr}")
+    @Value("${nacos.addr}")
     private String serverAddr;
 
     @Bean
     @ConditionalOnMissingBean(ManagedChannel.class)
     public ManagedChannel managedChannel() {
-        URI uri = URI.create("http://" + serverAddr);
+        URI uri = URI.create(serverAddr);
         return ManagedChannelBuilder.forTarget("nacos://" + "demo")
                 .nameResolverFactory(new NacosNameResolverProvider(uri, Attributes.newBuilder().build()))
                 .loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())

@@ -41,7 +41,7 @@ public class GRpcServerRunner implements CommandLineRunner, DisposableBean {
 
     private NamingService namingService = null;
 
-    @Value("${spring.cloud.naocs.discovery.server-addr}")
+    @Value("${nacos.addr}")
     private String serverAddr;
 
     @Override
@@ -58,7 +58,7 @@ public class GRpcServerRunner implements CommandLineRunner, DisposableBean {
             log.info("'{}' service has been registered.", bindableService.getClass().getName());
         }
         //register nacos
-        URI uri = URI.create("http://" + serverAddr);
+        URI uri = URI.create(serverAddr);
         Properties properties = new Properties();
         properties.setProperty("serviceName", "demo");
         properties = NacosUtils.buildNacosProperties(uri, properties);

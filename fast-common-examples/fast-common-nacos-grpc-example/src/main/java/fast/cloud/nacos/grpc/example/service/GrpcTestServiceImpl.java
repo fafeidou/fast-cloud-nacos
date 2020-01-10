@@ -1,6 +1,6 @@
 package fast.cloud.nacos.grpc.example.service;
 
-import fast.cloud.nacos.grpc.example.annoation.GRpcService;
+import fast.cloud.nacos.common.grpc.annoation.GRpcService;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestServiceGrpc;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestService_Request_String;
 import fast.cloud.nacos.grpc.example.grpc.GrpcTestService_Response_String;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class GrpcTestServiceImpl extends GrpcTestServiceGrpc.GrpcTestServiceImplBase {
     @Value("${grpc.port}")
     private int port;
+
     @Override
     public void reqString(GrpcTestService_Request_String request,
                           StreamObserver<GrpcTestService_Response_String> responseObserver) {
