@@ -15,6 +15,7 @@
         <module>fast-common-model</module>
         <module>fast-common-mybatis</module>
         <module>fast-common-es</module>
+        <module>fast-common-grpc</module>
     </modules>
     <dependencies>
 
