@@ -17,7 +17,7 @@ public class GrpcTestServiceImpl extends GrpcTestServiceGrpc.GrpcTestServiceImpl
                           StreamObserver<GrpcTestService_Response_String> responseObserver) {
         String name = request.getName();
         responseObserver.onNext(GrpcTestService_Response_String.newBuilder()
-                .setResult("success:" + name + "port:" + port)
+                .setResult("success:" + name +"===" + "port:" + port)
                 .build());
         responseObserver.onCompleted();
     }

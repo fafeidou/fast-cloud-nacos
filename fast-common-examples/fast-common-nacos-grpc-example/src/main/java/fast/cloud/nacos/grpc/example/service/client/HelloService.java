@@ -18,13 +18,13 @@ public class HelloService {
 
     private GrpcTestServiceGrpc.GrpcTestServiceBlockingStub blockingStub;
 
-    public void hello() {
+    public String hello(String name) {
         GrpcTestService_Response_String grpcTestService_response_string = blockingStub.reqString(GrpcTestService_Request_String
                 .newBuilder()
-                .setName("BBB")
+                .setName(name)
                 .build());
 
-        System.out.println(grpcTestService_response_string);
+        return grpcTestService_response_string.getResult();
     }
 
 
