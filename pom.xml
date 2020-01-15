@@ -18,6 +18,7 @@
         <module>fast-common</module>
         <module>fast-common-examples</module>
         <module>fast-boot-examples</module>
+        <module>fast-source-code-analysis</module>
     </modules>
     <properties>
         <grpc.version>1.13.1</grpc.version>
