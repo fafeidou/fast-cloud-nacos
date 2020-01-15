@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>  <!--配置实体类的别名-->
+        <package name="cn.itcast.orm.entity"/>
+    </typeAliases>
+
+    <environments default="MySQLDevelopment">
+        <environment id="MySQLDevelopment">
+            <transactionManager type="JDBC"></transactionManager> <!--事务-->
+            <dataSource type="POOLED">  <!--数据库连接-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/demo?characterEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <package name="fast.cloud.nacos.mybatis.mapper"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--Mapper映射配置文件-->
+<mapper namespace="fast.cloud.nacos.mybatis.mapper.DeptEmpMapper">
+
+    <!--自定义一个resultMap配置实体类和结果集之间的映射关系-->
+    <resultMap id="dept_emp_result_map" type="fast.cloud.nacos.mybatis.entity.DeptEmp">
+        <result property="dname" column="name"/>
+        <result property="total" column="total"/>
+    </resultMap>
+
+    <select id="getEmpTotalByDept" resultMap="dept_emp_result_map">
+        SELECT deptno as name, COUNT(*) AS total  FROM  emp  GROUP BY deptno
+    </select>
+
+
+</mapper>
+
