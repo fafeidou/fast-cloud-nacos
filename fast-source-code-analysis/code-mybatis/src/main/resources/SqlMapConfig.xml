@@ -2,10 +2,9 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
     <typeAliases>  <!--配置实体类的别名-->
-        <package name="cn.itcast.orm.entity"/>
+        <package name="fast.cloud.nacos.mybatis.entity"/>
     </typeAliases>
 
     <environments default="MySQLDevelopment">

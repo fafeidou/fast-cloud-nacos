@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 负责执行 SQL 语句，并且封装结果集
  */
 public class Executor {
-    public <E> List<E> selectList(Mapper mapper, Connection conn) {
+    public <E> List<E> selectList(Mapper mapper, Map<String, String> typeAliasesMap, Connection conn) {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
@@ -42,9 +43,10 @@ public class Executor {
                     String columnName = rsmd.getColumnName(i);
                     //根据得到列名，获取每列的值
                     Object columnValue = rs.getObject(columnName);
+                    String proName = typeAliasesMap.getOrDefault(columnName, columnName);
                     //给 obj 赋值：使用 Java 内省机制（借助 PropertyDescriptor 实现属性的封装）
                     PropertyDescriptor pd = new
-                            PropertyDescriptor(columnName, domainClass);//要求：实体类的属性和数据库表的列名保持一种
+                            PropertyDescriptor(proName, domainClass);//要求：实体类的属性和数据库表的列名保持一种
                     //获取它的写入方法
                     Method writeMethod = pd.getWriteMethod();//setUsername(String username);
                     //把获取的列的值，给对象赋值

@@ -1,7 +1,7 @@
 package fast.cloud.nacos.custom.mybatis.builer.xml;
 
+import fast.cloud.nacos.custom.mybatis.annotation.ORMColumn;
 import fast.cloud.nacos.custom.mybatis.annotation.Select;
-import fast.cloud.nacos.custom.mybatis.io.ResolverUtil;
 import fast.cloud.nacos.custom.mybatis.io.Resources;
 import fast.cloud.nacos.custom.mybatis.mapper.Mapper;
 import fast.cloud.nacos.custom.mybatis.session.Configuration;
@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * 用于解析配置文件
@@ -79,8 +81,8 @@ public class XMLConfigBuilder {
                 }
             }
             //获取mappers 中package标签package标签
-            List<Element>  packageElements = root.selectNodes("//mappers/package");
-            if(!CollectionUtils.isEmpty(packageElements)){
+            List<Element> packageElements = root.selectNodes("//mappers/package");
+            if (!CollectionUtils.isEmpty(packageElements)) {
                 Element element = packageElements.get(0);
                 String packageName = element.attribute("name").getValue();
                 Set<Class<?>> mapperSet = ClassUtil.getClasses(packageName);
@@ -106,7 +108,7 @@ public class XMLConfigBuilder {
 //                    mappers.put(key, mapper);
                 });
 
-            }else{
+            } else {
                 //取出 mappers 中的所有 mapper 标签，判断他们使用了 resource 还是 class 属性
                 List<Element> mapperElements = root.selectNodes("//mappers/mapper");
                 //遍历集合
@@ -133,6 +135,26 @@ public class XMLConfigBuilder {
                         cfg.setMappers(mappers);
                     }
                 }
+            }
+
+            List<Element> typeAliasesElements = root.selectNodes("//typeAliases/package");
+            //2. 解析实体类中的注解拿到映射数据
+            if (!CollectionUtils.isEmpty(typeAliasesElements)) {
+                String packageName = typeAliasesElements.get(0).attribute("name").getValue();
+                Set<Class<?>> entitySet = ClassUtil.getClasses(packageName);
+                Map<String, String> colProMap = new HashMap<>();
+                entitySet.forEach(clz -> {
+                    Field[] fields = clz.getDeclaredFields();
+                    Stream.of(fields).forEach(field -> {
+                        String proName = field.getName();
+                        ORMColumn annotation = field.getAnnotation(ORMColumn.class);
+                        if (annotation != null) {
+                            String colName = annotation.name();
+                            colProMap.put(colName, proName);
+                        }
+                    });
+                });
+                cfg.setTypeAliasesMap(colProMap);
             }
 
 

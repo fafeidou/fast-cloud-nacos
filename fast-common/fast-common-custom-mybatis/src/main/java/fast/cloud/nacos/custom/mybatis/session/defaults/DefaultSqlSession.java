@@ -11,6 +11,7 @@ import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class DefaultSqlSession implements SqlSession {
     //核心配置对象
@@ -48,7 +49,7 @@ public class DefaultSqlSession implements SqlSession {
         conn = getConn();
         System.out.println(conn);
         T daoProxy = (T) Proxy.newProxyInstance(daoClass.getClassLoader(), new
-                Class[]{daoClass}, new MapperProxyFactory(cfg.getMappers(), conn));
+                Class[]{daoClass}, new MapperProxyFactory(cfg.getMappers(), conn, cfg.getTypeAliasesMap()));
         return daoProxy;
     }
 
@@ -66,6 +67,7 @@ public class DefaultSqlSession implements SqlSession {
     //查询所有方法
     public <E> List<E> selectList(String statement) {
         Mapper mapper = cfg.getMappers().get(statement);
-        return new Executor().selectList(mapper, conn);
+        Map<String, String> typeAliasesMap = cfg.getTypeAliasesMap();
+        return new Executor().selectList(mapper, typeAliasesMap, conn);
     }
 }

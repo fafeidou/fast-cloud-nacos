@@ -17,6 +17,7 @@ public class Configuration {
     private String driver;//驱动
     //map 集合 Map<唯一标识，Mapper> 用于保存映射文件中的 sql 标识及 sql 语句
     private Map<String, Mapper> mappers;
+    private Map<String,String> typeAliasesMap;
 
     public String getUsername() {
         return username;
@@ -56,5 +57,13 @@ public class Configuration {
 
     public void setMappers(Map<String, Mapper> mappers) {
         this.mappers = mappers;
+    }
+
+    public Map<String, String> getTypeAliasesMap() {
+        return typeAliasesMap;
+    }
+
+    public void setTypeAliasesMap(Map<String, String> typeAliasesMap) {
+        this.typeAliasesMap = typeAliasesMap;
     }
 }

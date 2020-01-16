@@ -11,10 +11,12 @@ import java.util.Map;
 public class MapperProxyFactory implements InvocationHandler {
     private Map<String, Mapper> mappers;
     private Connection conn;
+    private Map<String, String> typeAliasesMap;
 
-    public MapperProxyFactory(Map<String, Mapper> mappers, Connection conn) {
+    public MapperProxyFactory(Map<String, Mapper> mappers, Connection conn, Map<String, String> typeAliasesMap) {
         this.mappers = mappers;
         this.conn = conn;
+        this.typeAliasesMap = typeAliasesMap;
     }
 
     /**
@@ -40,6 +42,6 @@ public class MapperProxyFactory implements InvocationHandler {
         }
         //5.创建 Executor 对象
         Executor executor = new Executor();
-        return executor.selectList(mapper, conn);
+        return executor.selectList(mapper, typeAliasesMap, conn);
     }
 }
