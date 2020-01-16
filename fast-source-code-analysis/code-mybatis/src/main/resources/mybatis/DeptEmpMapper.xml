@@ -6,7 +6,6 @@
 <!--Mapper映射配置文件-->
 <mapper namespace="fast.cloud.nacos.mybatis.mapper.DeptEmpMapper">
 
-
     <select id="getEmpTotalByDept" resultType="fast.cloud.nacos.mybatis.entity.DeptEmp">
         SELECT deptno, COUNT(*) AS total  FROM  emp  GROUP BY deptno
     </select>

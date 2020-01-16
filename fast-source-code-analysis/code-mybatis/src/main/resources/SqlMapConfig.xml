@@ -21,7 +21,8 @@
     </environments>
 
     <mappers>
-        <package name="fast.cloud.nacos.mybatis.mapper"/>
+        <mapper resource="mybatis/DeptEmpMapper.xml"></mapper>
+        <!--<package name="fast.cloud.nacos.mybatis.mapper"/>-->
     </mappers>
 
 </configuration>

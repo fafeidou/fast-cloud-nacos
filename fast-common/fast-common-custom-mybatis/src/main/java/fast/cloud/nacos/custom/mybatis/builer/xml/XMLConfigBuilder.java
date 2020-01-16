@@ -1,14 +1,17 @@
 package fast.cloud.nacos.custom.mybatis.builer.xml;
 
 import fast.cloud.nacos.custom.mybatis.annotation.Select;
+import fast.cloud.nacos.custom.mybatis.io.ResolverUtil;
 import fast.cloud.nacos.custom.mybatis.io.Resources;
 import fast.cloud.nacos.custom.mybatis.mapper.Mapper;
 import fast.cloud.nacos.custom.mybatis.session.Configuration;
 import fast.cloud.nacos.custom.mybatis.session.defaults.DefaultSqlSession;
+import fast.cloud.nacos.custom.mybatis.utils.ClassUtil;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +21,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 用于解析配置文件
@@ -74,32 +78,64 @@ public class XMLConfigBuilder {
                     cfg.setPassword(password);
                 }
             }
-            //取出 mappers 中的所有 mapper 标签，判断他们使用了 resource 还是 class 属性
-            List<Element> mapperElements = root.selectNodes("//mappers/mapper");
-            //遍历集合
-            for (Element mapperElement : mapperElements) {
-                //判断 mapperElement 使用的是哪个属性
-                Attribute attribute = mapperElement.attribute("resource");
-                if (attribute != null) {
-                    System.out.println("使用的是 XML");
-                    //表示有 resource 属性，用的是 XML
-                    //取出属性的值
-                    String mapperPath = attribute.getValue();// 获 取 属 性 的 值 "com/dao/IUserDao.xml"
-                    //把映射配置文件的内容获取出来，封装成一个 map
-                    Map<String, Mapper> mappers = loadMapperConfiguration(mapperPath);
-                    //给 configuration 中的 mappers 赋值
-                    cfg.setMappers(mappers);
-                } else {
-                    System.out.println("使用的是注解");
-                    //表示没有 resource 属性，用的是注解
-                    //获取 class 属性的值
-                    String daoClassPath = mapperElement.attributeValue("class");
-                    //根据 daoClassPath 获取封装的必要信息
-                    Map<String, Mapper> mappers = loadMapperAnnotation(daoClassPath);
-                    //给 configuration 中的 mappers 赋值
-                    cfg.setMappers(mappers);
+            //获取mappers 中package标签package标签
+            List<Element>  packageElements = root.selectNodes("//mappers/package");
+            if(!CollectionUtils.isEmpty(packageElements)){
+                Element element = packageElements.get(0);
+                String packageName = element.attribute("name").getValue();
+                Set<Class<?>> mapperSet = ClassUtil.getClasses(packageName);
+                mapperSet.forEach(clz -> {
+                    String className = clz.getName();
+                    Method method = clz.getMethods()[0];
+                    String methodName = method.getName();
+                    String returnType = method.getReturnType().getName();
+                    String key = className + "." + methodName;
+
+//                    String id = selectElement.attributeValue("id");
+//                    //取出 resultType 属性的值 组成 map 中 value 的部分
+//                    String resultType = selectElement.attributeValue("resultType");
+//                    //取出文本内容 组成 map 中 value 的部分
+//                    String queryString = selectElement.getText();
+//                    //创建 Key
+//                    String key = namespace + "." + id;
+//                    //创建 Value
+//                    Mapper mapper = new Mapper();
+//                    mapper.setQueryString(queryString);
+//                    mapper.setResultType(resultType);
+//                    //把 key 和 value 存入 mappers 中
+//                    mappers.put(key, mapper);
+                });
+
+            }else{
+                //取出 mappers 中的所有 mapper 标签，判断他们使用了 resource 还是 class 属性
+                List<Element> mapperElements = root.selectNodes("//mappers/mapper");
+                //遍历集合
+                for (Element mapperElement : mapperElements) {
+                    //判断 mapperElement 使用的是哪个属性
+                    Attribute attribute = mapperElement.attribute("resource");
+                    if (attribute != null) {
+                        System.out.println("使用的是 XML");
+                        //表示有 resource 属性，用的是 XML
+                        //取出属性的值
+                        String mapperPath = attribute.getValue();// 获 取 属 性 的 值 "com/dao/IUserDao.xml"
+                        //把映射配置文件的内容获取出来，封装成一个 map
+                        Map<String, Mapper> mappers = loadMapperConfiguration(mapperPath);
+                        //给 configuration 中的 mappers 赋值
+                        cfg.setMappers(mappers);
+                    } else {
+                        System.out.println("使用的是注解");
+                        //表示没有 resource 属性，用的是注解
+                        //获取 class 属性的值
+                        String daoClassPath = mapperElement.attributeValue("class");
+                        //根据 daoClassPath 获取封装的必要信息
+                        Map<String, Mapper> mappers = loadMapperAnnotation(daoClassPath);
+                        //给 configuration 中的 mappers 赋值
+                        cfg.setMappers(mappers);
+                    }
                 }
             }
+
+
             //把配置对象传递给 DefaultSqlSession
             session.setCfg(cfg);
 

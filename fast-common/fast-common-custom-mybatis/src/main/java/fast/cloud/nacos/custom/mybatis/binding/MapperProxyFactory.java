@@ -23,7 +23,7 @@ public class MapperProxyFactory implements InvocationHandler {
      * 取出当前执行的方法所在类
      * 拼接成 key
      * 去 Map 中获取 Value（Mapper)
-     * 使用工具类 Executor 的 selectList 方法
+     * 使用工具类 Executor 的 selectList 方法x
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

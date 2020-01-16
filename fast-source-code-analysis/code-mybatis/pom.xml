@@ -33,6 +33,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <dependency>
+            <groupId>fast.cloud.nacos</groupId>
+            <artifactId>fast-common-custom-mybatis</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
