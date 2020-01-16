@@ -20,12 +20,12 @@ public class OutOfMemory01 {
 
 //(base) batmandeMacBook-Pro:jvm batman$ java -Xmx5m com.batman.jvm.OutOfMemory01
 //        Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-//        at java.util.Arrays.copyOf(Arrays.java:3210)
-//        at java.util.Arrays.copyOf(Arrays.java:3181)
-//        at java.util.ArrayList.grow(ArrayList.java:261)
-//        at java.util.ArrayList.ensureExplicitCapacity(ArrayList.java:235)
-//        at java.util.ArrayList.ensureCapacityInternal(ArrayList.java:227)
-//        at java.util.ArrayList.add(ArrayList.java:458)
+//        at java.utils.Arrays.copyOf(Arrays.java:3210)
+//        at java.utils.Arrays.copyOf(Arrays.java:3181)
+//        at java.utils.ArrayList.grow(ArrayList.java:261)
+//        at java.utils.ArrayList.ensureExplicitCapacity(ArrayList.java:235)
+//        at java.utils.ArrayList.ensureCapacityInternal(ArrayList.java:227)
+//        at java.utils.ArrayList.add(ArrayList.java:458)
 //        at com.batman.jvm.OutOfMemory01.main(OutOfMemory01.java:12)
 
 
