@@ -20,7 +20,11 @@
     </environments>
 
     <mappers>
-        <mapper resource="mybatis/DeptEmpMapper.xml"></mapper>
+        <!--使用xml写sql-->
+        <!--<mapper resource="mybatis/DeptEmpMapper.xml"></mapper>-->
+
+        <!--注解sql-->
+        <mapper class="fast.cloud.nacos.mybatis.mapper.DeptEmpMapper"></mapper>
         <!--<package name="fast.cloud.nacos.mybatis.mapper"/>-->
     </mappers>
 
