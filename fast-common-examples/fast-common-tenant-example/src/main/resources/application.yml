@@ -1,2 +1,20 @@
-#tenant:
-#  id: t3
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml # 你的mapper sql文件位置
+  type-aliases-package: fast.cloud.nacos.tenant.entity # mybatis 扫遍实体类的位置
+  configuration:
+    map-underscore-to-camel-case: true  # 驼峰配置
+
+
+# 打印sql配置
+logging:
+  level:
+    fast.cloud.nacos.tenant.mapper: debug
+spring:
+  datasource:
+    druid:
+      my-cat:
+#         url: jdbc:mysql://123.56.254.184:3066/t0?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+         url: jdbc:mysql://localhost:8066/t1?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+         username: root
+         password: batman
+         driver-class-name: com.mysql.jdbc.Driver
