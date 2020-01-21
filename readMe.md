@@ -65,6 +65,7 @@ fast-cloud-nacos
        |---------------fast-common-nacos-grpc-example                 nacos整合grpc负载均衡
        |---------------fast-common-tenant-example                     多租户常见案例
        |---------------fast-common-webflux-client                     webflux的通用客户端
+       |---------------fast-common-rocketmq-example                   rocketmq测试样例
 |---------------fast-source-code-analysis
        |---------------code-mybatis                                   mybatis源码分析以及测试mybatis的自定义
 ```
