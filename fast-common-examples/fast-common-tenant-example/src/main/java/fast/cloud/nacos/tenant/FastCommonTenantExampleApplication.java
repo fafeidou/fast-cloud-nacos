@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"fast.cloud.nacos.tenant","fast.cloud.nacos.common.tenant"})
 public class FastCommonTenantExampleApplication {
 
     public static void main(String[] args) {

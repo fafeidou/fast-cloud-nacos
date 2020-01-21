@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  fast.cloud.nacos.common.tenant.config.TenantAutoConfig,\
+  fast.cloud.nacos.common.tenant.mybatis.MultiTenantMyBatisConfiguration,\
+  fast.cloud.nacos.common.tenant.redis.MultiTenantRedisConfig\
+

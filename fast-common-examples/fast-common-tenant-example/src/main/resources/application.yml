@@ -18,3 +18,7 @@ spring:
          username: root
          password: batman
          driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  servlet:
+    context-path: /tenant/
