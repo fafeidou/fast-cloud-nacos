@@ -9,9 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+@RestController
 @SpringBootApplication
 public class FastCommonRocketmqExampleApplication implements CommandLineRunner {
     @Resource
@@ -23,18 +26,24 @@ public class FastCommonRocketmqExampleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        rocketMQTemplate.convertAndSend("test-topic-1", "Hello, World!");
-        rocketMQTemplate.send("test-topic-1", MessageBuilder.withPayload("Hello, World! I'm from spring message").build());
+//        rocketMQTemplate.convertAndSend("test-topic-1", "Hello, World!");
+//        rocketMQTemplate.send("test-topic-1", MessageBuilder.withPayload("Hello, World! I'm from spring message").build());
     }
 
+    @GetMapping("testSend")
+    public String send() {
+        rocketMQTemplate.convertAndSend("test-topic-1", "Hello, World!");
+        rocketMQTemplate.send("test-topic-1", MessageBuilder.withPayload("Hello, World! I'm from spring message").build());
+        return "ok";
+    }
 
-//    @Slf4j
-//    @Service
-//    @RocketMQMessageListener(topic = "test-topic-1", consumerGroup = "my-consumer_test-topic-1")
-//    public static class MyConsumer1 implements RocketMQListener<String> {
-//        public void onMessage(String message) {
-//            log.info("received message: {}", message);
-//        }
-//    }
+    @Slf4j
+    @Service
+    @RocketMQMessageListener(topic = "test-topic-1", consumerGroup = "my-consumer_test-topic-1")
+    public static class MyConsumer1 implements RocketMQListener<String> {
+        public void onMessage(String message) {
+            log.info("received message: {}", message);
+        }
+    }
 
 }
