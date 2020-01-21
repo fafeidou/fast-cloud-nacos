@@ -53,6 +53,7 @@ fast-cloud-nacos
        |---------------fast-common-mybatis    mybatis-plus 整理到接口
        |---------------fast-common-grpc       grpc端口注册到nacos并且实现负载均衡
        |---------------fast-common-custom-mybatis  自定义mybatis
+       |---------------fast-common-tenant          通用多租户底层实现
 |---------------fast-common-examples
        |---------------fast-common-es-example
                 |---------------fast-common-es-jest-client-example    jest es客户端
