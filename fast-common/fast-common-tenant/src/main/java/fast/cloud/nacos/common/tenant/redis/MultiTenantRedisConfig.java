@@ -24,10 +24,6 @@ public class MultiTenantRedisConfig {
 
     @Bean
     public LettuceConnectionFactory getRedisConnectionFactory() {
-//        JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-//        connectionFactory.setHostName(redisProperties.getHost());
-//        connectionFactory.setPort(redisProperties.getPort());
-//        connectionFactory.setPassword(redisProperties.getPassword());
         return new LettuceConnectionFactory();
     }
 
