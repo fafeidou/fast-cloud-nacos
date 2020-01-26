@@ -4,9 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fast.cloud.nacos.common.model.exception.ApiResponseErrorCode;
 import fast.cloud.nacos.common.model.exception.ErrorEntity;
 import fast.cloud.nacos.common.model.model.ResultCode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -16,6 +20,7 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
+@Slf4j
 public class ApiResponse<T> {
 
     /**
@@ -46,7 +51,7 @@ public class ApiResponse<T> {
         this(resultCode.code(), resultCode.message(), null, null);
     }
 
-    public ApiResponse(ResultCode resultCode,T data) {
+    public ApiResponse(ResultCode resultCode, T data) {
         this(resultCode.code(), ApiResponseErrorCode.CODE_0.getMessage(), data, null);
     }
 
@@ -129,6 +134,22 @@ public class ApiResponse<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        // 忽略null打印日志
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            log.warn("class [{}]序列化失败", getClass().getName());
+        }
+
+        return "";
     }
 
 }
