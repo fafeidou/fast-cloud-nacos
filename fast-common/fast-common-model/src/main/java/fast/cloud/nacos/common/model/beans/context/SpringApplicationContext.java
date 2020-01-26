@@ -6,7 +6,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -17,7 +16,6 @@ import java.util.Optional;
  * 2.发布事件功能
  */
 @Slf4j
-@Component
 public class SpringApplicationContext implements ApplicationContextAware {
 
     private static ApplicationContext context;
