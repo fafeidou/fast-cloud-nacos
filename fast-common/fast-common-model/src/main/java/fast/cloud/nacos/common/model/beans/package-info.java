@@ -1,0 +1,1 @@
+package fast.cloud.nacos.common.model.beans;

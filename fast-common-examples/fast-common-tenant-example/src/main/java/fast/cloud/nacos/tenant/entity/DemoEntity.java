@@ -11,4 +11,12 @@ public class DemoEntity {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "DemoEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
