@@ -23,7 +23,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.*;
 
-@ControllerAdvice
+@ControllerAdvice("fast.cloud.nacos")
 @SuppressWarnings({"unchecked"})
 public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler */ {
 

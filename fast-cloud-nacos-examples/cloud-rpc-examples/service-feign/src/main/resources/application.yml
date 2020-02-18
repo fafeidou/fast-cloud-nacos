@@ -9,3 +9,7 @@ batman:
       packages: ["fast.cloud.nacos.controller"],
       group-name: service-feign
     }
+
+logging:
+  level:
+    org.springframework: info

@@ -2,6 +2,7 @@ package fast.cloud.nacos.servicehi.controller;
 
 import fast.cloud.nacos.feign.openapi.ServiceHi;
 import fast.cloud.nacos.servicehi.test.Test;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope
+@Slf4j
 public class HiController implements ServiceHi {
     @Value(value = "${test.name:}")
     private String testName;
@@ -28,6 +30,7 @@ public class HiController implements ServiceHi {
 
     @Override
     public String sayHiFromClientOne(String name) {
+        log.info("服务名称{}", "service-hi");
         if (name.equals("123")) {
             throw new RuntimeException("非法输入");
         }

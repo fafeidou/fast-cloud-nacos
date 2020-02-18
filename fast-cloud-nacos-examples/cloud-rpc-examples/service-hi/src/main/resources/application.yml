@@ -9,3 +9,6 @@ batman:
       packages: ["fast.cloud.nacos.servicehi.controller"],
       group-name: serviceHi
     }
+logging:
+  level:
+    org.springframework: info

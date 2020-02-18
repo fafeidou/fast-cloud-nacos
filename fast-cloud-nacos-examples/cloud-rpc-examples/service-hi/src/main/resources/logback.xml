@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+<contextName>service-hi</contextName>
+<include resource="default-logback.xml"/>
+</configuration>

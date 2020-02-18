@@ -1,0 +1,111 @@
+<included>
+
+    <!-- 变量定义 -->
+    <substitutionProperty name="log-path" value="./logs"/>
+
+    <!--  patern定义 -->
+    <property name="STD_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %-5p %c.%M [%t]|%L|%m%n"/>
+    <!--    <property name="ENCODER_PATTERN"-->
+    <!--              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %p %context{TRACE_ID:-NON_TRACE_ID} %context{SPAN_ID:-NON_SPAN_ID} %c.%M [%t]|%L|%m%n"/>-->
+    <!--    <property name="ENCODER_PATTERN"-->
+    <!--              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %p %c.%M [%t]|%L|%m%n"/>-->
+    <!--  增加自定义数据处理  -->
+    <property name="ENCODER_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %p %X{trace:--} %X{span:--} %c.%M [%t]|%L|%m%n"/>
+
+    <!-- appender定义 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %-5p %m [%t] %c.%M\(%L\)%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="EVENT-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-path}/event.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log-path}/event.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="SERVICE-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-path}/service.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log-path}/service.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="BIGGER-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-path}/bigger.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log-path}/bigger.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SERVICE-OUT-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="SERVICE-OUT"/>
+    </appender>
+
+    <appender name="ACCESS-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-path}/access.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log-path}/access.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ACCESS-OUT-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="ACCESS-OUT"/>
+    </appender>
+
+    <appender name="SQL-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log-path}/ibatis.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log-path}/sql.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SQL-OUT-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="SQL-OUT"/>
+    </appender>
+
+    <!-- 默认logger配置 -->
+    <logger name="fast.cloud.nacos" additivity="false">
+        <appender-ref ref="SERVICE-OUT"/>
+    </logger>
+
+    <!--    超大日志记录，仅存在与接口日志中-->
+    <logger name="bigger" additivity="false">
+        <appender-ref ref="BIGGER-OUT"/>
+    </logger>
+
+    <logger name="access" additivity="false">
+        <appender-ref ref="ACCESS-OUT"/>
+    </logger>
+
+    <root>
+        <appender-ref ref="STDOUT" />
+    </root>
+</included>

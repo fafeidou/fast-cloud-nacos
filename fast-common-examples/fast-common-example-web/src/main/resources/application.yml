@@ -25,3 +25,6 @@ management:
     web:
       exposure:
         include: '*'
+logging:
+   level:
+     org.springframework: info
