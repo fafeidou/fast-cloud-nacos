@@ -1,43 +1,29 @@
-package fast.cloud.nacos.mybatis;
+package fast.cloud.nacos.mybatis.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fast.cloud.nacos.common.model.request.CommonSearchRequest;
-import fast.cloud.nacos.common.model.response.PaginationResponse;
 import fast.cloud.nacos.mybatis.bean.request.MyBaseRequest;
 import fast.cloud.nacos.mybatis.condition.DemoCondition;
 import fast.cloud.nacos.mybatis.entity.DemoEntity;
 import fast.cloud.nacos.mybatis.mapper.DemoMapper;
 import fast.cloud.nacos.mybatis.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RestController
 @Slf4j
-public class FastCommonMybatisApplicationTests {
+public class DemoController {
     @Autowired
     private DemoService demoService;
     @Autowired
     private DemoMapper demoMapper;
 
-    @Test
-    public void testInsert() {
-        MyBaseRequest<DemoCondition> request = new MyBaseRequest<>();
-        DemoCondition demoCondition = new DemoCondition();
-        demoCondition.setName("12");
-        request.setCondition(demoCondition);
-
-        PaginationResponse<DemoEntity> page = demoService.findPage(request);
-    }
-
-    @Test
-    public void testSelect() {
+    @RequestMapping("demo")
+    public void demo() {
         MyBaseRequest<DemoCondition> request = new MyBaseRequest<>();
         DemoCondition demoCondition = new DemoCondition();
         request.setCondition(demoCondition);
@@ -49,5 +35,4 @@ public class FastCommonMybatisApplicationTests {
         List<DemoEntity> demoEntities = demoMapper.selectDemoPage(demoEntityPage);
         log.info("demoEntities:{}", demoEntities);
     }
-
 }

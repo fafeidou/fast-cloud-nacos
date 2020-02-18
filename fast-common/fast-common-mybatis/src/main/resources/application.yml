@@ -14,7 +14,8 @@ spring:
 # 打印sql配置
 logging:
   level:
-     fast.cloud.nacos.mybatis.mapper: debug
+#     fast.cloud.nacos.mybatis.mapper: debug
+     org.springframework: info
 
 #pagehelper 配置
 pagehelper:

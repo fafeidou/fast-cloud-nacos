@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+    <contextName>fast-common-mybatis</contextName>
+    <include resource="default-logback.xml"/>
+
+    <logger name="fast.cloud.nacos.mybatis.mapper" additivity="false">
+        <appender-ref ref="SQL-OUT"/>
+    </logger>
+</configuration>
