@@ -5,6 +5,8 @@ import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ServiceLoader;
+
 @RestController
 @Api(tags = {"security"}, description = "security")
 public class HelloController implements ServiceHi {

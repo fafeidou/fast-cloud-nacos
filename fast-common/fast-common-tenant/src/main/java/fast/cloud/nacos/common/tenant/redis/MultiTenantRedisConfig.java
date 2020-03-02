@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 @Configuration
@@ -23,8 +22,8 @@ public class MultiTenantRedisConfig {
     private RedisProperties redisProperties;
 
     @Bean
-    public LettuceConnectionFactory getRedisConnectionFactory() {
-        return new LettuceConnectionFactory();
+    public JedisConnectionFactory getRedisConnectionFactory() {
+        return new JedisConnectionFactory();
     }
 
     @Bean
