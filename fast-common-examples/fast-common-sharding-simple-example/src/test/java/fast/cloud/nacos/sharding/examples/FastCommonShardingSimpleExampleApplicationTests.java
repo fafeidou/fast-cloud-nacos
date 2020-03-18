@@ -26,8 +26,8 @@ public class FastCommonShardingSimpleExampleApplicationTests {
     @Test
     public void testSelectOrderbyIds(){
         List<Long> ids = new ArrayList<>();
-        ids.add(373897739357913088L);
-        ids.add(373897037306920961L);
+        ids.add(447039983417556993L);
+        ids.add(447039983463694336L);
 
         List<Map> maps = orderDao.selectOrderbyIds(ids);
         System.out.println(maps);

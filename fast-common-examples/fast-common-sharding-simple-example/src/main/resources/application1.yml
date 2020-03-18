@@ -1,0 +1,48 @@
+server:
+  port: 56081
+  servlet:
+    context-path: /fast-common-sharding-simple-example
+spring:
+  application:
+    name: fast-common-sharding-simple-example
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+  main:
+    allow-bean-definition-overriding: true
+  shardingsphere:
+    datasource:
+      names: m1
+      m1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.56.121:3306/order_db?useUnicode=true
+        username: root
+        password: root
+    sharding:
+      tables:
+        t_order:
+          actualDataNodes: m1.t_order_$->{1..2}
+          tableStrategy:
+            inline:
+              shardingColumn: order_id
+              algorithmExpression: t_order_$->{order_id % 2 + 1}
+          keyGenerator:
+            type: SNOWFLAKE
+            column: order_id
+    props:
+      sql:
+        show: true
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+swagger:
+  enable: true
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+    fast.cloud:.nacos.sharding:.examples: debug
+    druid.sql: debug
