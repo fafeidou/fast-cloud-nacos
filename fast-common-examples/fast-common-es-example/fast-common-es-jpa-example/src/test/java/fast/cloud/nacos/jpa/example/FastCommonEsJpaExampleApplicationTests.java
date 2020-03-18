@@ -93,6 +93,11 @@ public class FastCommonEsJpaExampleApplicationTests {
                 }
                 return null;
             }
+
+            @Override
+            public <T> T mapSearchHit(SearchHit searchHit, Class<T> aClass) {
+                return null;
+            }
         });
 
         ideas.get().forEach(model -> {

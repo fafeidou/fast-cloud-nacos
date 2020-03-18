@@ -21,6 +21,7 @@
         <module>fast-common-nacos-grpc-example</module>
         <module>fast-common-tenant-example</module>
         <module>fast-common-rocketmq-example</module>
+        <module>fast-common-sharding-simple-example</module>
     </modules>
     <dependencies>
 
