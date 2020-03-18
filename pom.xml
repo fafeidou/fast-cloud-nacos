@@ -86,14 +86,14 @@
     <!-- Maven 仓库 -->
     <distributionManagement>
         <repository>
-            <id>central</id>
-            <name>tezign-artifactory-releases</name>
-            <url>https://tech-mvn.tezign.com/artifactory/libs-release-local</url>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <snapshotRepository>
-            <id>central</id>
-            <name>tezign-artifactory-snapshot</name>
-            <url>https://tech-mvn.tezign.com/artifactory/libs-snapshot-local</url>
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>https://maven.aliyun.com/repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
