@@ -64,9 +64,10 @@ fast-cloud-nacos
        |---------------fast-common-grpc-proto                         grpc idl proto生成
        |---------------fast-common-jvm-example                        jvm的案例
        |---------------fast-common-nacos-grpc-example                 nacos整合grpc负载均衡
+       |---------------fast-common-rocketmq-example                   rocketmq测试样例
+       |---------------fast-common-sharding-simple-example            sharding jdbc 分表
        |---------------fast-common-tenant-example                     多租户常见案例
        |---------------fast-common-webflux-client                     webflux的通用客户端
-       |---------------fast-common-rocketmq-example                   rocketmq测试样例
 |---------------fast-source-code-analysis
        |---------------code-mybatis                                   mybatis源码分析以及测试mybatis的自定义
        |---------------code-spring                                    spring源码分析专用
