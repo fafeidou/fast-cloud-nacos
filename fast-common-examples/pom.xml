@@ -24,6 +24,7 @@
         <module>fast-common-sharding-simple-example</module>
         <module>fast-common-sharding-horizontal-subdivision</module>
         <module>fast-common-sharding-vertial-subdivision</module>
+        <module>fast-common-sharding-rw-separation</module>
     </modules>
     <dependencies>
 
