@@ -22,6 +22,7 @@
         <module>fast-common-tenant-example</module>
         <module>fast-common-rocketmq-example</module>
         <module>fast-common-sharding-simple-example</module>
+        <module>fast-common-sharding-horizontal-subdivision</module>
     </modules>
     <dependencies>
 
