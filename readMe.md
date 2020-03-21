@@ -67,6 +67,7 @@ fast-cloud-nacos
        |---------------fast-common-rocketmq-example                   rocketmq测试样例
        |---------------fast-common-sharding-horizontal-subdivision    sharding jdbc 水平分库分表
        |---------------fast-common-sharding-simple-example            sharding jdbc 水平分表
+       |---------------fast-common-sharding-vertial-subdivision       sharding jdbc 垂直分库及公共表
        |---------------fast-common-tenant-example                     多租户常见案例
        |---------------fast-common-webflux-client                     webflux的通用客户端
 |---------------fast-source-code-analysis
