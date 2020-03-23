@@ -23,7 +23,7 @@ public class ShardingJdbcConfig {
     Map<String, DataSource> createDataSourceMap() {
         DruidDataSource dataSource1 = new DruidDataSource();
         dataSource1.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://192.168.56.121:3306/order_db?useUnicode=true");
+        dataSource1.setUrl("jdbc:mysql://192.168.56.121:3306/order_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull");
         dataSource1.setUsername("root");
         dataSource1.setPassword("root");
         Map<String, DataSource> result = new HashMap<>();
