@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Slf4j
-//@Component
+@Component
 public class OrderShardingAlgorithm implements PreciseShardingAlgorithm<Long> {
 
     /**
@@ -33,14 +33,14 @@ public class OrderShardingAlgorithm implements PreciseShardingAlgorithm<Long> {
             // 表路由匹配
             int tableIndex = ShardingDbUtil.getActualTableIndex(shardingValue.getValue(), TABLE_NUM);
             String targetNode = String.format(ACTUAL_TARGET_TEMPLATE, shardingValue.getLogicTableName(), tableIndex);
-            log.debug("sharding table: {}", targetNode);
+            log.info("sharding table: {}", targetNode);
             return targetNode;
         } else {
             // 库路由匹配
-            long databaseIndex = shardingValue.getValue() % DATABASE_NUM;
+            long databaseIndex = shardingValue.getValue() % DATABASE_NUM + 1;
             String targetNode = String
-                    .format(ACTUAL_TARGET_TEMPLATE, "order_1", databaseIndex);
-            log.debug("sharding database: {}", targetNode);
+                    .format(ACTUAL_TARGET_TEMPLATE, "order_db", databaseIndex);
+            log.info("sharding database: {}", targetNode);
             return targetNode;
         }
     }

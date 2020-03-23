@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-//@Configuration
+@Configuration
 @Slf4j
 public class ShardingJdbcConfig {
-//    @Autowired
+    @Autowired
     private OrderShardingAlgorithm orderShardingAlgorithm;
 
     //配置分片规则
@@ -30,14 +30,11 @@ public class ShardingJdbcConfig {
     Map<String, DataSource> createDataSourceMap() {
         DruidDataSource dataSource1 = new DruidDataSource();
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setDbType("com.alibaba.druid.pool.DruidDataSource");
-        dataSource1.setUrl("jdbc:mysql://192.168.56.121:3306/order_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull");
+        dataSource1.setUrl("jdbc:mysql://192.168.56.121:33065/order_db_1?useUnicode=true");
         dataSource1.setUsername("root");
         dataSource1.setPassword("root");
-        dataSource1.setMaxActive(100);
-        dataSource1.setInitialSize(5);
         Map<String, DataSource> result = new HashMap<>();
-        result.put("m1", dataSource1);
+        result.put("order_db_1", dataSource1);
         return result;
     }
 
@@ -49,7 +46,7 @@ public class ShardingJdbcConfig {
 
     // 定义t_order表的分片策略
     TableRuleConfiguration getOrderInlineTableRuleConfiguration() {
-        TableRuleConfiguration result = new TableRuleConfiguration("t_order", "m1.t_order_$->{1..2}");
+        TableRuleConfiguration result = new TableRuleConfiguration("t_order", "order_db_1.t_order_$->{1..2}");
         result.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("order_id", "t_order_$->{order_id % 2 + 1}"));
         result.setKeyGeneratorConfig(getKeyGeneratorConfiguration());
 
@@ -89,6 +86,7 @@ public class ShardingJdbcConfig {
                 shardingColumn, shardingAlgorithm);
         // 设置表分片策略
         tableRuleConfiguration.setTableShardingStrategyConfig(strategyConfiguration);
+        tableRuleConfiguration.setDatabaseShardingStrategyConfig(strategyConfiguration);
         return tableRuleConfiguration;
     }
 
@@ -104,9 +102,9 @@ public class ShardingJdbcConfig {
         String dataNodes;
         if (tableNum > 0) {
             dataNodes = String
-                    .format("%s_${0..%d}.%s_${0..%d}", databaseName, databaseNum - 1, tableName, tableNum - 1);
+                    .format("%s_${1..%d}.%s_${1..%d}", databaseName, databaseNum, tableName, tableNum - 1);
         } else {
-            dataNodes = String.format("%s_${0..%d}.%s", databaseName, databaseNum - 1, tableName);
+            dataNodes = String.format("%s_${0..%d}.%s", databaseName, databaseNum, tableName);
         }
         log.info("getDoDataNodes dbName={}, dbNum={}, tableName={}, tableNum={}, dataNodes={}",
                 databaseName, databaseNum, tableName, tableNum, dataNodes);
