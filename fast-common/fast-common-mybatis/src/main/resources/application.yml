@@ -8,7 +8,7 @@ mybatis-plus:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.56.121:33065/demo?useUnicode=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf8
     username: root
     password: root
 # 打印sql配置

@@ -32,7 +32,6 @@ public class FastCommonMybatisApplicationTests {
         DemoCondition demoCondition = new DemoCondition();
         demoCondition.setName("12");
         request.setCondition(demoCondition);
-
         PaginationResponse<DemoEntity> page = demoService.findPage(request);
     }
 
