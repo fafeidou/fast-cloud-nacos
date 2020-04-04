@@ -1,7 +1,7 @@
 package fast.cloud.nacos.common.model.handler;
 
 import fast.cloud.nacos.common.model.response.ApiResponse;
-import fast.cloud.nacos.common.model.utils.JsonUtils;
+import fast.cloud.nacos.common.model.utils.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ public class ApiResponseHandler implements ResponseBodyAdvice<Object> {
             return new ApiResponse<>();
         }
         if (body instanceof String) {
-            return JsonUtils.toString(new ApiResponse<>(body));
+            return GsonUtil.toJson(new ApiResponse<>(body));
         }
         return new ApiResponse<>(body);
     }

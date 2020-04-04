@@ -5,7 +5,7 @@ import fast.cloud.nacos.common.model.exception.*;
 import fast.cloud.nacos.common.model.model.CommonCode;
 import fast.cloud.nacos.common.model.model.ResultCode;
 import fast.cloud.nacos.common.model.response.ApiResponse;
-import fast.cloud.nacos.common.model.utils.JsonUtils;
+import fast.cloud.nacos.common.model.utils.GsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -139,7 +139,7 @@ public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler */ 
         domain.setCode(ApiResponseErrorCode.CODE_102.getCode());
         domain.setMessage(fre.getMessage());
 
-        return JsonUtils.toString(domain);
+        return GsonUtil.toJson(domain);
 
     }
 

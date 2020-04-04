@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import fast.cloud.nacos.common.model.exception.ApiResponseErrorCode;
 import fast.cloud.nacos.common.model.exception.ErrorEntity;
 import fast.cloud.nacos.common.model.model.ResultCode;
+import fast.cloud.nacos.common.model.utils.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -138,18 +136,7 @@ public class ApiResponse<T> {
 
     @Override
     public String toString() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        // 忽略null打印日志
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            log.warn("class [{}]序列化失败", getClass().getName());
-        }
-
-        return "";
+        return GsonUtil.toJson(this);
     }
 
 }

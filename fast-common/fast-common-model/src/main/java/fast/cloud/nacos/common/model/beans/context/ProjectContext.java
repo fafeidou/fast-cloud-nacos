@@ -1,11 +1,7 @@
 package fast.cloud.nacos.common.model.beans.context;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import fast.cloud.nacos.common.model.utils.JsonUtils;
+import fast.cloud.nacos.common.model.utils.GsonUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -80,7 +76,7 @@ public class ProjectContext {
      * @param contextString 被序列化的上下文字符串
      */
     public static void fromString(String contextString) {
-        ProjectContext context = JsonUtils.toObject(contextString, ProjectContext.class);
+        ProjectContext context = GsonUtil.toBean(contextString, ProjectContext.class);
 
         fromContext(context);
     }
@@ -123,16 +119,6 @@ public class ProjectContext {
 
     @Override
     public String toString() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        // 忽略null打印日志
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-        }
-
-        return "";
+        return GsonUtil.toJson(this);
     }
 }
