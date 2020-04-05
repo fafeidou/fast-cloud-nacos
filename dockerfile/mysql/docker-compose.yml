@@ -12,6 +12,7 @@ services:
       - "33065:3306"
     restart: always
     hostname: mysql-master
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
   mysql-slave:
     build:
       context: ./
@@ -22,4 +23,5 @@ services:
       - "33066:3306"
     restart: always
     hostname: mysql-slave
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
 
