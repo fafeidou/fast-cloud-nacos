@@ -132,9 +132,9 @@ public class WebSocketServer {
             Long stationId = eventDTO.getStationId();
             String sessionKey = this.assembleSessionKey(userId, stationId);
 
-            log.info("rule checker web-socket mqMessage sessionKey:{}", sessionKey);
+            log.info("web-socket mqMessage sessionKey:{}", sessionKey);
             Session session = clientMap.get(sessionKey);
-            log.info("rule checker web-socket mqMessage session:{}", session);
+            log.info("web-socket mqMessage session:{}", session);
             //无用户连接
             if (ObjectUtils.isEmpty(session)) {
                 return;

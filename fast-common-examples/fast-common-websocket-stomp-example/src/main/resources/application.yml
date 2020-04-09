@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: fast-common-websocket-stomp-example
+  rabbitmq:
+    host: 192.168.56.121
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+
+stomp.server: 192.168.56.121
+stomp.port: 61613
+stomp.username: rabbitmq
+stomp.password: rabbitmq
