@@ -39,6 +39,18 @@ spring:
             - Path=/fast-common-websocket-simple-example/web-socket/**
           filters:
             - StripPrefix=1
+        - id: fast-common-websocket-stomp-example-http
+          uri: lb://fast-common-websocket-stomp-example # lb://serviceId -> load balance
+          predicates:
+            - Path=/fast-common-websocket-stomp-example/**  # 如果请求地址满足/service-hi/**,则转发到service-hi服务
+          filters:
+            - StripPrefix=1
+        - id: fast-common-websocket-stomp-example-ws
+          uri: lb:ws://fast-common-websocket-stomp-example
+          predicates:
+            - Path=/fast-common-websocket-stomp-example/ws/**
+          filters:
+            - StripPrefix=1
     nacos:
       discovery:
         server-addr: 192.168.56.121:8848 # 使用nacos作为注册中心

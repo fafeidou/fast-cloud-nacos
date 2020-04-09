@@ -8,10 +8,16 @@ spring:
     password: rabbitmq
   redis:
     host: 192.168.56.121
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.121:8848
 
 stomp.server: 192.168.56.121
 stomp.port: 61613
 stomp.username: rabbitmq
 stomp.password: rabbitmq
+
 server:
-  port: 8080
+  port: 8081
+

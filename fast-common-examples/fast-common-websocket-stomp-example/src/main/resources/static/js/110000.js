@@ -13,7 +13,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('http://localhost:18085/fast-common-websocket-stomp-example/ws');
     stompClient = Stomp.over(socket);
     // var headers = {
     //     Authorization: 'Bearer ec4ba481-a5a0-4940-b10a-f48169e73311'
