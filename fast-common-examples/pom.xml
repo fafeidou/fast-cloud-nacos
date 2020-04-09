@@ -27,6 +27,7 @@
         <module>fast-common-sharding-rw-separation</module>
         <module>fast-common-apollo-example</module>
         <module>fast-common-sharding-encryptor-example</module>
+        <module>fast-common-websocket-simple-example</module>
     </modules>
     <dependencies>
 

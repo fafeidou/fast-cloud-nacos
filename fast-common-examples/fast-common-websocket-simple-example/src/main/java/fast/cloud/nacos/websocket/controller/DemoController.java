@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Created by qinfuxiang
  */
 @RestController
-@RequestMapping("web-socket")
+@RequestMapping("demo")
 public class DemoController {
     @Autowired
     private WebSocketServer webSocketServer;

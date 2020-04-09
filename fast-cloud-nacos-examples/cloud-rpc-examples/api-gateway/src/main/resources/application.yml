@@ -27,9 +27,21 @@ spring:
           - Path=/service-feign/**  # 如果请求地址满足/service-hi/**,则转发到service-hi服务
           filters:
           - StripPrefix=1 # 去除请求url中的/admin/service-hi/
+        - id: fast-common-websocket-simple-example-http
+          uri: lb://fast-common-websocket-simple-example # lb://serviceId -> load balance
+          predicates:
+            - Path=/fast-common-websocket-simple-example/**  # 如果请求地址满足/service-hi/**,则转发到service-hi服务
+          filters:
+            - StripPrefix=1 # 去除请求url中的/admin/service-hi/
+        - id: fast-common-websocket-simple-example-ws  # 转发web-socket
+          uri: lb:ws://fast-common-websocket-simple-example
+          predicates:
+            - Path=/fast-common-websocket-simple-example/web-socket/**
+          filters:
+            - StripPrefix=1
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848 # 使用nacos作为注册中心
+        server-addr: 192.168.56.121:8848 # 使用nacos作为注册中心
 
 logging:
   level:

@@ -23,7 +23,7 @@ import static fast.cloud.nacos.websocket.constants.ConstantEnum.WEB_SOCKET_PARAM
 /**
  * @author qinfuxiang
  */
-@ServerEndpoint(value = "/common/socket")
+@ServerEndpoint(value = "/web-socket/socket")
 @Component
 @Slf4j
 public class WebSocketServer {

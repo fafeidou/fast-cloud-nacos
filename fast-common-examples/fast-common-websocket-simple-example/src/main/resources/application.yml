@@ -1,0 +1,11 @@
+# service instance name
+spring:
+  application:
+    name: fast-common-websocket-simple-example
+  # nacos discovery config
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.121:8848
+server:
+  port: 8080
