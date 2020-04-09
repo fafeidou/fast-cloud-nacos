@@ -6,8 +6,12 @@ spring:
     port: 5672
     username: rabbitmq
     password: rabbitmq
+  redis:
+    host: 192.168.56.121
 
 stomp.server: 192.168.56.121
 stomp.port: 61613
 stomp.username: rabbitmq
 stomp.password: rabbitmq
+server:
+  port: 8080
