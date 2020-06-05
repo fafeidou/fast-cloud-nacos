@@ -1,6 +1,8 @@
 package fast.cloud.nacos.example.web.controller;
 
 import fast.cloud.nacos.common.model.utils.GsonUtil;
+import fast.cloud.nacos.example.web.annotation.HttpApi;
+import fast.cloud.nacos.example.web.annotation.HttpApiGroup;
 import fast.cloud.nacos.example.web.bean.TrimBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
+@HttpApiGroup("全局清除空格")
 public class TrimDemoController {
 
     @PostMapping    (value = "/test/trim")
+    @HttpApi("_清除空格测试")
     public void trim(@RequestBody TrimBean trimBean) {
         log.info("trim bean {}:", GsonUtil.toJson(trimBean));
     }
