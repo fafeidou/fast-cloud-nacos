@@ -4,16 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-common-examples</artifactId>
+        <artifactId>fast-common-grpc-starter-example</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-common-grpc-starter-example</artifactId>
+    <artifactId>grpc-starter-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>grpc-starter-provider</module>
-        <module>grpc-starter-api</module>
-    </modules>
+    <name>grpc-starter-api</name>
+    <dependencies>
+        <dependency>
+            <groupId>fast.cloud.nacos</groupId>
+            <artifactId>fast-common-grpc-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
