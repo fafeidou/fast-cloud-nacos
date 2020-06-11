@@ -19,6 +19,7 @@
         <module>fast-common-custom-mybatis</module>
         <module>fast-common-tenant</module>
         <module>fast-common-message-client</module>
+        <module>fast-common-grpc-starter</module>
     </modules>
 
     <dependencies>

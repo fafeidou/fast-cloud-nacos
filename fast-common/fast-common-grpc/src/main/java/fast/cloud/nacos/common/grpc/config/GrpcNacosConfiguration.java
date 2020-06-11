@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import java.net.URI;
 
 @Configuration
-public class GrpcEurekaConfiguration {
+public class GrpcNacosConfiguration {
     @Value("${nacos.addr}")
     private String serverAddr;
 

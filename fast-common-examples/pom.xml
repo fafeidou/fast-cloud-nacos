@@ -29,6 +29,7 @@
         <module>fast-common-sharding-encryptor-example</module>
         <module>fast-common-websocket-simple-example</module>
         <module>fast-common-websocket-stomp-example</module>
+        <module>fast-common-grpc-starter-example</module>
     </modules>
     <dependencies>
 

@@ -52,6 +52,7 @@ fast-cloud-nacos
        |---------------fast-common-model      工程公用的model
        |---------------fast-common-mybatis    mybatis-plus 整理到接口
        |---------------fast-common-grpc       grpc端口注册到nacos并且实现负载均衡
+       |---------------fast-common-grpc-starter       grpc整合spring
        |---------------fast-common-custom-mybatis  自定义mybatis
        |---------------fast-common-tenant          通用多租户底层实现
 |---------------fast-common-examples
@@ -62,6 +63,7 @@ fast-cloud-nacos
        |---------------fast-common-example-web                        做国际化和swagger统一配置、异常处理
        |---------------fast-common-grpc-example                       grpc 提供客户端服务端
        |---------------fast-common-grpc-proto                         grpc idl proto生成
+       |---------------fast-common-grpc-starter-example               grpc 整合springboot 
        |---------------fast-common-jvm-example                        jvm的案例
        |---------------fast-common-nacos-grpc-example                 nacos整合grpc负载均衡
        |---------------fast-common-rocketmq-example                   rocketmq测试样例
