@@ -14,6 +14,7 @@
     <modules>
         <module>grpc-starter-provider</module>
         <module>grpc-starter-api</module>
+        <module>grpc-starter-client</module>
     </modules>
 
 </project>
