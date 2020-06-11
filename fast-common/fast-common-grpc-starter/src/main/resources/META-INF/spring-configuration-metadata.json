@@ -1,0 +1,44 @@
+{
+  "groups": [
+    {
+      "name": "spring.grpc",
+      "type": "fast.cloud.nacos.grpc.starter.config.GrpcProperties",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.grpc.client-interceptor",
+      "type": "java.lang.Class",
+      "description": "client interceptor",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties"
+    },
+    {
+      "name": "spring.grpc.enable",
+      "type": "java.lang.Boolean",
+      "description": "enable server start",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.grpc.port",
+      "type": "java.lang.Integer",
+      "description": "server listen port",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.grpc.remote-servers",
+      "type": "java.util.List<fast.cloud.nacos.grpc.starter.config.RemoteServer>",
+      "description": "client config",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties"
+    },
+    {
+      "name": "spring.grpc.server-interceptor",
+      "type": "java.lang.Class",
+      "description": "server interceptor",
+      "sourceType": "fast.cloud.nacos.grpc.starter.config.GrpcProperties"
+    }
+  ],
+  "hints": []
+}
