@@ -42,6 +42,7 @@ public class ProtobufUtils {
         RuntimeSchema<T> schema = RuntimeSchema.createFrom(clazz);
         T message = schema.newMessage();
         ProtostuffIOUtil.mergeFrom(data, message, schema);
+
         return message;
     }
 

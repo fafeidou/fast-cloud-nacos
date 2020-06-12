@@ -29,7 +29,7 @@ public class ProtoStuffSerializeService implements SerializeService {
 
     @Override
     public ByteString serialize(GrpcRequest request) {
-        return  ByteString.copyFrom(ProtobufUtils.serialize(request));
+        return ByteString.copyFrom(ProtobufUtils.serialize(request));
     }
 
 }
