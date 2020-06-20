@@ -2,6 +2,7 @@ package fast.cloud.nacos.example.web.controller;
 
 import fast.cloud.nacos.common.model.model.CommonCode;
 import fast.cloud.nacos.common.model.response.ApiResponse;
+import fast.cloud.nacos.common.model.utils.GsonUtil;
 import fast.cloud.nacos.example.web.bean.HttpApiInfo;
 import fast.cloud.nacos.example.web.service.HttpApiCollector;
 import java.io.ByteArrayInputStream;
@@ -37,7 +38,9 @@ public class PrivilegeController {
     @RequestMapping({"collect"})
     public ApiResponse<List<HttpApiInfo>> collect() {
         try {
-            return new ApiResponse(this.httpApiCollector.get());
+            List<HttpApiInfo> httpApiInfos = this.httpApiCollector.get();
+            logger.info("response:{}", GsonUtil.toJson(httpApiInfos));
+            return new ApiResponse(httpApiInfos);
         } catch (ExecutionException var2) {
             this.logger.error("获取权限出错了!", var2);
             return new ApiResponse<>(CommonCode.FAIL);
