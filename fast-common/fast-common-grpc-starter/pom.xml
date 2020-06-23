@@ -84,6 +84,13 @@
             <version>1.6.0</version>
         </dependency>
 
+        <!-- 用于创建对象 -->
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>2.2</version>
+        </dependency>
+
         <!-- FastJSON 序列化/反序列化 -->
         <dependency>
             <groupId>com.alibaba</groupId>
