@@ -53,6 +53,7 @@ public class BasicThreadPool extends Thread implements ThreadPool {
     }
 
     private void init() {
+        this.start();
         for (int i = 0; i < initSize; i++) {
             newThread();
         }
@@ -64,6 +65,7 @@ public class BasicThreadPool extends Thread implements ThreadPool {
         ThreadTask threadTask = new ThreadTask(internalTask, thread);
         threadQueue.offer(threadTask);
         this.activeCount++;
+        thread.start();
     }
 
     @Override

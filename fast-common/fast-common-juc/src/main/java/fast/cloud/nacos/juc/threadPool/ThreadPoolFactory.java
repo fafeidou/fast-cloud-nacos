@@ -14,7 +14,8 @@ public interface ThreadPoolFactory {
     class DefaultThreadPoolFactory implements ThreadPoolFactory {
 
         AtomicInteger INCREMENT = new AtomicInteger(1);
-        ThreadGroup threadGroup = new ThreadGroup("DEFAULT_THREAD_GROUP");
+        AtomicInteger GROUP_INCREMENT = new AtomicInteger(1);
+        ThreadGroup threadGroup = new ThreadGroup("DEFAULT_THREAD_GROUP"+GROUP_INCREMENT.incrementAndGet());
 
         @Override
         public Thread createThread(Runnable runnable) {
