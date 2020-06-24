@@ -22,7 +22,7 @@ fast-cloud-nacos
                 |---------------bus-rabbit-provider  stream rabbit
                 |---------------bus-rocket-consumer  stream rocket
                 |---------------bus-rocket-provider  stream rocket
-       |---------------cloud-rpc-examples
+       |---------------cloud-rpc-examples            包括微服务调用怎么记录traceId和spanId
                 |---------------api-gateway          spring cloud gateway 网关
                 |---------------gateway-limiter      gateway实现限流
                 |---------------nacos-zipkin         zipkin链路追踪
@@ -52,9 +52,10 @@ fast-cloud-nacos
        |---------------fast-common-model      工程公用的model
        |---------------fast-common-mybatis    mybatis-plus 整理到接口
        |---------------fast-common-grpc       grpc端口注册到nacos并且实现负载均衡
-       |---------------fast-common-grpc-starter       grpc整合spring
+       |---------------fast-common-grpc-starter       grpc整合spring，抽取通用的protobuf文件
        |---------------fast-common-custom-mybatis  自定义mybatis
        |---------------fast-common-tenant          通用多租户底层实现
+       |---------------fast-common-juc          juc的一些demo
 |---------------fast-common-examples
        |---------------fast-common-es-example
                 |---------------fast-common-es-jest-client-example    jest es客户端
@@ -64,6 +65,9 @@ fast-cloud-nacos
        |---------------fast-common-grpc-example                       grpc 提供客户端服务端
        |---------------fast-common-grpc-proto                         grpc idl proto生成
        |---------------fast-common-grpc-starter-example               grpc 整合springboot 
+                |---------------grpc-starter-api                      grpc api接口抽取
+                |---------------grpc-starter-client                   grpc 消费方
+                |---------------grpc-starter-provider                 grpc 服务提供方
        |---------------fast-common-jvm-example                        jvm的案例
        |---------------fast-common-nacos-grpc-example                 nacos整合grpc负载均衡
        |---------------fast-common-rocketmq-example                   rocketmq测试样例
