@@ -1,4 +1,4 @@
- 类的加载过程
+ 
 
 #  类的加载过程及简介
 
@@ -70,6 +70,54 @@ public class Singleton {
 ```
 
 程序的输出结果是什么呢，如果1和2的位置切换，结果又是什么呢？
+
+
+```java
+    //1
+    private static int x = 0;
+
+    private static int y;
+
+    private static Singleton instance = new Singleton(); //2
+```
+
+在连接阶段准备过程中，每个变量都被赋予了相应的初始值
+
+x=0 , y=0 , instance = null
+
+下面跳过解析过程，再来看类的初始化阶段，初始化阶段会为每一个类变量赋值
+
+x = 0 , y = 0 , instance = new Singleton()
+
+在net Singleton()的时候，会执行构造函数，x和y会自增，因此结果为：
+
+x = 1, y = 1
+
+再来看调换顺序之后的输出
+
+
+```java
+    private static Singleton instance = new Singleton(); //2
+    //1
+    private static int x = 0;
+
+    private static int y;
+
+```
+
+在连接阶段准备过程中，每个变量都被赋予了相应的初始值
+
+instance = null, x=0 , y=0 
+
+在类的初始化阶段，需要为每一个类赋予程序编写时所期待的正确的初始值，首先会进入instance的构造函数中
+
+
+instance = new Singleton(), x=1, y=1
+
+然后，为x初始化，由于x没有显式的赋值，因此0才是所期望的值，而y没有给定初始值，在构造函数中计算所得的值就是正确赋值，因此结果
+会变成：
+
+instance = new Singleton(), x=0, y=1
 
 
 
