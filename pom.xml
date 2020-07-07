@@ -22,6 +22,7 @@
         <module>seata</module>
     </modules>
     <properties>
+        <skywalking.version>6.5.0</skywalking.version>
         <grpc.version>1.13.1</grpc.version>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
