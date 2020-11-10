@@ -38,7 +38,7 @@ public class ShardingDbUtil {
      * 根据用户信息和DB个数，计算实际表的编号
      */
     public static int getActualTableIndex(Long shardingInfo, int tableNum) {
-        return (intHash(shardingInfo.intValue())) % tableNum;
+        return (intHash(shardingInfo.intValue())) % tableNum + 1;
     }
 
     public static int RSHash(String str) {

@@ -40,6 +40,6 @@
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0-RC1</version>
         </dependency>
-    </dependencies>\
+    </dependencies>
 
 </project>
