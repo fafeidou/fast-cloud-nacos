@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * @author qinfuxiang
+ */
 @Service
 public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
 
@@ -69,6 +72,9 @@ public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
             return "delete fail";
         }
 
+    }
+
+    public void list() {
     }
 
     @Override
