@@ -30,6 +30,7 @@
         <module>fast-common-websocket-simple-example</module>
         <module>fast-common-websocket-stomp-example</module>
         <module>fast-common-grpc-starter-example</module>
+        <module>fast-commmon-prometheus-example</module>
     </modules>
     <dependencies>
 
