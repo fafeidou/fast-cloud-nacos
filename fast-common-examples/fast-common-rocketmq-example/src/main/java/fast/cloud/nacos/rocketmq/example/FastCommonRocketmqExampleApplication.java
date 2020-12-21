@@ -34,6 +34,7 @@ public class FastCommonRocketmqExampleApplication {
     @Service
     @RocketMQMessageListener(topic = "test-topic-1", consumerGroup = "my-consumer_test-topic-1")
     public static class MyConsumer1 implements RocketMQListener<String> {
+        @Override
         public void onMessage(String message) {
             log.info("received message: {}", message);
         }

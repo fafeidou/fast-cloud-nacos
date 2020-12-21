@@ -1,0 +1,6 @@
+app:
+    id: service-gateway-sentinel
+apollo:
+    meta: http://192.168.41.160:8080
+    bootstrap:
+        enabled: true

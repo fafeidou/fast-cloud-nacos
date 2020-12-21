@@ -1,0 +1,30 @@
+server:
+    port: 28080
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    application:
+        name: service-gateway-sentinel
+    cloud:
+        sentinel:
+            transport:
+                dashboard: localhost:8080
+                port: 8717
+            datasource:
+                ds1:
+                    apollo:
+                        namespace-name: application
+                        flow-rules-key: ${spring.application.name}-${spring.cloud.sentinel.datasource.ds1.apollo.rule-type}
+                        rule-type: gw-flow
+        gateway:
+            enabled: true
+            discovery:
+                locator:
+                    lower-case-service-id: true
+            routes:
+                - id: consumer_server
+                  uri: lb://service-consumer-fallback-sentinel
+                  predicates:
+                      - Path=/service-consumer-fallback-sentinel/**
+                  filters:
+                      - StripPrefix=1
