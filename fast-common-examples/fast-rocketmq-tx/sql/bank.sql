@@ -1,3 +1,4 @@
+-----------------可靠性消息实现
 CREATE DATABASE `bank1` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 
 DROP TABLE
@@ -49,3 +50,52 @@ CREATE TABLE `de_duplication` (
 	PRIMARY KEY ( `tx_no` ) USING BTREE
 ) ENGINE = INNODB CHARACTER
 SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+
+-------------------------最大努力通知
+
+
+CREATE DATABASE `bank1` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+DROP TABLE
+IF
+	EXISTS `account_info`;
+CREATE TABLE `account_info` (
+	`id` BIGINT ( 20 ) NOT NULL AUTO_INCREMENT,
+	`account_name` VARCHAR ( 100 ) CHARACTER
+	SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '户 主姓名',
+	`account_no` VARCHAR ( 100 ) CHARACTER
+	SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '银行卡号',
+	`account_password` VARCHAR ( 100 ) CHARACTER
+	SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '帐户密码',
+	`account_balance` DOUBLE NULL DEFAULT NULL COMMENT '帐户余额',
+	PRIMARY KEY ( `id` ) USING BTREE
+) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER
+SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+INSERT INTO `account_info`
+VALUES
+	( 2, '张三的账户', '1', '', 10000 );
+DROP TABLE
+IF
+	EXISTS `de_duplication`;
+CREATE TABLE `de_duplication` (
+	`tx_no` VARCHAR ( 64 ) COLLATE utf8_bin NOT NULL,
+	`create_time` datetime ( 0 ) NULL DEFAULT NULL,
+	PRIMARY KEY ( `tx_no` ) USING BTREE
+) ENGINE = INNODB CHARACTER
+SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+
+
+CREATE DATABASE `bank1_pay` CHARACTER
+SET 'utf8' COLLATE 'utf8_general_ci';
+CREATE TABLE `account_pay` (
+	`id` VARCHAR ( 64 ) COLLATE utf8_bin NOT NULL,
+	`account_no` VARCHAR ( 100 ) CHARACTER
+	SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '账号',
+	`pay_amount` DOUBLE NULL DEFAULT NULL COMMENT '充值余额',
+	`result` VARCHAR ( 20 ) COLLATE utf8_bin DEFAULT NULL COMMENT '充值结果:success，fail',
+	PRIMARY KEY ( `id` ) USING BTREE
+) ENGINE = INNODB AUTO_INCREMENT = 5 CHARACTER
+SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+

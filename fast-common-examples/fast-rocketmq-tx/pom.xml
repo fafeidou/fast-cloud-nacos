@@ -15,6 +15,18 @@
     <modules>
         <module>rocketmq-tx-bank1</module>
         <module>rocketmq-tx-bank2</module>
+        <module>rocketmq-notify-bank2</module>
+        <module>rocketmq-notify-bank-one</module>
+
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>1.1.10</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
