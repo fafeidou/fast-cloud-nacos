@@ -77,6 +77,11 @@ fast-cloud-nacos
        |---------------fast-common-sharding-vertial-subdivision       sharding jdbc 垂直分库及公共表
        |---------------fast-common-tenant-example                     多租户常见案例
        |---------------fast-common-webflux-client                     webflux的通用客户端
+       |---------------fast-common-websocket-simple-example           简单的websocket的demo
+       |---------------fast-common-websocket-stomp-example            通过stomp实现的websocket
+       |---------------fast-rocketmq-tx                               rocketmq实现分布式事务
+                |---------------rocketmq-tx-bank1                     可靠性消息实现分布式事务demo1
+                |---------------rocketmq-tx-bank2                     可靠性消息实现分布式事务demo2
 |---------------fast-source-code-analysis
        |---------------code-mybatis                                   mybatis源码分析以及测试mybatis的自定义
        |---------------code-spring                                    spring源码分析专用
