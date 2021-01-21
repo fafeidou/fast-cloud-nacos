@@ -31,7 +31,16 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public MyRoute list() {
-        return dynamicRouteServiceImplByNacos.getMyRoute();
+        MyRoute route = new MyRoute();
+        List<RouteDetail> routeDetailList = new ArrayList<>();
+
+        List<RouteDefinition> routeDefinitionList = listDefinition();
+        routeDefinitionList.forEach(routeDefinition -> {
+            RouteDetail routeDetail = new RouteDetail();
+            routeDetail.setRouteDefinition(routeDefinition);
+            routeDetailList.add(routeDetail);
+        });
+        return route;
     }
 
     @Override

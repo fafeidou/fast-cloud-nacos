@@ -53,7 +53,7 @@ spring:
             - StripPrefix=1
     nacos:
       discovery:
-        server-addr: 192.168.56.121:8848 # 使用nacos作为注册中心
+        server-addr: localhost:8848 # 使用nacos作为注册中心
 
 logging:
   level:

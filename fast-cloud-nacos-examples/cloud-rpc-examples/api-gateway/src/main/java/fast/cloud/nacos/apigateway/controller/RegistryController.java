@@ -1,6 +1,8 @@
 package fast.cloud.nacos.apigateway.controller;
 
+import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.exception.NacosException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,10 @@ public class RegistryController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
+
+
     @GetMapping("/listAll")
     public Mono<String> listAll(ServerWebExchange exchange) {
         return Mono.just(JSON.toJSONString(getAll()));
@@ -38,9 +44,9 @@ public class RegistryController {
     public Mono<String> list(ServerWebExchange exchange) {
         //获取各服务注册信息
         Map<String, List<ServiceInstance>> gatewayInstanceMap = new HashMap<>();
-        discoveryClient.getServices().forEach(service ->{
+        discoveryClient.getServices().forEach(service -> {
             List<ServiceInstance> serviceInstanceList = discoveryClient.getInstances(service);
-            if (serviceInstanceList != null){
+            if (serviceInstanceList != null) {
                 gatewayInstanceMap.put(service, serviceInstanceList);
             }
         });
@@ -58,12 +64,18 @@ public class RegistryController {
         }
     }
 
+    @GetMapping("/deregisterInstance")
+    public String shutDown() throws NacosException {
+        nacosDiscoveryProperties.namingServiceInstance().deregisterInstance("api-gateway", "10.192.233.21", 18085);
+        return "deregisterInstance";
+    }
+
     private Map<String, List<ServiceInstance>> getAll() {
         Map<String, List<ServiceInstance>> allInstanceMap = new HashMap<>();
         List<String> allServiceNames = discoveryClient.getServices();
-        for (String serviceName : allServiceNames){
+        for (String serviceName : allServiceNames) {
             List<ServiceInstance> serviceInstanceList = discoveryClient.getInstances(serviceName);
-            if (serviceInstanceList != null){
+            if (serviceInstanceList != null) {
                 allInstanceMap.put(serviceName, serviceInstanceList);
             }
         }
