@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+    fluent.conf: |-
+        # This is the root config file, which only includes components of the actual configuration
+        #
+        #  Do not collect fluentd's own logs to avoid infinite loops.
+        <match fluent.**>
+        @type null
+        </match>
+
+        @include /fluentd/etc/config.d/*.conf
+kind: ConfigMap
+metadata:
+    labels:
+        addonmanager.kubernetes.io/mode: Reconcile
+    name: fluentd-es-config-main
+    namespace: logging

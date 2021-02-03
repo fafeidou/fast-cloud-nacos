@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kibana
+    namespace: logging
+    labels:
+        app: kibana
+spec:
+    selector:
+        matchLabels:
+            app: kibana
+    template:
+        metadata:
+            labels:
+                app: kibana
+        spec:
+            containers:
+                - name: kibana
+                  image: kibana:7.4.2
+                  resources:
+                      limits:
+                          cpu: 1000m
+                      requests:
+                          cpu: 100m
+                  env:
+                      - name: ELASTICSEARCH_URL
+                        value: http://elasticsearch:9200
+                  ports:
+                      - containerPort: 5601
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: kibana
+    namespace: logging
+    labels:
+        app: kibana
+spec:
+    ports:
+        - port: 5601
+          protocol: TCP
+          targetPort: 5601
+    type: ClusterIP
+    selector:
+        app: kibana
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: kibana
+    namespace: logging
+spec:
+    rules:
+        - host: kibana.devops.cn
+          http:
+              paths:
+                  - path: /
+                    backend:
+                        serviceName: kibana
+                        servicePort: 5601

@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: fluentd-es
+    namespace: logging
+    labels:
+        k8s-app: fluentd-es
+        kubernetes.io/cluster-service: "true"
+        addonmanager.kubernetes.io/mode: Reconcile
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    name: fluentd-es
+    labels:
+        k8s-app: fluentd-es
+        kubernetes.io/cluster-service: "true"
+        addonmanager.kubernetes.io/mode: Reconcile
+rules:
+    - apiGroups:
+          - ""
+      resources:
+          - "namespaces"
+          - "pods"
+      verbs:
+          - "get"
+          - "watch"
+          - "list"
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+    name: fluentd-es
+    labels:
+        k8s-app: fluentd-es
+        kubernetes.io/cluster-service: "true"
+        addonmanager.kubernetes.io/mode: Reconcile
+subjects:
+    - kind: ServiceAccount
+      name: fluentd-es
+      namespace: logging
+      apiGroup: ""
+roleRef:
+    kind: ClusterRole
+    name: fluentd-es
+    apiGroup: ""
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+    labels:
+        addonmanager.kubernetes.io/mode: Reconcile
+        k8s-app: fluentd-es
+    name: fluentd-es
+    namespace: logging
+spec:
+    selector:
+        matchLabels:
+            k8s-app: fluentd-es
+    template:
+        metadata:
+            labels:
+                k8s-app: fluentd-es
+        spec:
+            containers:
+                - env:
+                      - name: FLUENTD_ARGS
+                        value: --no-supervisor -q
+                  image: 172.21.32.6:5000/fluentd-es-root:v1.6.2-1.0
+                  imagePullPolicy: IfNotPresent
+                  name: fluentd-es
+                  resources:
+                      limits:
+                          memory: 500Mi
+                      requests:
+                          cpu: 100m
+                          memory: 200Mi
+                  volumeMounts:
+                      - mountPath: /var/log
+                        name: varlog
+                      - mountPath: /var/lib/docker/containers
+                        name: varlibdockercontainers
+                        readOnly: true
+                      - mountPath: /home/docker/containers
+                        name: varlibdockercontainershome
+                        readOnly: true
+                      - mountPath: /fluentd/etc/config.d
+                        name: config-volume
+                      - mountPath: /fluentd/etc/fluent.conf
+                        name: config-volume-main
+                        subPath: fluent.conf
+            nodeSelector:
+                fluentd: "true"
+            securityContext: {}
+            serviceAccount: fluentd-es
+            serviceAccountName: fluentd-es
+            volumes:
+                - hostPath:
+                      path: /var/log
+                      type: ""
+                  name: varlog
+                - hostPath:
+                      path: /var/lib/docker/containers
+                      type: ""
+                  name: varlibdockercontainers
+                - hostPath:
+                      path: /home/docker/containers
+                      type: ""
+                  name: varlibdockercontainershome
+                - configMap:
+                      defaultMode: 420
+                      name: fluentd-config
+                  name: config-volume
+                - configMap:
+                      defaultMode: 420
+                      items:
+                          - key: fluent.conf
+                            path: fluent.conf
+                      name: fluentd-es-config-main
+                  name: config-volume-main
