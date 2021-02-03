@@ -57,6 +57,8 @@ fast-cloud-nacos
        |---------------fast-common-tenant          通用多租户底层实现
        |---------------fast-common-juc          juc的一些demo
 |---------------fast-common-examples
+       |---------------fast-commmon-prometheus-example                k8s部署pro、grafana监控springboot
+       |---------------fast-common-apollo-example                     apollo学习
        |---------------fast-common-es-example
                 |---------------fast-common-es-jest-client-example    jest es客户端
                 |---------------fast-common-es-jpa-example            jap es客户端
