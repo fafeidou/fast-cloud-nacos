@@ -4,21 +4,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>fast-cloud-nacos-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>cloud-stream-examples</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <packaging>pom</packaging>
+    <name>cloud-stream-example</name>
     <modules>
-        <module>cloud-stream-examples</module>
-        <module>dubbo-examples</module>
-        <module>sentinel-examples</module>
-        <module>cloud-rpc-examples</module>
-        <module>spring-security-examples</module>
+        <module>bus-rocket-consumer</module>
+        <module>bus-rocket-provider</module>
+        <module>bus-rabbit-provider</module>
+        <module>bus-rabbit-consumer</module>
+        <module>bus-kafka-consumer</module>
+        <module>bus-kafka-provider</module>
     </modules>
+    <properties>
+    </properties>
 
     <dependencies>
 

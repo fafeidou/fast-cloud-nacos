@@ -15,13 +15,13 @@ fast-cloud-nacos
        |---------------spring-webflux-client         远程调用webflux 
        |---------------spring-webmvc                 xml配置webmvc 
 |---------------fast-cloud-nacos-examples
-       |---------------cloud-bus-examples
-                |---------------bus-kafka-consumer   stream kafka TODO
-                |---------------bus-kafka-provider   stream kafka TODO
-                |---------------bus-rabbit-consumer  stream rabbit
-                |---------------bus-rabbit-provider  stream rabbit
-                |---------------bus-rocket-consumer  stream rocket
-                |---------------bus-rocket-provider  stream rocket
+       |---------------cloud-stream-examples
+                |---------------stream-kafka-consumer   stream kafka TODO
+                |---------------stream-kafka-provider   stream kafka TODO
+                |---------------stream-rabbit-consumer  stream rabbit
+                |---------------stream-rabbit-provider  stream rabbit
+                |---------------stream-rocket-consumer  stream rocket
+                |---------------stream-rocket-provider  stream rocket
        |---------------cloud-rpc-examples            包括微服务调用怎么记录traceId和spanId
                 |---------------api-gateway          spring cloud gateway 网关
                 |---------------gateway-limiter      gateway实现限流

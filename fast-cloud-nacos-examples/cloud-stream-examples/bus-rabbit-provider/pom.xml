@@ -4,24 +4,28 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fast.cloud.nacos</groupId>
-        <artifactId>fast-cloud-nacos</artifactId>
+        <artifactId>cloud-stream-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>fast-cloud-nacos-examples</artifactId>
+    <artifactId>bus-rabbit-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>bus-rabbit-provider</name>
 
-    <modules>
-        <module>cloud-stream-examples</module>
-        <module>dubbo-examples</module>
-        <module>sentinel-examples</module>
-        <module>cloud-rpc-examples</module>
-        <module>spring-security-examples</module>
-    </modules>
+    <properties>
+
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
