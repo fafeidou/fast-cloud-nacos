@@ -6,6 +6,7 @@ import fast.cloud.nacos.common.model.response.PaginationResponse;
 import fast.cloud.nacos.mybatis.bean.request.MyBaseRequest;
 import fast.cloud.nacos.mybatis.condition.DemoCondition;
 import fast.cloud.nacos.mybatis.entity.DemoEntity;
+import fast.cloud.nacos.mybatis.enums.GradeEnum;
 import fast.cloud.nacos.mybatis.mapper.DemoMapper;
 import fast.cloud.nacos.mybatis.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class FastCommonMybatisApplicationTests {
     private DemoMapper demoMapper;
 
     @Test
-    public void testInsert() {
+    public void testSelect1() {
         MyBaseRequest<DemoCondition> request = new MyBaseRequest<>();
         DemoCondition demoCondition = new DemoCondition();
         demoCondition.setName("12");
@@ -47,6 +48,15 @@ public class FastCommonMybatisApplicationTests {
         Page<DemoEntity> demoEntityPage = demoService.initPage(request);
         List<DemoEntity> demoEntities = demoMapper.selectDemoPage(demoEntityPage);
         log.info("demoEntities:{}", demoEntities);
+    }
+
+    @Test
+    public void testInsert() {
+        DemoEntity entity = new DemoEntity();
+        entity.setId(1L);
+        entity.setGrade(GradeEnum.HIGH);
+        entity.setName("123123");
+        demoMapper.insert(entity);
     }
 
 }

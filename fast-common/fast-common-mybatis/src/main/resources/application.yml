@@ -3,12 +3,13 @@ mybatis-plus:
   type-aliases-package: fast.cloud.nacos.mybatis.entity # mybatis 扫遍实体类的位置
   configuration:
     map-underscore-to-camel-case: true  # 驼峰配置
+  type-enums-package: fast.cloud.nacos.mybatis.enums
 
 #配置数据源
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.56.121:33065/demo?useUnicode=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.56.120:33065/demo?useUnicode=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf8
     username: root
     password: root
 # 打印sql配置
