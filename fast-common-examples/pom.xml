@@ -32,6 +32,7 @@
         <module>fast-common-grpc-starter-example</module>
         <module>fast-commmon-prometheus-example</module>
         <module>fast-rocketmq-tx</module>
+        <module>fast-kafka-examples</module>
     </modules>
     <dependencies>
 
