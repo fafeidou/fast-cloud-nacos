@@ -12,13 +12,22 @@
     <!--  增加自定义数据处理  -->
     <property name="ENCODER_PATTERN"
               value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %p %X{trace:--} %X{span:--} %c.%M [%t]|%L|%m%n"/>
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%tid) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
 
     <!-- appender定义 -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn %-5p %m [%t] %c.%M\(%L\)%n</pattern>
         </encoder>
-    </appender>
+    </appender>-->
     <appender name="EVENT-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log-path}/event.log</file>
         <encoder>
@@ -95,6 +104,7 @@
 
     <!-- 默认logger配置 -->
     <logger name="fast.cloud.nacos" additivity="false">
+        <appender-ref ref="STDOUT" />
         <appender-ref ref="SERVICE-OUT"/>
     </logger>
 
