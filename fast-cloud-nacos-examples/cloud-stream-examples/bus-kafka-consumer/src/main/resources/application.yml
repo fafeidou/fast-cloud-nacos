@@ -3,10 +3,26 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 106.14.227.31:9092
+          brokers: 192.168.56.124:9092
+        bindings:
+          input:
+            consumer: # consumer 별 처리
+              # When set to true, it enables DLQ behavior for the consumer. By default, messages that result in errors are forwarded to a topic named error.<destination>.<group>.
+              # messages sent to the DLQ topic are enhanced with the following headers: x-original-topic, x-exception-message, and x-exception-stacktrace as byte[].
+              # By default, a failed record is sent to the same partition number in the DLQ topic as the original record.
+              enableDlq: true
+              dlqName: custom-message-dlq
+              keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              valueSerde: com.boot.kafa.consumer.dlq.model.CustomMessageSerde
+              autoCommitOnError: true
+              autoCommitOffset: true
       bindings:
         nanhuiMqSpringStreamConsumer:
           destination: greetings
           contentType: application/json
+        input:
+          group: kafka-streams-dlq-sample # must have group name
+          destination: custom-message-topic
+          useNativeDecoding: true
 server:
   port: 9999

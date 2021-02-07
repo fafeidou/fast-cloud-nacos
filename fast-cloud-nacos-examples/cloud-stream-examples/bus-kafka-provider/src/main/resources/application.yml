@@ -3,10 +3,13 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 106.14.227.31:9092
+          brokers: 192.168.56.124:9092
       bindings:
         nanhuiMqSpringStreamProducer:
           destination: greetings
+          contentType: application/json
+        output2:
+          destination: custom-message-topic
           contentType: application/json
 server:
   port: 8888
