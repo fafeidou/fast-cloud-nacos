@@ -2,7 +2,7 @@ server:
   port: 9999
 spring:
   rabbitmq:
-    host: 127.0.0.1
+    host: 192.168.56.124
     port: 5672
   cloud:
     stream:
