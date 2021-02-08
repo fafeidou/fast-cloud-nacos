@@ -2,3 +2,8 @@
 
 * https://github.com/phantasmicmeans/spring-boot-kafka-consumer-dlq
 
+* Spring Cloud Stream 进阶配置——高可用（一）——失败重试 https://www.jianshu.com/p/d5acbf4572a1
+
+* Spring Cloud Stream 进阶配置——高吞吐量（二）——弹性消费者数量 https://www.jianshu.com/p/7762411a823c
+
+* 
