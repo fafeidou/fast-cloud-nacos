@@ -13,12 +13,12 @@
     <packaging>pom</packaging>
     <name>cloud-stream-example</name>
     <modules>
-        <module>bus-rocket-consumer</module>
-        <module>bus-rocket-provider</module>
-        <module>bus-rabbit-provider</module>
-        <module>bus-rabbit-consumer</module>
-        <module>bus-kafka-consumer</module>
-        <module>bus-kafka-provider</module>
+        <module>stream-rocket-consumer</module>
+        <module>stream-rocket-provider</module>
+        <module>stream-rabbit-provider</module>
+        <module>stream-rabbit-consumer</module>
+        <module>stream-kafka-consumer</module>
+        <module>stream-kafka-provider</module>
     </modules>
     <properties>
     </properties>

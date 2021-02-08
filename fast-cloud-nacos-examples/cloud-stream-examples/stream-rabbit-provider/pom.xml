@@ -10,7 +10,7 @@
     <groupId>fast.cloud.nacos</groupId>
     <artifactId>bus-rabbit-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bus-rabbit-provider</name>
+    <name>stream-rabbit-provider</name>
 
     <properties>
 

@@ -16,8 +16,8 @@ fast-cloud-nacos
        |---------------spring-webmvc                 xml配置webmvc 
 |---------------fast-cloud-nacos-examples
        |---------------cloud-stream-examples
-                |---------------stream-kafka-consumer   stream kafka TODO
-                |---------------stream-kafka-provider   stream kafka TODO
+                |---------------stream-kafka-consumer   stream kafka 
+                |---------------stream-kafka-provider   stream kafka 
                 |---------------stream-rabbit-consumer  stream rabbit
                 |---------------stream-rabbit-provider  stream rabbit
                 |---------------stream-rocket-consumer  stream rocket
