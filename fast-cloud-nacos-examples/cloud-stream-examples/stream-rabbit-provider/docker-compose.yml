@@ -1,0 +1,36 @@
+version: "2"
+services:
+    rabbit1:
+        image: rabbitmq:3.8.3-management
+        hostname: rabbit1
+        ports:
+            - 5672:5672
+            - 15672:15672
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+
+    rabbit2:
+        image: rabbitmq:3.8.3-management
+        hostname: rabbit2
+        ports:
+            - 5673:5672
+            - 15673:15672
+        environment:
+            - CLUSTERED=true
+            - CLUSTER_WITH=rabbit1
+            - RAM_NODE=true
+        links:
+            - rabbit1
+
+    rabbit3:
+        image: rabbitmq:3.8.3-management
+        hostname: rabbit3
+        ports:
+            - 5674:5672
+        environment:
+            - CLUSTERED=true
+            - CLUSTER_WITH=rabbit1
+        links:
+            - rabbit1
+            - rabbit2
