@@ -6,7 +6,7 @@ spring:
           brokers: 192.168.56.124:9092
         bindings:
           input:
-            consumer: # consumer 별 처리
+            consumer:
               # When set to true, it enables DLQ behavior for the consumer. By default, messages that result in errors are forwarded to a topic named error.<destination>.<group>.
               # messages sent to the DLQ topic are enhanced with the following headers: x-original-topic, x-exception-message, and x-exception-stacktrace as byte[].
               # By default, a failed record is sent to the same partition number in the DLQ topic as the original record.
@@ -24,5 +24,10 @@ spring:
           group: kafka-streams-dlq-sample # must have group name
           destination: custom-message-topic
           useNativeDecoding: true
+          consumer:
+            maxAttempts: 3 # 当消息消费失败时，尝试消费该消息的最大次数（消息消费失败后，发布者会重新投递）。默认3
+            backOffInitialInterval: 1000 # 消息消费失败后重试消费消息的初始化间隔时间。默认1s，即第一次重试消费会在1s后进行
+            backOffMultiplier: 2 # 相邻两次重试之间的间隔时间的倍数。默认2，即第二次是第一次间隔时间的2倍，第三次是第二次的2倍
+            backOffMaxInterval: 10000 # 下一次尝试重试的最大时间间隔，默认为10000ms，即10s。
 server:
   port: 9999
