@@ -1,0 +1,44 @@
+version: "3.2"
+services:
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+        environment:
+            - "discovery.type=single-node"
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - data01:/usr/share/elasticsearch/data
+        container_name: elasticsearch
+        hostname: elasticsearch
+        restart: always
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        networks:
+            - elk
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.5.2
+        environment:
+            I18N_LOCALE: zh-CN
+        container_name: kibana
+        hostname: kibana
+        restart: always
+        ports:
+            - "5601:5601"
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
+
+volumes:
+    data01:
+        driver: local
+
+networks:
+    elk:
+        driver: bridge
