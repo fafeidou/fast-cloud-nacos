@@ -22,7 +22,7 @@ spec:
                 version: v7.4.2
         spec:
             nodeSelector:
-                log: "true"	## 指定部署在哪个节点。需根据环境来修改
+                log: "true"
             containers:
                 - env:
                       - name: NAMESPACE
@@ -33,7 +33,7 @@ spec:
                       - name: cluster.initial_master_nodes
                         value: elasticsearch-logging-0
                       - name: ES_JAVA_OPTS
-                        value: "-Xms512m -Xmx512m -XX:-UseConcMarkSweepGC  -XX:-UseCMSInitiatingOccupancyOnly -XX:+UseG1GC"
+                        value: "-Xms512m -Xmx512m"
                   image: elasticsearch:7.4.2
                   name: elasticsearch-logging
                   ports:
