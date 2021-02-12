@@ -18,3 +18,5 @@
 * 《再也不怕elasticsearch》es聚合使用与原理剖析 https://www.codenong.com/cs106385234/
 
 * Elasticsearch性能优化总结 https://zhuanlan.zhihu.com/p/43437056
+
+* K8S部署(Elasticsearch+Kibana+Fluentd) https://blog.csdn.net/liuchao666888/article/details/108625208
