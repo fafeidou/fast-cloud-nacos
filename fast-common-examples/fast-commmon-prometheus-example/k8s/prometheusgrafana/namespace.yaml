@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Namespace
-metadata: 
+metadata:
   name: ns-monitor
   labels:
     name: ns-monitor
