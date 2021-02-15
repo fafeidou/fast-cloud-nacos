@@ -6,4 +6,4 @@
 
 * Spring Cloud Stream 进阶配置——高吞吐量（二）——弹性消费者数量 https://www.jianshu.com/p/7762411a823c
 
-* 
+* Kafka Shell基本命令（包括topic的增删改查） https://www.cnblogs.com/xiaodf/p/6093261.html#9
