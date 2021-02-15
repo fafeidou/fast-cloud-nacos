@@ -1,0 +1,128 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-hs
+  namespace: tools
+  labels:
+    app: zk
+spec:
+  selector:
+    app: zk
+  clusterIP: None
+  ports:
+  - name: server
+    port: 2888
+  - name: leader-election
+    port: 3888
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-cs
+  namespace: tools
+  labels:
+    app: zk
+spec:
+  selector:
+    app: zk
+  type: NodePort
+  ports:
+  - name: client
+    port: 2181
+    nodePort: 31811
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: zk-pdb
+  namespace: tools
+spec:
+  selector:
+    matchLabels:
+      app: zk
+  maxUnavailable: 1
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zk
+  namespace: tools
+spec:
+  selector:
+    matchLabels:
+      app: zk # has to match .spec.template.metadata.labels
+  serviceName: "zk-hs"
+  replicas: 3 # by default is 1
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  template:
+    metadata:
+      labels:
+        app: zk # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: zk
+        imagePullPolicy: Always
+        image: leolee32/kubernetes-library:kubernetes-zookeeper1.0-3.4.10
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "0.5"
+        ports:
+        - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: server
+        - containerPort: 3888
+          name: leader-election
+        command:
+        - sh
+        - -c
+        - "start-zookeeper \
+        --servers=3 \
+        --data_dir=/var/lib/zookeeper/data \
+        --data_log_dir=/var/lib/zookeeper/data/log \
+        --conf_dir=/opt/zookeeper/conf \
+        --client_port=2181 \
+        --election_port=3888 \
+        --server_port=2888 \
+        --tick_time=2000 \
+        --init_limit=10 \
+        --sync_limit=5 \
+        --heap=512M \
+        --max_client_cnxns=60 \
+        --snap_retain_count=3 \
+        --purge_interval=12 \
+        --max_session_timeout=40000 \
+        --min_session_timeout=4000 \
+        --log_level=INFO"
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/lib/zookeeper
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "anything"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
