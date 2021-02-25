@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- springProfile用于指定当前激活的环境，如果spring.profile.active的值是哪个，就会激活对应节点下的配置 -->
+		<!-- configuration to be enabled when the "staging" profile is active -->
+		<springProperty scope="context" name="module" source="spring.application.name"
+						defaultValue="undefinded"/>
+		<!-- 该节点会读取Environment中配置的值，在这里我们读取application.yml中的值 -->
+		<springProperty scope="context" name="bootstrapServers" source="spring.kafka.bootstrap-servers"
+						defaultValue="192.168.56.124:9092"/>
+		<springProperty scope="context" name="PROFILE_ACTIVE" source="spring.profiles.active" defaultValue="default"/>
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<!-- encoders are assigned the type
+                 ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+			<encoder>
+				<pattern>%boldYellow(${module}) | %d | %highlight(%-5level)| %cyan(%logger{15}) - %msg %n</pattern>
+			</encoder>
+		</appender>
+		<!-- kafka的appender配置 -->
+		<appender name="kafka" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+			<encoder>
+				<pattern>${module} | %d | %-5level| %logger{15} - %msg</pattern>
+			</encoder>
+			<topic>${module}.log_${PROFILE_ACTIVE}</topic>
+			<keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy"/>
+			<deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+
+			<!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
+			<!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
+			<!-- bootstrap.servers is the only mandatory producerConfig -->
+			<producerConfig>bootstrap.servers=${bootstrapServers}</producerConfig>
+			<!-- don't wait for a broker to ack the reception of a batch.  -->
+			<producerConfig>acks=0</producerConfig>
+			<!-- wait up to 1000ms and collect log messages before sending them as a batch -->
+			<producerConfig>linger.ms=1000</producerConfig>
+			<!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
+			<producerConfig>max.block.ms=0</producerConfig>
+
+			<!-- 如果kafka不可用则输出到控制台 -->
+			<appender-ref ref="STDOUT"/>
+
+		</appender>
+		<!-- 指定项目中的logger -->
+		<!--<logger name="org.springframework.test" level="INFO" >
+			<appender-ref ref="kafka" />
+		</logger>-->
+		<logger name="fast.cloud.elk.controller" level="INFO" >
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="kafka" />
+		</logger>
+		<root level="info">
+			<appender-ref ref="STDOUT" />
+		</root>
+</configuration>

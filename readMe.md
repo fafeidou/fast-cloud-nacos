@@ -81,6 +81,7 @@ fast-cloud-nacos
        |---------------fast-common-webflux-client                     webflux的通用客户端
        |---------------fast-common-websocket-simple-example           简单的websocket的demo
        |---------------fast-common-websocket-stomp-example            通过stomp实现的websocket
+       |---------------fast-elk-example                               springboot kafka日志发送到elk
        |---------------fast-rocketmq-tx                               rocketmq实现分布式事务
                 |---------------rocketmq-tx-bank1                     可靠性消息实现分布式事务demo1
                 |---------------rocketmq-tx-bank2                     可靠性消息实现分布式事务demo2

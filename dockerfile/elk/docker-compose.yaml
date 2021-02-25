@@ -20,7 +20,22 @@ services:
             - "9300:9300"
         networks:
             - elk
-
+    logstash:
+        image: docker.elastic.co/logstash/logstash:7.5.2
+        container_name: logstash
+        hostname: logstash
+        restart: always
+        privileged: true
+        volumes:
+            - /etc/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+            - /etc/logstash/conf.d/:/usr/share/logstash/conf.d/
+        ports:
+            - 9600:9600
+            - 5044:5044
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
     kibana:
         image: docker.elastic.co/kibana/kibana:7.5.2
         environment:

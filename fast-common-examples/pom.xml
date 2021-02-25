@@ -33,6 +33,7 @@
         <module>fast-commmon-prometheus-example</module>
         <module>fast-rocketmq-tx</module>
         <module>fast-kafka-examples</module>
+        <module>fast-elk-example</module>
     </modules>
     <dependencies>
 
