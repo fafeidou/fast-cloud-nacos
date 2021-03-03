@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    sentinel:
+        restart: always
+        image: docker.io/bladex/sentinel-dashboard
+        container_name: sentinel
+        ports:
+            - 8088:8088
+            - 8858:8858
