@@ -17,7 +17,7 @@ public class Storage {
 
     private Long id;
     private String commodityCode;
-    private Long count;
+    private Integer count;
 
 
 }
