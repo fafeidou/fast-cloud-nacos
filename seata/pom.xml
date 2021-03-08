@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>seata-common</module>
-        <module>order-service</module>
-        <module>storage-service</module>
+        <module>order-service-2pc</module>
+        <module>storage-service-2pc</module>
     </modules>
 
 

@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>storage-service</artifactId>
+    <artifactId>storage-service-2pc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>storage-service</name>
+    <name>storage-service-2pc</name>
 
     <properties>
         <java.version>1.8</java.version>

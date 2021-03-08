@@ -7,3 +7,5 @@
 * Seata AT 模式分布式事务源码分析 https://zhuanlan.zhihu.com/p/72408725
 
 * SpringCloud Alibaba微服务实战九 - Seata 容器化 https://www.cnblogs.com/hzcya1995/p/13295908.html
+
+* spring cloud seata 服务监控 https://blog.csdn.net/weixin_43931625/article/details/104625348

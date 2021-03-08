@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>order-service</artifactId>
+    <artifactId>order-service-2pc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service</name>
+    <name>order-service-2pc</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
