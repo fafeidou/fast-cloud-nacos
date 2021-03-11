@@ -1,18 +1,8 @@
-/*
- Navicat MySQL Data Transfer
+drop database  if exists `seata_order`;
 
- Source Server         : 192.168.56.124
- Source Server Type    : MySQL
- Source Server Version : 50733
- Source Host           : 192.168.56.124:33065
- Source Schema         : seata_order
+CREATE DATABASE `seata_order` charset utf8;
 
- Target Server Type    : MySQL
- Target Server Version : 50733
- File Encoding         : 65001
-
- Date: 04/03/2021 17:43:19
-*/
+use `seata_order`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
