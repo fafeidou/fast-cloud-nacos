@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fast.cloud.nacos.orderservicetcc.repository.OrderDAO" >
+    <update id="updateStatus" >
+        UPDATE `order_tbl` SET `status`=#{status} WHERE `id`=#{orderId};
+    </update>
+    <delete id="deleteById">
+        DELETE FROM `order_tbl` WHERE `id`=#{orderId}
+    </delete>
+</mapper>

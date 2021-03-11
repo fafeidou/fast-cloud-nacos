@@ -89,7 +89,9 @@ fast-cloud-nacos
        |---------------code-mybatis                                   mybatis源码分析以及测试mybatis的自定义
        |---------------code-spring                                    spring源码分析专用
 |---------------seata
-       |---------------order-service                                  订单服务
-       |---------------seata-common                                   公共模块
-       |---------------storage-service                                库存服务
+       |---------------order-service-2pc                                  订单服务
+       |---------------order-service-tcc                                  订单服务
+       |---------------seata-common                                       公共模块
+       |---------------storage-service-2pc                                库存服务
+       |---------------storage-service-tcc                                库存服务
 ```

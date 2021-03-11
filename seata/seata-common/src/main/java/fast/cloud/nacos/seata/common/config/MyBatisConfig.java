@@ -62,9 +62,9 @@ public class MyBatisConfig {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
         bean.setDataSource(dataSourceProxy);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        // bean.setConfigLocation(resolver.getResource("classpath:mybatis-config.xml"));
-        bean.setMapperLocations(resolver.getResources("classpath*:mybatis/**/*-mapper.xml"));
-
+        bean.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
+        org.apache.ibatis.session.Configuration configuration = bean.getObject().getConfiguration();
+        configuration.setMapUnderscoreToCamelCase(true);
         SqlSessionFactory factory = null;
         try {
             factory = bean.getObject();

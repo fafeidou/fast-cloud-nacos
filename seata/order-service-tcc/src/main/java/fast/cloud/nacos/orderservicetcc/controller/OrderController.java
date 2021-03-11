@@ -1,13 +1,13 @@
-package fast.cloud.nacos.orderservice.controller;
+package fast.cloud.nacos.orderservicetcc.controller;
 
-import fast.cloud.nacos.orderservice.feign.StorageFeignClient;
-import fast.cloud.nacos.orderservice.service.OrderService;
+import fast.cloud.nacos.orderservicetcc.service.OrderService;
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Classname OrderController
+ * @Description TODO
  * @Date 2020/4/4 21:04
  * @Created by qinfuxiang
  */
@@ -17,8 +17,6 @@ public class OrderController {
 
     @Resource
     private OrderService orderService;
-    @Resource
-    private StorageFeignClient storageFeignClient;
 
 
     /**
@@ -26,7 +24,6 @@ public class OrderController {
      */
     @RequestMapping("/placeOrder/commit")
     public Boolean placeOrderCommit() {
-
         orderService.placeOrder("1", "product-1", 1);
         return true;
     }

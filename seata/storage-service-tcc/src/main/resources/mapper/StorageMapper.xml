@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fast.cloud.nacos.repository.StorageDAO" >
+    <resultMap id="BaseResultMap" type="fast.cloud.nacos.entity.Storage" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="product_id" property="productId" jdbcType="VARCHAR" />
+        <result column="total" property="total" jdbcType="INTEGER" />
+        <result column="used" property="used" jdbcType="INTEGER" />
+        <result column="residue" property="residue" jdbcType="INTEGER" />
+    </resultMap>
+    <update id="decrease">
+    UPDATE storage SET used = used + #{count},residue = residue - #{count} WHERE product_id = #{productId}
+  </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM storage WHERE `product_id`=#{productId}
+    </select>
+
+    <update id="updateFrozen">
+        UPDATE storage SET `residue`=#{residue},`frozen`=#{frozen} WHERE `product_id`=#{productId}
+    </update>
+
+    <update id="updateFrozenToUsed">
+        UPDATE storage SET `frozen`=`frozen`-#{count}, `used`=`used`+#{count} WHERE `product_id`=#{productId}
+    </update>
+
+    <update id="updateFrozenToResidue">
+        UPDATE storage SET `frozen`=`frozen`-#{count}, `residue`=`residue`+#{count} WHERE `product_id`=#{productId}
+    </update>
+
+    <select id="selectByProductId" resultMap="BaseResultMap">
+        select * from storage where product_id = #{productId} limit 1;
+    </select>
+</mapper>

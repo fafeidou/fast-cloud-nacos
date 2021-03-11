@@ -15,7 +15,9 @@
     <modules>
         <module>seata-common</module>
         <module>order-service-2pc</module>
+        <module>order-service-tcc</module>
         <module>storage-service-2pc</module>
+        <module>storage-service-tcc</module>
     </modules>
 
 
