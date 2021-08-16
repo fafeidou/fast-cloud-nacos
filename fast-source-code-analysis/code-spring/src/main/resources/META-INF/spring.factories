@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationListener=fast.cloud.nacos.listener.ApplicationListenerImpl2

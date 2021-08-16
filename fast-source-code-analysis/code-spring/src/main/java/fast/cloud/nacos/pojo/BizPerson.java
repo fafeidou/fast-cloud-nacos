@@ -29,23 +29,13 @@ public class BizPerson implements Person, BeanNameAware, BeanFactoryAware, Appli
     }
 
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        System.out.println(this.getClass().getSimpleName() + "调用BeanFactoryAware的setBeanFactory方法");
-    }
-
-    @Override
     public void setBeanName(String name) {
         System.out.println(this.getClass().getSimpleName() + "调用BeanNameAware的setBeanName方法");
     }
 
     @Override
-    public void destroy() throws Exception {
-        System.out.println(this.getClass().getSimpleName() + "调用DisposableBean的destroy方法");
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println(this.getClass().getSimpleName() + "调用InitializingBean的afterPropertiesSet方法");
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        System.out.println(this.getClass().getSimpleName() + "调用BeanFactoryAware的setBeanFactory方法");
     }
 
     @Override
@@ -58,8 +48,18 @@ public class BizPerson implements Person, BeanNameAware, BeanFactoryAware, Appli
         System.out.println(this.getClass().getSimpleName() + "调用@PostConstruct自定义的初始化方法");
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println(this.getClass().getSimpleName() + "调用InitializingBean的afterPropertiesSet方法");
+    }
+
     @PreDestroy
     public void destroy1() {
         System.out.println(this.getClass().getSimpleName() + "调用@PreDestroy自定义的销毁方法");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println(this.getClass().getSimpleName() + "调用DisposableBean的destroy方法");
     }
 }
