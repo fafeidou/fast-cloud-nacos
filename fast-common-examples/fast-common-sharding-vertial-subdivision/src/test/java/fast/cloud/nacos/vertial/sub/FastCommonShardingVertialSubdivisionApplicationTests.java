@@ -2,7 +2,7 @@ package fast.cloud.nacos.vertial.sub;
 
 import fast.cloud.nacos.vertial.sub.dao.DictDao;
 import fast.cloud.nacos.vertial.sub.dao.UserDao;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

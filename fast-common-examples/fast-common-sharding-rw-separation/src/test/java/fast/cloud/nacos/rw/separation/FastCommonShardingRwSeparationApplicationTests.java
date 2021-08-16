@@ -1,7 +1,7 @@
 package fast.cloud.nacos.rw.separation;
 
 import fast.cloud.nacos.rw.separation.dao.UserDao;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

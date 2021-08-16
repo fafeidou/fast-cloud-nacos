@@ -1,6 +1,6 @@
 package fast.cloud.nacos.common.tenant.utils;
 
-import org.apache.commons.lang.reflect.FieldUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 
