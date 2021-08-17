@@ -11,5 +11,6 @@ public class AppConfig {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         BizPerson bean = annotationConfigApplicationContext.getBean(BizPerson.class);
         bean.service();
+        annotationConfigApplicationContext.registerShutdownHook();
     }
 }
