@@ -34,6 +34,7 @@
         <module>fast-rocketmq-tx</module>
         <module>fast-kafka-examples</module>
         <module>fast-elk-example</module>
+        <module>fast-common-redis-distributed-lock</module>
     </modules>
     <dependencies>
 

@@ -72,6 +72,7 @@ fast-cloud-nacos
                 |---------------grpc-starter-provider                 grpc 服务提供方
        |---------------fast-common-jvm-example                        jvm的案例
        |---------------fast-common-nacos-grpc-example                 nacos整合grpc负载均衡
+       |---------------fast-common-redis-distributed-lock             redission分布式锁
        |---------------fast-common-rocketmq-example                   rocketmq测试样例
        |---------------fast-common-sharding-horizontal-subdivision    sharding jdbc 水平分库分表
        |---------------fast-common-sharding-rw-separation             sharding jdbc 主从读写分离
