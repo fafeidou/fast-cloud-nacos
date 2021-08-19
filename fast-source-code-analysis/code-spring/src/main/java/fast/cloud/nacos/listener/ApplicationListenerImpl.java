@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 public class ApplicationListenerImpl implements ApplicationListener<ApplicationEvent> {
 
     public ApplicationListenerImpl() {
-        log.info("ApplicationListenerImpl#constructor");
+        System.out.println("ApplicationListenerImpl#constructor");
     }
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        log.info("ApplicationListenerImpl#" + event.getClass().getSimpleName());
+        System.out.println("ApplicationListenerImpl#" + event.getClass().getSimpleName());
     }
 }

@@ -8,11 +8,11 @@ import org.springframework.context.ApplicationListener;
 public class ApplicationListenerImpl2 implements ApplicationListener<ApplicationEvent> {
 
     public ApplicationListenerImpl2() {
-        log.info("ApplicationListenerImpl#constructor");
+        System.out.println("ApplicationListenerImpl#constructor");
     }
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        log.info("ApplicationListenerImpl2#" + event.getClass().getSimpleName());
+        System.out.println("ApplicationListenerImpl2#" + event.getClass().getSimpleName());
     }
 }
