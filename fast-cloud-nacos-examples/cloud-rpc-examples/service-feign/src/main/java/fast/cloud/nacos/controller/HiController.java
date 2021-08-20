@@ -3,6 +3,7 @@ package fast.cloud.nacos.controller;
 import fast.cloud.nacos.feign.openapi.ServiceHi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,11 @@ public class HiController {
 
     @GetMapping(value = "/hello")
     public String hello(@RequestParam String name) {
-        return serviceHi.hello(name);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        String hello = serviceHi.hello(name);
+        stopWatch.stop();
+        System.out.println("stopWatch:"+ stopWatch.getTotalTimeMillis());
+        return hello;
     }
 }

@@ -20,6 +20,7 @@
         <module>fast-common-message-client</module>
         <module>fast-common-grpc-starter</module>
         <module>fast-common-juc</module>
+        <module>fast-common-nacos</module>
     </modules>
 
     <dependencies>

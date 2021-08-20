@@ -4,21 +4,32 @@ spring:
     name: service-feign
   # nacos discovery config
   cloud:
+#    service-registry:
+#      auto-registration:
+#        enabled: false
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 192.168.56.101:8848
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
 server:
   port: 9100
 
+
 feign:
   hystrix:
     enabled: true
 
+### Ribbon 配置
 ribbon:
   ReadTimeout: 3000
   ConnectTimeout: 3000
+  # 饥饿加载
+  eager-load:
+    # 是否开启饥饿加载
+    enabled: true
+    # 饥饿加载的服务
+    clients: service-hi
 
 hystrix:
   command:
@@ -39,3 +50,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 7000 #断路器超时时间，默认1000ms
+logging:
+  level:
+    root: info

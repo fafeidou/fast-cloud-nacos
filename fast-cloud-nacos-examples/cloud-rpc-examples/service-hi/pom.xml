@@ -24,9 +24,11 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>fast.cloud.nacos</groupId>
+            <artifactId>fast-common-nacos</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <!--spring cloud alibaba config-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

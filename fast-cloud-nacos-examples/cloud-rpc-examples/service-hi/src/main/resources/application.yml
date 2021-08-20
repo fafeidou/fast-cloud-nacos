@@ -12,3 +12,4 @@ batman:
 logging:
   level:
     org.springframework: info
+    root: info

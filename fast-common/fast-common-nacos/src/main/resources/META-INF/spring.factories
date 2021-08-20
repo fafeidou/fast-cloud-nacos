@@ -1,0 +1,9 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+fast.cloud.nacos.AutoRegistrationAutoConfiguration
+
+
+org.springframework.context.ApplicationContextInitializer=\
+fast.cloud.nacos.RegistryPropertySourceContextInitializer
+
+
+#org.springframework.context.ApplicationListener=fast.cloud.nacos.AutoRegistration
