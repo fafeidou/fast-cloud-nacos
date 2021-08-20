@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
-import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.List;
@@ -29,8 +28,8 @@ public class AutoRegistration implements ApplicationListener<ApplicationReadyEve
         try {
             this.warmUp();
             this.doRegistration();
-        } catch (Throwable var7) {
-            log.error("AutoRegistration failed.", var7);
+        } catch (Throwable throwable) {
+            log.error("AutoRegistration failed.", throwable);
         } finally {
             log.info("AutoRegistration finished.");
         }
@@ -52,9 +51,9 @@ public class AutoRegistration implements ApplicationListener<ApplicationReadyEve
                 WarmUpComponent warmUpComponent = (WarmUpComponent) iterator.next();
                 this.warmUp(warmUpComponent);
             }
-        } catch (Throwable var7) {
-            log.error("WarmUp error", var7);
-            throw var7;
+        } catch (Throwable throwable) {
+            log.error("WarmUp error", throwable);
+            throw throwable;
         } finally {
             log.info("WarmUp finished.");
         }
@@ -65,12 +64,12 @@ public class AutoRegistration implements ApplicationListener<ApplicationReadyEve
 
         try {
             warmUpComponent.warmUp();
-        } catch (Throwable var7) {
+        } catch (Throwable throwable) {
             if (!warmUpComponent.ignoreWarmUpFail()) {
-                throw var7;
+                throw throwable;
             }
 
-            log.error("WarmpUp component fail: {}, ignore it.", warmUpComponent.name(), var7);
+            log.error("WarmpUp component fail: {}, ignore it.", warmUpComponent.name(), throwable);
         } finally {
             log.info("WarmUp component {} finished.", warmUpComponent.name());
         }
@@ -82,9 +81,9 @@ public class AutoRegistration implements ApplicationListener<ApplicationReadyEve
 
         try {
             this.delayedNacosAutoRegistration.doStart();
-        } catch (Throwable var6) {
-            log.error("DoRegistration failed", var6);
-            throw var6;
+        } catch (Throwable throwable) {
+            log.error("DoRegistration failed", throwable);
+            throw throwable;
         } finally {
             log.info("DoRegistration finished");
         }
