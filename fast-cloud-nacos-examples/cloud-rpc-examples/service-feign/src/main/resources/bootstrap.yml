@@ -4,9 +4,9 @@ spring:
     name: service-feign
   # nacos discovery config
   cloud:
-#    service-registry:
-#      auto-registration:
-#        enabled: false
+    service-registry:
+      auto-registration:
+        enabled: false
     nacos:
       discovery:
         server-addr: 192.168.56.101:8848
@@ -27,7 +27,7 @@ ribbon:
   # 饥饿加载
   eager-load:
     # 是否开启饥饿加载
-    enabled: true
+    enabled: false
     # 饥饿加载的服务
     clients: service-hi
 
