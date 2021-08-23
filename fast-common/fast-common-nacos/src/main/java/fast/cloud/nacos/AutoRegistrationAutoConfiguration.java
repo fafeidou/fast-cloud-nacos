@@ -5,6 +5,7 @@ import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
 import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
 import fast.cloud.nacos.warmup.WarmUpComponent;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationProperties;
@@ -44,12 +45,14 @@ public class AutoRegistrationAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(NacosServiceRegistry.class)
     public NacosServiceRegistry nacosServiceRegistry(
             NacosDiscoveryProperties nacosDiscoveryProperties) {
         return new NacosServiceRegistry(nacosDiscoveryProperties);
     }
 
     @Bean
+    @ConditionalOnMissingBean(NacosRegistration.class)
     public NacosRegistration nacosRegistration(
             NacosDiscoveryProperties nacosDiscoveryProperties,
             ApplicationContext context) {

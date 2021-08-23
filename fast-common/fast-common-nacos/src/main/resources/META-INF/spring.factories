@@ -1,5 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-fast.cloud.nacos.AutoRegistrationAutoConfiguration
+fast.cloud.nacos.AutoRegistrationAutoConfiguration,\
+fast.cloud.nacos.lb.NacosDynamicServerListConfiguration
 
 
 org.springframework.context.ApplicationContextInitializer=\

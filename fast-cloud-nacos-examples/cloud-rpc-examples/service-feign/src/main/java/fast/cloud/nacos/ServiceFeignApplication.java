@@ -24,6 +24,7 @@ public class ServiceFeignApplication {
     }
 
     public static void main(String[] args) {
+        System.setProperty("nacos.logging.default.config.enabled", "false");
         SpringApplication.run(ServiceFeignApplication.class, args);
     }
 

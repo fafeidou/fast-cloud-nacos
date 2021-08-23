@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class ServiceHiApplication {
 
     public static void main(String[] args) {
+        System.setProperty("nacos.logging.default.config.enabled", "false");
         SpringApplication.run(ServiceHiApplication.class, args);
     }
 
