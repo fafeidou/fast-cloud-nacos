@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  consul:
+    image: consul:1.9.4
+    container_name: "consul"
+    restart: always
+    privileged: true
+    ports:
+      - "8500:8500"
+      - "8300:8300"
+    volumes:
+      - /consul/data:/consul/data
+      - /consul/config:/consul/config
+    command: [agent,-server,-ui,-client=0.0.0.0,-bootstrap-expect=1]
