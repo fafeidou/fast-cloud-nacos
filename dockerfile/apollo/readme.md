@@ -1,0 +1,1 @@
+* 创建/tmp/logs，然后启动docker-compose up -d 
