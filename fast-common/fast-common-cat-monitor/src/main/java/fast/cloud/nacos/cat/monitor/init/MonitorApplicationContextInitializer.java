@@ -9,10 +9,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.stereotype.Component;
 
 @Order(Ordered.HIGHEST_PRECEDENCE + 20)
-@Component
 public class MonitorApplicationContextInitializer implements
         ApplicationContextInitializer<ConfigurableApplicationContext> {
     private static final Logger log = LoggerFactory.getLogger(MonitorApplicationContextInitializer.class);
@@ -23,7 +21,7 @@ public class MonitorApplicationContextInitializer implements
         if (!environment.getPropertySources().contains("bootstrap")) {
             if (Boolean.parseBoolean(environment.getProperty("monitor.enable", "true"))) {
 
-                String appId = environment.getProperty("app.id");
+                String appId = environment.getProperty("spring.application.name");
 
                 Cat.initializeByDomain(appId, "192.168.56.101:2280");
             }
