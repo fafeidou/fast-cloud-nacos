@@ -1,0 +1,6 @@
+#org.springframework.context.ApplicationContextInitializer=com.cat.monitor.init.AgentApplicationContextInitializer,\
+#com.cat.monitor.init.MonitorApplicationContextInitializer
+
+
+
+org.springframework.context.ApplicationContextInitializer=fast.cloud.nacos.cat.monitor.init.MonitorApplicationContextInitializer

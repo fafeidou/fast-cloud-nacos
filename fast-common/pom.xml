@@ -21,6 +21,7 @@
         <module>fast-common-grpc-starter</module>
         <module>fast-common-juc</module>
         <module>fast-common-nacos</module>
+        <module>fast-common-cat-monitor</module>
     </modules>
 
     <dependencies>

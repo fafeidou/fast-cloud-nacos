@@ -19,3 +19,9 @@ spring:
 server:
   port: 9901
 
+cat:
+  response:
+    analysis:
+      enable: true
+monitor:
+  enable: true
