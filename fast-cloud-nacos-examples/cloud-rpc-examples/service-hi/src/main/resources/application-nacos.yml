@@ -1,0 +1,22 @@
+# service instance name
+spring:
+  # nacos discovery config
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: false
+      enabled: false
+    nacos:
+      discovery:
+        server-addr: 192.168.56.101:8848
+        enabled: true
+      config:
+        server-addr: 192.168.56.101:8848
+        file-extension: yaml
+        # 共享的配置列表
+        shared-dataids: service-common.yaml
+        refreshable-dataids: service-common.yaml
+    consul:
+      discovery:
+        enabled: false
+

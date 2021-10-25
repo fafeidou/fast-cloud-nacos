@@ -2,16 +2,10 @@
 spring:
   application:
     name: service-feign
-  # nacos discovery config
-  cloud:
-    service-registry:
-      auto-registration:
-        enabled: false
-    nacos:
-      discovery:
-        server-addr: 192.168.56.101:8848
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  profiles:
+    active: consul
 server:
   port: 9100
 
@@ -19,7 +13,14 @@ server:
 feign:
   hystrix:
     enabled: true
-
+  httpclient:
+    enabled: true
+  okhttp:
+    enabled: false
+  client:
+    config:
+      baidu:
+        loggerLevel: full
 ### Ribbon 配置
 ribbon:
   ReadTimeout: 3000
@@ -53,3 +54,21 @@ hystrix:
 logging:
   level:
     root: info
+    org.springframework: info
+    fast:
+      cloud:
+        nacos:
+          feign:
+            openapi: debug
+batman:
+  swagger:
+    title: api manage RESTful Content APIs
+    description: <font color="red">接口文档</font>
+    version: 1.0
+    modules:
+      - {
+        model-name: service-feign,
+        packages: ["fast.cloud.nacos.controller"],
+        group-name: service-feign
+      }
+

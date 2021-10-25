@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>fast.cloud.nacos</groupId>
-    <artifactId>bus-rabbit-provider</artifactId>
+    <artifactId>stream-rabbit-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>stream-rabbit-provider</name>
 

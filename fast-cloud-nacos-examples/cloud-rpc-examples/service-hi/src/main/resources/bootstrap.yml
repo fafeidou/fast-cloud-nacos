@@ -1,21 +1,3 @@
-# service instance name
-spring:
-  application:
-    name: service-hi
-  # nacos discovery config
-  cloud:
-    service-registry:
-      auto-registration:
-        enabled: false
-    nacos:
-      discovery:
-        server-addr: 192.168.56.101:8848
-      config:
-        server-addr: 192.168.56.101:8848
-        file-extension: yaml
-      # 共享的配置列表
-        shared-dataids: service-common.yaml
-        refreshable-dataids: service-common.yaml
 server:
   port: 9901
 
@@ -25,3 +7,25 @@ cat:
       enable: true
 monitor:
   enable: true
+
+batman:
+  swagger:
+    title: api manage RESTful Content APIs
+    description: <font color="red">接口文档</font>
+    version: 1.0
+    modules:
+      - {
+        model-name: serviceHi,
+        packages: ["fast.cloud.nacos.servicehi.controller"],
+        group-name: serviceHi
+      }
+logging:
+  level:
+    org.springframework: info
+    root: info
+
+spring:
+  application:
+    name: service-hi
+  profiles:
+    active: consul

@@ -1,5 +1,6 @@
 package fast.cloud.nacos.servicehi.controller;
 
+import fast.cloud.nacos.cat.monitor.annotation.Monitor;
 import fast.cloud.nacos.feign.openapi.ServiceHi;
 import fast.cloud.nacos.servicehi.test.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,7 @@ public class HiController implements ServiceHi {
     }
 
     @Override
+    @Monitor(type = "service-hi-svc",name = "hello")
     public String hello(String name) {
         return "hi " + name + " ,i am from port:" + port;
     }
