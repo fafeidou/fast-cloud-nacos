@@ -16,7 +16,7 @@ public class HttpApiAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(
-        prefix = "ddmc.httpapi"
+        prefix = "httpapi"
     )
     public HttpApiProperties httpApiProperties() {
         return new HttpApiProperties();
