@@ -5,7 +5,6 @@ import fast.cloud.nacos.grpc.example.grpc.*;
 import io.grpc.Attributes;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.util.RoundRobinLoadBalancerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,6 @@ public class HelloWorldClient {
     public HelloWorldClient(URI uri, String nacosServiceId) {
         this(ManagedChannelBuilder.forTarget("nacos://" + nacosServiceId)
                 .nameResolverFactory(new NacosNameResolverProvider(uri, Attributes.newBuilder().build()))
-                .loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
                 .usePlaintext(true)
                 .build());
     }

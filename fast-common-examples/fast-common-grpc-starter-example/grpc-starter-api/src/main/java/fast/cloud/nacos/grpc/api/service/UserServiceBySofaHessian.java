@@ -4,7 +4,7 @@ import fast.cloud.nacos.grpc.api.entity.UserEntity;
 import fast.cloud.nacos.grpc.starter.annotation.GrpcService;
 import java.util.List;
 
-@GrpcService(server = "user")
+@GrpcService(server = "user",grpcServer = "user-grpc")
 public interface UserServiceBySofaHessian {
 
     void insert(UserEntity userEntity);

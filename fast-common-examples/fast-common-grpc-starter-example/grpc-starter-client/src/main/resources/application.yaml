@@ -2,6 +2,19 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: grpc-starter-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.101:8848
+        enabled: true
+      config:
+        server-addr: 192.168.56.101:8848
+        file-extension: yaml
+        # 共享的配置列表
+        shared-dataids: service-common.yaml
+        refreshable-dataids: service-common.yaml
   grpc:
     remote-servers:
     - server: user

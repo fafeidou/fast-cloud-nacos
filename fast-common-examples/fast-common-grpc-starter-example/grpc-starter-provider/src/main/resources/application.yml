@@ -1,7 +1,21 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
+  application:
+    name: user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.101:8848
+        enabled: true
+      config:
+        server-addr: 192.168.56.101:8848
+        file-extension: yaml
+        # 共享的配置列表
+        shared-dataids: service-common.yaml
+        refreshable-dataids: service-common.yaml
   grpc:
+    grpcServerName: user-grpc
     enable: true
-    port: 6565
+    port: 6566
