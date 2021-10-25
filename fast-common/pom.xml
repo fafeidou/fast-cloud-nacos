@@ -22,10 +22,23 @@
         <module>fast-common-juc</module>
         <module>fast-common-nacos</module>
         <module>fast-common-cat-monitor</module>
+        <module>fast-common-custom-rpc</module>
     </modules>
 
     <dependencies>
 
     </dependencies>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven2 Central Repository</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>unidal.releases</id>
+            <url>http://unidal.org/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
 </project>

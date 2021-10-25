@@ -1,20 +1,20 @@
 package fast.cloud.nacos.grpc.starter;
 
+import fast.cloud.nacos.ApplicationContextUtil;
 import fast.cloud.nacos.grpc.starter.config.GrpcProperties;
 import fast.cloud.nacos.grpc.starter.config.RemoteServer;
+import fast.cloud.nacos.grpc.starter.router.DynamicServiceSelector;
 import fast.cloud.nacos.grpc.starter.service.SerializeService;
-import io.grpc.Channel;
-import io.grpc.ClientInterceptor;
-import io.grpc.ClientInterceptors;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import io.grpc.*;
 import io.grpc.internal.DnsNameResolverProvider;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.util.CollectionUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
 @Slf4j
 public class GrpcClient {
@@ -79,4 +79,16 @@ public class GrpcClient {
         return serverMap.get(serverName);
     }
 
+    public static ServerContext request(String serverName) {
+        DynamicServiceSelector dynamicServiceSelector = ApplicationContextUtil.getBean(DynamicServiceSelector.class);
+        ServiceInstance serviceInstance = dynamicServiceSelector.getNextServer(serverName);
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(serviceInstance.getHost(), serviceInstance.getPort())
+//                .defaultLoadBalancingPolicy("round_robin")
+//                .nameResolverFactory(new DnsNameResolverProvider())
+                .idleTimeout(30, TimeUnit.SECONDS)
+                .usePlaintext().build();
+        SerializeService serializeService = ApplicationContextUtil.getBean(SerializeService.class);
+        ServerContext serverContext = new ServerContext(channel, serializeService);
+        return serverContext;
+    }
 }

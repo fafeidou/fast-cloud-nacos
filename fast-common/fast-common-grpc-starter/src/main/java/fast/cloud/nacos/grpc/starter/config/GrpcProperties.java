@@ -1,8 +1,9 @@
 package fast.cloud.nacos.grpc.starter.config;
 
-import java.util.List;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 @Data
 @ConfigurationProperties(prefix = "spring.grpc")
@@ -17,6 +18,8 @@ public class GrpcProperties {
      * server listen port
      */
     private int port;
+
+    private String grpcServerName;
 
     /**
      * client config

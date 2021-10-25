@@ -1,14 +1,17 @@
 package fast.cloud.nacos.grpc.starter;
 
+import com.alibaba.nacos.api.naming.NamingService;
 import fast.cloud.nacos.grpc.starter.config.GrpcProperties;
 import fast.cloud.nacos.grpc.starter.service.CommonService;
+import fast.cloud.nacos.grpc.starter.util.NetUtils;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.ServerInterceptor;
 import io.grpc.ServerInterceptors;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
+
+import java.util.Optional;
 
 /**
  * gRPC Server
@@ -24,9 +27,13 @@ public class GrpcServer implements DisposableBean {
 
     private Server server;
 
-    public GrpcServer(GrpcProperties grpcProperties, CommonService commonService) {
+    private NamingService namingService;
+
+    public GrpcServer(GrpcProperties grpcProperties, CommonService commonService, NamingService namingService) {
         this.grpcProperties = grpcProperties;
         this.commonService = commonService;
+        this.namingService = namingService;
+
     }
 
     public GrpcServer(GrpcProperties grpcProperties, CommonService commonService, ServerInterceptor serverInterceptor) {
@@ -53,11 +60,16 @@ public class GrpcServer implements DisposableBean {
         }
         log.info("gRPC Server started, listening on port " + server.getPort());
         startDaemonAwaitThread();
+        //注册到注册中心
+        String grpcServerName = grpcProperties.getGrpcServerName();
+        //抽象注册中心
+        namingService.registerInstance(grpcServerName, NetUtils.getLocalHost(),port);
     }
 
     /**
      * 销毁
      */
+    @Override
     public void destroy() {
         Optional.ofNullable(server).ifPresent(Server::shutdown);
         log.info("gRPC server stopped.");

@@ -1,17 +1,14 @@
 package fast.cloud.nacos.grpc.starter.util;
 
 import io.protostuff.LinkedBuffer;
-import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class ProtobufUtils {
@@ -64,19 +61,26 @@ public class ProtobufUtils {
 
         return message;
     }
-    /**
-     * 反序列化方法，将字节数组反序列化为对象（字节数组 ---> 对象）
-     */
-    public static <T> T deserialize(byte[] param, Class<T> clazz) {
-        T object = OBJENESIS.newInstance(clazz);
-        Schema<T> schema = getSchema(clazz);
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(param)) {
-            ProtobufIOUtil.mergeFrom(inputStream, object, schema);
-            return object;
-        } catch (IOException e) {
-            log.error("反序列化对象失败", e);
-        }
-        return null;
+//    /**
+//     * 反序列化方法，将字节数组反序列化为对象（字节数组 ---> 对象）
+//     */
+//    public static <T> T deserialize(byte[] param, Class<T> clazz) {
+//        T object = OBJENESIS.newInstance(clazz);
+//        Schema<T> schema = getSchema(clazz);
+//        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(param)) {
+//            ProtobufIOUtil.mergeFrom(inputStream, object, schema);
+//            return object;
+//        } catch (IOException e) {
+//            log.error("反序列化对象失败", e);
+//        }
+//        return null;
+//    }
+
+    public static <T> T deserialize(byte[] data, Class<T> clazz) {
+        RuntimeSchema<T> schema = RuntimeSchema.createFrom(clazz);
+        T message = schema.newMessage();
+        ProtostuffIOUtil.mergeFrom(data, message, schema);
+        return message;
     }
 
 }

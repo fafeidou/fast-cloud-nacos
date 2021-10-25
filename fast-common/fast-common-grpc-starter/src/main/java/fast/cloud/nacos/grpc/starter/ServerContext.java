@@ -18,7 +18,7 @@ public class ServerContext {
 
     private CommonServiceGrpc.CommonServiceBlockingStub blockingStub;
 
-    ServerContext(Channel channel, SerializeService serializeService) {
+    public ServerContext(Channel channel, SerializeService serializeService) {
         this.channel = channel;
         this.defaultSerializeService = serializeService;
         blockingStub = CommonServiceGrpc.newBlockingStub(channel);

@@ -7,9 +7,10 @@ import fast.cloud.nacos.grpc.starter.constant.SerializeType;
 import fast.cloud.nacos.grpc.starter.exception.GrpcException;
 import fast.cloud.nacos.grpc.starter.service.GrpcRequest;
 import fast.cloud.nacos.grpc.starter.service.GrpcResponse;
+import org.springframework.cglib.proxy.InvocationHandler;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import org.springframework.cglib.proxy.InvocationHandler;
 
 public class GrpcServiceProxy<T> implements InvocationHandler {
 
@@ -45,7 +46,8 @@ public class GrpcServiceProxy<T> implements InvocationHandler {
         if (serializeTypeArray.length > 0) {
             serializeType = serializeTypeArray[0];
         }
-        GrpcResponse response = GrpcClient.connect(server).handle(serializeType, request);
+        GrpcResponse response = GrpcClient.request(annotation.grpcServer()).handle(serializeType, request);
+//        GrpcResponse response = GrpcClient.connect(server).handle(serializeType, request);
         if (GrpcResponseStatus.ERROR.getCode() == response.getStatus()) {
             Throwable throwable = response.getException();
             GrpcException exception = new GrpcException(throwable.getClass().getName() + ": " + throwable.getMessage());
@@ -58,5 +60,4 @@ public class GrpcServiceProxy<T> implements InvocationHandler {
         }
         return response.getResult();
     }
-
 }

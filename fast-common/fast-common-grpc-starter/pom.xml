@@ -14,7 +14,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <grpc.version>1.22.1</grpc.version>
+        <grpc.version>1.33.1</grpc.version>
     </properties>
 
     <dependencies>
@@ -68,20 +68,20 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>3.8.1</version>
         </dependency>
 
         <!-- ProtoStuff 序列化/反序列化 -->
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
-            <version>1.6.0</version>
+            <version>1.7.2</version>
         </dependency>
 
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
-            <version>1.6.0</version>
+            <version>1.7.2</version>
         </dependency>
 
         <!-- 用于创建对象 -->
@@ -92,11 +92,11 @@
         </dependency>
 
         <!-- FastJSON 序列化/反序列化 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
-        </dependency>
+        </dependency>-->
 
         <!-- Sofa-Hessian 序列化/反序列化 -->
         <dependency>
@@ -108,6 +108,17 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <version>1.4.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

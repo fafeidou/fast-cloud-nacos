@@ -1,21 +1,20 @@
 package fast.cloud.nacos.grpc.starter.config;
 
 
+import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.nacos.api.NacosFactory;
+import com.alibaba.nacos.api.exception.NacosException;
+import com.alibaba.nacos.api.naming.NamingService;
 import fast.cloud.nacos.grpc.starter.GrpcClient;
 import fast.cloud.nacos.grpc.starter.GrpcServer;
 import fast.cloud.nacos.grpc.starter.annotation.GrpcService;
 import fast.cloud.nacos.grpc.starter.annotation.GrpcServiceScan;
 import fast.cloud.nacos.grpc.starter.binding.GrpcServiceProxy;
+import fast.cloud.nacos.grpc.starter.router.DynamicServiceSelector;
 import fast.cloud.nacos.grpc.starter.service.CommonService;
 import fast.cloud.nacos.grpc.starter.service.SerializeService;
 import fast.cloud.nacos.grpc.starter.service.impl.SofaHessianSerializeService;
 import fast.cloud.nacos.grpc.starter.util.ClassNameUtils;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -40,6 +39,8 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.*;
 
 @Slf4j
 @Configuration
@@ -78,10 +79,20 @@ public class GrpcAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(GrpcServer.class)
     @ConditionalOnProperty(value = "spring.grpc.enable", havingValue = "true")
-    public GrpcServer grpcServer(CommonService commonService) throws Exception {
-        GrpcServer server = new GrpcServer(grpcProperties, commonService);
+    public GrpcServer grpcServer(CommonService commonService, NamingService namingService) throws Exception {
+        GrpcServer server = new GrpcServer(grpcProperties, commonService, namingService);
         server.start();
         return server;
+    }
+
+    @Bean
+    public NamingService dynamicServerListUpdater(NacosDiscoveryProperties properties) throws NacosException {
+        return NacosFactory.createNamingService(properties.getServerAddr());
+    }
+
+    @Bean
+    public DynamicServiceSelector dynamicServiceSelector() {
+        return new DynamicServiceSelector();
     }
 
     /**
@@ -99,7 +110,7 @@ public class GrpcAutoConfiguration {
      * 手动扫描 @GrpcService 注解的接口，生成动态代理类，注入到 Spring 容器
      */
     public static class ExternalGrpcServiceScannerRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar,
-        ResourceLoaderAware {
+            ResourceLoaderAware {
 
         private BeanFactory beanFactory;
 
@@ -172,8 +183,7 @@ public class GrpcAutoConfiguration {
                     Object invoker = new Object();
                     InvocationHandler invocationHandler = new GrpcServiceProxy<>(target, invoker);
                     Object proxy = Proxy
-                        .newProxyInstance(GrpcService.class.getClassLoader(), new Class[]{target}, invocationHandler);
-
+                            .newProxyInstance(GrpcService.class.getClassLoader(), new Class[]{target}, invocationHandler);
                     // 注册到 Spring 容器
                     String beanName = ClassNameUtils.beanName(className);
                     ((DefaultListableBeanFactory) beanFactory).registerSingleton(beanName, proxy);
