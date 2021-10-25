@@ -3,4 +3,8 @@
 
 
 
-org.springframework.context.ApplicationContextInitializer=fast.cloud.nacos.cat.monitor.init.MonitorApplicationContextInitializer
+org.springframework.context.ApplicationContextInitializer=fast.cloud.nacos.cat.monitor.init.MonitorApplicationContextInitializer,\
+fast.cloud.nacos.cat.monitor.init.AgentApplicationContextInitializer
+
+org.springframework.boot.env.EnvironmentPostProcessor=\
+ fast.cloud.nacos.cat.monitor.config.MonitorEnvironmentPostProcessor
