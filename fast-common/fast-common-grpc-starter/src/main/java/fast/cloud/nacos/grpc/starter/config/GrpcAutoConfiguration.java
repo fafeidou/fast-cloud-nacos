@@ -14,6 +14,7 @@ import fast.cloud.nacos.grpc.starter.router.DynamicServiceSelector;
 import fast.cloud.nacos.grpc.starter.service.CommonService;
 import fast.cloud.nacos.grpc.starter.service.SerializeService;
 import fast.cloud.nacos.grpc.starter.service.impl.SofaHessianSerializeService;
+import fast.cloud.nacos.grpc.starter.spring.ReferenceAnnotationBeanPostProcessor;
 import fast.cloud.nacos.grpc.starter.util.ClassNameUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -41,6 +42,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+
+import static com.alibaba.spring.util.BeanRegistrar.registerInfrastructureBean;
 
 @Slf4j
 @Configuration
@@ -131,8 +134,11 @@ public class GrpcAutoConfiguration {
             ClassPathBeanDefinitionScanner scanner = new ClassPathGrpcServiceScanner(registry);
             scanner.setResourceLoader(this.resourceLoader);
             scanner.addIncludeFilter(new AnnotationTypeFilter(GrpcService.class));
+            DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) beanFactory;
+            registerInfrastructureBean(defaultListableBeanFactory, ReferenceAnnotationBeanPostProcessor.BEAN_NAME,
+                    ReferenceAnnotationBeanPostProcessor.class);
             Set<BeanDefinition> beanDefinitions = scanPackages(importingClassMetadata, scanner);
-            ProxyUtil.registerBeans(beanFactory, beanDefinitions);
+            ProxyUtil.registerBeans(defaultListableBeanFactory, beanDefinitions);
         }
 
         /**
@@ -171,7 +177,7 @@ public class GrpcAutoConfiguration {
     }
 
     protected static class ProxyUtil {
-        static void registerBeans(BeanFactory beanFactory, Set<BeanDefinition> beanDefinitions) {
+        static void registerBeans(DefaultListableBeanFactory beanFactory, Set<BeanDefinition> beanDefinitions) {
             for (BeanDefinition beanDefinition : beanDefinitions) {
                 String className = beanDefinition.getBeanClassName();
                 if (StringUtils.isEmpty(className)) {
@@ -186,7 +192,7 @@ public class GrpcAutoConfiguration {
                             .newProxyInstance(GrpcService.class.getClassLoader(), new Class[]{target}, invocationHandler);
                     // 注册到 Spring 容器
                     String beanName = ClassNameUtils.beanName(className);
-                    ((DefaultListableBeanFactory) beanFactory).registerSingleton(beanName, proxy);
+                    beanFactory.registerSingleton(beanName, proxy);
                 } catch (ClassNotFoundException e) {
                     log.warn("class not found : " + className);
                 }
