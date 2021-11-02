@@ -62,7 +62,7 @@ public class GrpcServer implements DisposableBean {
         startDaemonAwaitThread();
         //注册到注册中心
         String grpcServerName = grpcProperties.getGrpcServerName();
-        //抽象注册中心
+        //TODO 抽象注册中心
         namingService.registerInstance(grpcServerName, NetUtils.getLocalHost(),port);
     }
 

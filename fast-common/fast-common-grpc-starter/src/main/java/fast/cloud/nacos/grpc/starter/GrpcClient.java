@@ -82,7 +82,12 @@ public class GrpcClient {
     public static ServerContext request(String serverName) {
         DynamicServiceSelector dynamicServiceSelector = ApplicationContextUtil.getBean(DynamicServiceSelector.class);
         ServiceInstance serviceInstance = dynamicServiceSelector.getNextServer(serverName);
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(serviceInstance.getHost(), serviceInstance.getPort())
+        return request(serviceInstance.getHost(), serviceInstance.getPort());
+    }
+
+
+    public static ServerContext request(String host,Integer port) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
 //                .defaultLoadBalancingPolicy("round_robin")
 //                .nameResolverFactory(new DnsNameResolverProvider())
                 .idleTimeout(30, TimeUnit.SECONDS)

@@ -8,6 +8,9 @@ import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * @author qinfuxiang
+ */
 @Documented
 @Inherited
 @Retention(RUNTIME)
@@ -24,5 +27,9 @@ public @interface GrpcService {
      * 序列化工具实现类
      */
     SerializeType[] serialization() default {};
+
+    String host() default "";
+
+    int port() default 0;
 
 }

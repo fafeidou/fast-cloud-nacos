@@ -7,10 +7,12 @@ import fast.cloud.nacos.grpc.starter.constant.SerializeType;
 import fast.cloud.nacos.grpc.starter.exception.GrpcException;
 import fast.cloud.nacos.grpc.starter.service.GrpcRequest;
 import fast.cloud.nacos.grpc.starter.service.GrpcResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cglib.proxy.InvocationHandler;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GrpcServiceProxy<T> implements InvocationHandler {
 
@@ -35,19 +37,28 @@ public class GrpcServiceProxy<T> implements InvocationHandler {
             Object another = args[0];
             return proxy == another;
         }
-        GrpcService annotation = grpcService.getAnnotation(GrpcService.class);
-        String server = annotation.server();
+        GrpcService grpcServiceAnnotation = grpcService.getAnnotation(GrpcService.class);
         GrpcRequest request = new GrpcRequest();
         request.setClazz(className);
         request.setMethod(methodName);
         request.setArgs(args);
-        SerializeType[] serializeTypeArray = annotation.serialization();
+        SerializeType[] serializeTypeArray = grpcServiceAnnotation.serialization();
         SerializeType serializeType = null;
         if (serializeTypeArray.length > 0) {
             serializeType = serializeTypeArray[0];
         }
-        GrpcResponse response = GrpcClient.request(annotation.grpcServer()).handle(serializeType, request);
-//        GrpcResponse response = GrpcClient.connect(server).handle(serializeType, request);
+        GrpcResponse response;
+        String host = grpcServiceAnnotation.host();
+        int port = grpcServiceAnnotation.port();
+
+        //远程调用地址注解优先级最高
+        if (StringUtils.isNotBlank(host) && Objects.nonNull(port)) {
+            response = GrpcClient.request(host,port).handle(serializeType, request);
+        } else {
+            response = GrpcClient.request(grpcServiceAnnotation.grpcServer()).handle(serializeType, request);
+        }
+
+        //TODO 超时时间按照appId隔离
         if (GrpcResponseStatus.ERROR.getCode() == response.getStatus()) {
             Throwable throwable = response.getException();
             GrpcException exception = new GrpcException(throwable.getClass().getName() + ": " + throwable.getMessage());
