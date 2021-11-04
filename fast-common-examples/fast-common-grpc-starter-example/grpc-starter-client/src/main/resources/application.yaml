@@ -15,8 +15,3 @@ spring:
         # 共享的配置列表
         shared-dataids: service-common.yaml
         refreshable-dataids: service-common.yaml
-  grpc:
-    remote-servers:
-    - server: user
-      host: 127.0.0.1
-      port: 6565

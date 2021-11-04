@@ -2,14 +2,18 @@ package fast.cloud.nacos.provider.service;
 
 import fast.cloud.nacos.grpc.api.entity.UserEntity;
 import fast.cloud.nacos.grpc.api.service.UserServiceByProtoStuff;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
+/**
+ * service 只是交给spring代理，如果没有本地调用，可以去掉
+ */
 @Service
 @Slf4j
 public class UserServiceByProtoStuffImpl implements UserServiceByProtoStuff {

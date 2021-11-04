@@ -2,35 +2,33 @@ package fast.cloud.nacos.provider.controller;
 
 import fast.cloud.nacos.grpc.api.entity.UserEntity;
 import fast.cloud.nacos.grpc.api.service.UserServiceBySofaHessian;
-import java.util.List;
+import fast.cloud.nacos.grpc.starter.annotation.GrpcService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/v0/user")
 public class V0UserController {
 
-    private final UserServiceBySofaHessian userServiceBySofaHessian;
+    @GrpcService
+    private UserServiceBySofaHessian userServiceBySofaHessian;
 
     @PostMapping("/add")
-    public UserEntity insertUser(@RequestBody UserEntity userEntity){
+    public UserEntity insertUser(@RequestBody UserEntity userEntity) {
         userServiceBySofaHessian.insert(userEntity);
         return userEntity;
     }
 
     @GetMapping("/list")
-    public List<UserEntity> findAllUser(){
+    public List<UserEntity> findAllUser() {
         return userServiceBySofaHessian.findAll();
     }
 
     @PostMapping("/remove")
-    public String removeUser(@RequestParam("id") Long id){
+    public String removeUser(@RequestParam("id") Long id) {
         userServiceBySofaHessian.deleteById(id);
         return "success";
     }
