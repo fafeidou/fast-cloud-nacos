@@ -24,7 +24,35 @@ spring:
             max-poll-records: 5
         listener:
             ack-mode: manual
-
+        multiple:
+            consumer:
+                sources: sourceA,sourceB
+                sourceA:
+                    bootstrap-servers: 192.168.56.124:9092
+                    group-id: base.kafka
+                    topics: topicA,topicB
+                    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+                    auto-offset-reset: earliest
+                    enable-auto-commit: false
+                    listener:
+                        ack-mode: manual
+                        missing-topics-fatal: false
+                    properties:
+                        spring:
+                            json:
+                                trusted:
+                                    packages: '*'
+                                type:
+                                    mapping: com.test:com.test1
+                sourceB:
+                    bootstrap-servers: 192.168.56.124:9092
+                    group-id: base.kafka
+                    topics: topicC
+                    auto-offset-reset: earliest
+                    enable-auto-commit: false
+                    listener:
+                        ack-mode: manual
+                        missing-topics-fatal: false
 server:
     port: 8060
 
