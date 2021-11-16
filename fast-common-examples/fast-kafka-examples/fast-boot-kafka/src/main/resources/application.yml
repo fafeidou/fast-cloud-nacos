@@ -2,7 +2,7 @@ spring:
     application:
         name: base.kafka
     kafka:
-        bootstrap-servers: 192.168.56.124:9092
+        bootstrap-servers: 192.168.56.114:9092
         producer:
             # 写入失败时，重试次数。当leader节点失效，一个repli节点会替代成为leader节点，此时可能出现写入失败，
             # 当retris为0时，produce不会重复。retirs重发，此时repli节点完全成为leader节点，不会产生消息丢失。
@@ -25,10 +25,17 @@ spring:
         listener:
             ack-mode: manual
         multiple:
+            producer:
+                sources: sourceA,sourceB
+                sourceA:
+                    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+                    bootstrap-servers: 192.168.56.114:9092
+                sourceB:
+                    bootstrap-servers: 192.168.56.114:9092
             consumer:
                 sources: sourceA,sourceB
                 sourceA:
-                    bootstrap-servers: 192.168.56.124:9092
+                    bootstrap-servers: 192.168.56.114:9092
                     group-id: base.kafka
                     topics: topicA,topicB
                     value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -43,9 +50,9 @@ spring:
                                 trusted:
                                     packages: '*'
                                 type:
-                                    mapping: com.test:com.test1
+                                    mapping: fast.cloud.nacos.fastbootkafka.domain.TopicATest:fast.cloud.nacos.fastbootkafka.domain.TopicATest
                 sourceB:
-                    bootstrap-servers: 192.168.56.124:9092
+                    bootstrap-servers: 192.168.56.114:9092
                     group-id: base.kafka
                     topics: topicC
                     auto-offset-reset: earliest

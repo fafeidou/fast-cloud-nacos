@@ -23,7 +23,37 @@ LAG 消息堆积量
 
 * https://blog.51cto.com/12473494/2420105 参考
 
-
 * kafka manager监测不到consumer  https://blog.csdn.net/jm88621/article/details/100736645
 
 * Spring-Kafka（六）—— @KafkaListener的花式操作 https://www.jianshu.com/p/a64defb44a23 
+
+## 多数据源测试
+
+* spring 单数据源测试
+   * producer
+   ```
+     http://localhost:8060/sendStr3?message=aaa
+   ```
+   * consumer
+  ```
+   KafkaConsumerListener   : kafka-topic3接收结果:aaa
+  ```
+
+* 自定义多数据源测试
+  * producer A
+  ```
+   http://localhost:8060/sendSourceA?message=aaa
+  ```
+  * producer B
+  ```
+  http://localhost:8060/sendSourceB?message=aaa
+  ```
+  * consumer A
+  ```
+   KafkaConsumerListener   : topicA接收结果:TopicATest(payload=aaa)
+  ```
+  * consumer B
+  ```
+   KafkaConsumerListener   : topicC接收结果:aaa
+  ```
+

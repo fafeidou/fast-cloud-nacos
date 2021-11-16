@@ -1,4 +1,4 @@
-package fast.cloud.nacos.fastbootkafka;
+package fast.cloud.nacos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

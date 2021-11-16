@@ -1,14 +1,17 @@
 package fast.cloud.nacos.fastbootkafka.controller;
 
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
+import fast.cloud.nacos.fastbootkafka.domain.TopicATest;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DescribeTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author qfx
@@ -58,6 +61,14 @@ public class KafkaDemoController {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
+    @Autowired
+    @Qualifier(value = "sourceAKafkaTemplate")
+    private KafkaTemplate<String, Object> sourceAKafkaTemplate;
+
+    @Autowired
+    @Qualifier(value = "sourceBKafkaTemplate")
+    private KafkaTemplate<String, Object> sourceBKafkaTemplate;
+
     /**
      * 发送文字消息
      */
@@ -79,5 +90,17 @@ public class KafkaDemoController {
         return message;
     }
 
+    @RequestMapping("sendSourceA")
+    public String sendSourceA(String message) {
+        TopicATest topicATest = new TopicATest();
+        topicATest.setPayload(message);
+        sourceAKafkaTemplate.send("topicA", topicATest);
+        return message;
+    }
 
+    @RequestMapping("sendSourceB")
+    public String sendSourceB(String message) {
+        sourceBKafkaTemplate.send("topicC", message);
+        return message;
+    }
 }

@@ -1,4 +1,4 @@
-package fast.cloud.nacos.fastbootkafka.utils;
+package fast.cloud.nacos.common.model.utils;
 
 import org.springframework.core.env.ConfigurableEnvironment;
 
