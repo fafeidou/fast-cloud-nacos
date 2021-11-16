@@ -1,7 +1,7 @@
-package fast.cloud.nacos.fastbootkafka.config;
+package fast.cloud.nacos.common.kafka.config;
 
-import fast.cloud.nacos.fastbootkafka.utils.EnvironmentUtil;
-import fast.cloud.nacos.fastbootkafka.utils.SpringBeanDefinitionUtil;
+import fast.cloud.nacos.common.model.utils.EnvironmentUtil;
+import fast.cloud.nacos.common.model.utils.SpringBeanDefinitionUtil;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.BeansException;
