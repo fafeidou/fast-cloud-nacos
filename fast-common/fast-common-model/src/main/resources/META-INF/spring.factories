@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+fast.cloud.nacos.common.model.autoconfigure.ApplicationContextAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+fast.cloud.nacos.common.model.autoconfigure.ApplicationContextAutoConfiguration
