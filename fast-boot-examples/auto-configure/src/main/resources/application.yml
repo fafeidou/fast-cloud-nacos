@@ -1,0 +1,10 @@
+helloWorld:
+    properties:
+        spring:
+            json:
+                trusted:
+                    packages: '*'
+                type:
+                    mapping: fast.cloud.nacos.fastbootkafka.domain.TopicATest:fast.cloud.nacos.fastbootkafka.domain.TopicATest
+
+
