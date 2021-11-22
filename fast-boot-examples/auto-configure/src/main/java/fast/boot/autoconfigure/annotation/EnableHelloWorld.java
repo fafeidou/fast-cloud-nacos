@@ -1,7 +1,5 @@
 package fast.boot.autoconfigure.annotation;
 
-import org.springframework.context.annotation.Import;
-
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -9,6 +7,7 @@ import java.lang.annotation.*;
 @Documented
 //@Import(HelloWorldConfiguration.class)
 //@Import(HelloWorldImportSelector.class)
-@Import(HelloWorldImportBeanDefinitionRegistrar.class)
+//@Import(HelloWorldImportBeanDefinitionRegistrar.class)
+//@Import(HelloWorldBeanFactoryPostProcessor.class)
 public @interface EnableHelloWorld {
 }
