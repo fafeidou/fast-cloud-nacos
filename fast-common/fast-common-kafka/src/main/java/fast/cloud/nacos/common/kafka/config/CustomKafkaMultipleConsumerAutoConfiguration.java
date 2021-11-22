@@ -7,12 +7,10 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Listener;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Binder;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -31,7 +29,7 @@ import java.util.Properties;
  * 多源Consumer配置类
  */
 @Configuration
-public class CustomKafkaMultipleConsumerAutoConfiguration implements BeanFactoryPostProcessor, EnvironmentPostProcessor {
+public class CustomKafkaMultipleConsumerAutoConfiguration implements BeanFactoryPostProcessor {
 
     private String KEY_MULTIPLE_CONSUMER_LISTENER = "spring.kafka.multiple.consumer.%s.listener";
     private String KEY_MULTIPLE_CONSUMER_PROPERTIES = "spring.kafka.multiple.consumer.%s.properties";
@@ -41,11 +39,6 @@ public class CustomKafkaMultipleConsumerAutoConfiguration implements BeanFactory
     private String KEY_MULTIPLE = "spring.kafka.multiple.consumer";
 
     private ConfigurableEnvironment environment;
-
-    @Override
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        EnvironmentUtil.setEnvironment(environment);
-    }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {

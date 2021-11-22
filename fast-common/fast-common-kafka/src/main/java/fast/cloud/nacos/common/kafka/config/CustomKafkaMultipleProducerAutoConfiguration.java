@@ -14,11 +14,7 @@ import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -35,7 +31,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Configuration
-public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactoryPostProcessor, EnvironmentPostProcessor, BeanDefinitionRegistryPostProcessor {
+public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactoryPostProcessor {
 
     private String KEY_SOURCES = "spring.kafka.multiple.producer.sources";
 
@@ -44,13 +40,7 @@ public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactory
     private ConfigurableEnvironment environment;
 
     @Override
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        EnvironmentUtil.setEnvironment(environment);
-    }
-
-    @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        SpringBeanDefinitionUtil.setBeanFactory(beanFactory);
         this.environment = EnvironmentUtil.getEnvironment();
         // 配置消息生产者
         configurationProducer((DefaultListableBeanFactory) beanFactory);
@@ -77,7 +67,7 @@ public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactory
                                          String producerName, DefaultListableBeanFactory beanFactory) {
         MutablePropertyValues propertyValues = this.getPropertyValues(producerConfigs);
         // 注册kafkaProducer
-        this.registerBean(beanFactory, producerName, KafkaMessageProducer.class, propertyValues);
+        this.registerBean(beanFactory, producerName + "KafkaMessageProducer", KafkaMessageProducer.class, propertyValues);
     }
 
     private void registerTransactionMessageProducer(Map<String, Object> producerConfigs,
@@ -90,7 +80,7 @@ public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactory
         });
         MutablePropertyValues propertyValues = this.getPropertyValues(producerConfigs);
         // 注册事务kafkaProducer
-        this.registerBean(beanFactory, producerName + "Transaction", KafkaTransactionMessageProducer.class, propertyValues);
+        this.registerBean(beanFactory, producerName + "KafkaTransactionMessageProducer", KafkaTransactionMessageProducer.class, propertyValues);
     }
 
     private KafkaTemplate<String, Object> kafkaTemplate(Map<String, Object> props) {
@@ -167,11 +157,6 @@ public class CustomKafkaMultipleProducerAutoConfiguration implements BeanFactory
         String prefix = KEY_MULTIPLE + "." + producerName + ".";
         Set<String> keySet = configNames.stream().map(configName -> prefix + configName.replaceAll("[.]", "-")).collect(Collectors.toSet());
         return PropertiesUtil.propertiesToMap(environment, keySet, prefix);
-    }
-
-    @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        SpringBeanDefinitionUtil.setBeanRegistry(registry);
     }
 
     public static class Producer {

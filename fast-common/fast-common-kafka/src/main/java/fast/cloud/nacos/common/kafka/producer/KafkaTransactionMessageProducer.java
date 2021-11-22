@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PreDestroy;
 
+/**
+ * @author qinfuxiang
+ */
 @Component
 public class KafkaTransactionMessageProducer implements MessageProducer {
 

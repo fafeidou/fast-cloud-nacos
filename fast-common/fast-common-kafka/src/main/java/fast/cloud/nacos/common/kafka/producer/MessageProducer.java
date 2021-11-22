@@ -8,14 +8,14 @@ public interface MessageProducer {
      * @param message
      * @throws RuntimeException
      */
-    public void sendMessage(Object message) throws RuntimeException;
+    void sendMessage(Object message) throws RuntimeException;
 
     /**
      * 发送信息
      *
      * @param topicEx kafka的tpic或者rabbit的exchange
      */
-    public void sendMessage(String topicEx, Object message) throws RuntimeException;
+    void sendMessage(String topicEx, Object message) throws RuntimeException;
 
     /**
      * 发送信息
@@ -25,7 +25,7 @@ public interface MessageProducer {
      * @param message
      * @throws RuntimeException
      */
-    public void sendMessage(String topicEx, String key, Object message) throws RuntimeException;
+    void sendMessage(String topicEx, String key, Object message) throws RuntimeException;
 
 
 }

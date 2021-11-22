@@ -1,6 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 fast.cloud.nacos.common.kafka.config.CustomKafkaMultipleConsumerAutoConfiguration,\
 fast.cloud.nacos.common.kafka.config.CustomKafkaMultipleProducerAutoConfiguration
-org.springframework.boot.env.EnvironmentPostProcessor=\
-fast.cloud.nacos.common.kafka.config.CustomKafkaMultipleConsumerAutoConfiguration,\
-fast.cloud.nacos.common.kafka.config.CustomKafkaMultipleProducerAutoConfiguration
