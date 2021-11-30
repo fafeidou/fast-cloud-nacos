@@ -45,9 +45,6 @@ public class JMHExample11 {
                 .include(JMHExample11.class.getSimpleName())
                 .forks(1)
                 .jvmArgs("-ea")
-//                .timeUnit(TimeUnit.NANOSECONDS)
-//                .measurementIterations(10)
-//                .warmupIterations(10)
                 .build();
         new Runner(opts).run();
     }

@@ -18,13 +18,12 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Measurement(iterations = 10)
 @Warmup(iterations = 5)
-@Threads(5)
-@State(Scope.Benchmark)
-public class JMHExample10 {
+@State(Scope.Group)
+public class JMHExample20 {
     @Param({"1", "2", "3", "4"})
     private int type;
 
-    private Map<Long, Long> map;
+    private Map<Integer, Integer> map;
 
     @Setup
     public void setup() {
@@ -47,13 +46,27 @@ public class JMHExample10 {
     }
 
     @Benchmark
-    public void test() {
-        map.put(System.nanoTime(), System.nanoTime());
+    @GroupThreads(5)
+    @Group("g")
+    public void put() {
+        int random = randomIntValue();
+        map.put(random, random);
+    }
+
+    private int randomIntValue() {
+        return (int) Math.ceil(Math.random() * 600000);
+    }
+
+    @Benchmark
+    @GroupThreads(5)
+    @Group("g")
+    public Integer get() {
+        return map.get(randomIntValue());
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opts = new OptionsBuilder()
-                .include(JMHExample10.class.getSimpleName())
+                .include(JMHExample20.class.getSimpleName())
                 .forks(1)
                 .build();
         new Runner(opts).run();

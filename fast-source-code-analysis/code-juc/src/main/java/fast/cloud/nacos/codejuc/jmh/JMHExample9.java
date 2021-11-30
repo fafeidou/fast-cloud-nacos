@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 10)
 @Warmup(iterations = 5)
 @Threads(5)
+//设置为线程共享资源
 @State(Scope.Benchmark)
 public class JMHExample9 {
     private Map<Long, Long> concurrentMap;
@@ -42,9 +43,6 @@ public class JMHExample9 {
         Options opts = new OptionsBuilder()
                 .include(JMHExample9.class.getSimpleName())
                 .forks(1)
-//                .timeUnit(TimeUnit.NANOSECONDS)
-//                .measurementIterations(10)
-//                .warmupIterations(10)
                 .build();
         new Runner(opts).run();
     }

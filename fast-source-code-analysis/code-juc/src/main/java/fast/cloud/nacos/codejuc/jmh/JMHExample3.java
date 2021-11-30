@@ -30,8 +30,8 @@ public class JMHExample3 {
         Options opts = new OptionsBuilder()
                 .include(JMHExample3.class.getSimpleName())
                 .forks(1)
-//                .measurementIterations(10)
-//                .warmupIterations(10)
+                .measurementIterations(10)
+                .warmupIterations(10)
                 .build();
         new Runner(opts).run();
     }

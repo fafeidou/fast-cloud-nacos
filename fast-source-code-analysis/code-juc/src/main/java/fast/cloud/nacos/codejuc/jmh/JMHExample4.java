@@ -55,8 +55,6 @@ public class JMHExample4 {
         Options opts = new OptionsBuilder()
                 .include(JMHExample4.class.getSimpleName())
                 .forks(1)
-//                .measurementIterations(10)
-//                .warmupIterations(10)
                 .build();
         new Runner(opts).run();
     }

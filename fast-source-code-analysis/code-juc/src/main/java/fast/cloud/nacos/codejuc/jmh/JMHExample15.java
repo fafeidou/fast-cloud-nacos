@@ -8,34 +8,45 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.log;
 
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Measurement(iterations = 10)
 @Warmup(iterations = 5)
-@Threads(5)
 @State(Scope.Thread)
-public class JMHExample12 {
+public class JMHExample15 {
+    private final double x1 = 124.456;
+    private final double x2 = 342.456;
+
+    private double y1 = 124.456;
+    private double y2 = 342.456;
 
     @Benchmark
-    @CompilerControl(CompilerControl.Mode.EXCLUDE)
-    public void test1() {
-
+    public double returnDirect() {
+        return 42_620.79997;
     }
 
     @Benchmark
-    @CompilerControl(CompilerControl.Mode.EXCLUDE)
-    public void test2() {
-        log(PI);
+    public double returnCaculate_1() {
+        return x1 * x2;
     }
+
+    @Benchmark
+    public double returnCaculate_2() {
+        return log(y1) * log(y2);
+    }
+
+    @Benchmark
+    public double returnCaculate_3() {
+        return log(x1) * log(x2);
+    }
+
     public static void main(String[] args) throws RunnerException {
         Options opts = new OptionsBuilder()
-                .include(JMHExample12.class.getSimpleName())
+                .include(JMHExample15.class.getSimpleName())
                 .forks(1)
                 .build();
         new Runner(opts).run();
     }
-
 }

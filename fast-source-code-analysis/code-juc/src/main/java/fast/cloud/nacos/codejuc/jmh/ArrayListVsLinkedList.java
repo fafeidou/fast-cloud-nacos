@@ -21,7 +21,7 @@ public class ArrayListVsLinkedList {
 
     private static void arrayListPerfTest(int iterations) {
         final List<String> list = new ArrayList<>();
-        final StopWatch stopWatch = new StopWatch();
+        final StopWatch stopWatch = new StopWatch("arrayList");
         stopWatch.start();
         test(list);
         stopWatch.stop();
@@ -30,7 +30,7 @@ public class ArrayListVsLinkedList {
 
     private static void linkListPerfTest(int iterations) {
         final List<String> list = new LinkedList<>();
-        final StopWatch stopWatch = new StopWatch();
+        final StopWatch stopWatch = new StopWatch("linkedList");
         stopWatch.start();
         test(list);
         stopWatch.stop();
