@@ -17,6 +17,7 @@
 		<module>code-mybatis</module>
 		<module>code-spring</module>
 		<module>code-juc</module>
+		<module>code-metrics</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>

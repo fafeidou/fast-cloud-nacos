@@ -5,7 +5,6 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,8 +64,7 @@ public class JMHExample17 {
 
         Options opts = new OptionsBuilder()
                 .include(JMHExample17.class.getSimpleName())
-                .timeout(TimeValue.seconds(10))
-                .forks(0)
+                .forks(1)
                 .build();
         new Runner(opts).run();
     }
