@@ -1,49 +1,46 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.metric;
 
 import com.codahale.metrics.ConsoleReporter;
-import com.codahale.metrics.Counter;
+import com.codahale.metrics.Gauge;
 import com.codahale.metrics.MetricRegistry;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-public class CounterExample {
+public class SimpleGaugeExample {
     private static final MetricRegistry registry = new MetricRegistry();
 
     private static final ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
             .convertRatesTo(TimeUnit.SECONDS)
             .convertDurationsTo(TimeUnit.SECONDS).build();
-    private static final BlockingQueue<Long> queue = new LinkedBlockingQueue<>();
 
-    public static void main(String[] args) throws InterruptedException {
-        reporter.start(10, TimeUnit.SECONDS);
-        Counter counter = registry.counter("queue-count", Counter::new);
+    private static Queue<Long> queue = new LinkedBlockingDeque<>();
+
+
+    public static void main(String[] args) {
+        registry.register(MetricRegistry.name(SimpleGaugeExample.class), (Gauge<Integer>)queue::size);
+        reporter.start(1,TimeUnit.SECONDS);
         new Thread(() -> {
             for (; ; ) {
                 randomSleep();
                 queue.add(System.nanoTime());
-                counter.inc();
             }
-        });
+        }).start();
+
         new Thread(() -> {
             for (; ; ) {
                 randomSleep();
-                if (queue.poll() != null) {
-                    counter.dec();
-                }
+                queue.poll();
             }
-        });
-
-        Thread.currentThread().join();
+        }).start();
     }
-
 
     private static void randomSleep() {
         try {
-            TimeUnit.SECONDS.sleep(current().nextInt(500));
+            TimeUnit.SECONDS.sleep(current().nextInt(5));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

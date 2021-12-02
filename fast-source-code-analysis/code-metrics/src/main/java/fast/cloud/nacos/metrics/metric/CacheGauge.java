@@ -1,4 +1,4 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.metric;
 
 import com.codahale.metrics.CachedGauge;
 import com.codahale.metrics.ConsoleReporter;

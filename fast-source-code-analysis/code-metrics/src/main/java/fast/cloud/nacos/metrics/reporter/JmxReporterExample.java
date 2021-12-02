@@ -1,4 +1,4 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.reporter;
 
 import com.codahale.metrics.Histogram;
 import com.codahale.metrics.JmxReporter;

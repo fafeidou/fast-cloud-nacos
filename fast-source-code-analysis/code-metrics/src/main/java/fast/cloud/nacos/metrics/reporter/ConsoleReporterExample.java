@@ -1,23 +1,24 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.reporter;
 
-import com.codahale.metrics.*;
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.Histogram;
+import com.codahale.metrics.MetricRegistry;
 
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-public class SlidingWindowReservoirsHistogramExample {
+public class ConsoleReporterExample {
     private static final MetricRegistry registry = new MetricRegistry();
 
     private static final ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
             .convertRatesTo(TimeUnit.SECONDS)
             .convertDurationsTo(TimeUnit.SECONDS).build();
-    private static final Histogram histogram = new Histogram(new SlidingWindowReservoir(50));
+
+    private static final Histogram histogram = registry.histogram("search-result");
 
     public static void main(String[] args) {
-        reporter.start(10, TimeUnit.SECONDS);
-
-        registry.register("SlidingWindowReservoir-Histogram", histogram);
+        reporter.start(10,TimeUnit.SECONDS);
 
         while (true) {
             doSearch();
@@ -29,11 +30,13 @@ public class SlidingWindowReservoirsHistogramExample {
         histogram.update(current().nextInt(10));
     }
 
+
     private static void randomSleep() {
         try {
-            TimeUnit.SECONDS.sleep(current().nextInt(10));
+            TimeUnit.SECONDS.sleep(current().nextInt(500));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 }

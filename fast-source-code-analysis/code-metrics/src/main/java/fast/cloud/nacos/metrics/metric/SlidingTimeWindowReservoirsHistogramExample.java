@@ -1,24 +1,23 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.metric;
 
-import com.codahale.metrics.CsvReporter;
-import com.codahale.metrics.Histogram;
-import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.*;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-public class CsvReporterExample {
+public class SlidingTimeWindowReservoirsHistogramExample {
     private static final MetricRegistry registry = new MetricRegistry();
 
-    private static final CsvReporter reporter = CsvReporter.forRegistry(registry)
+    private static final ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
             .convertRatesTo(TimeUnit.SECONDS)
-            .convertDurationsTo(TimeUnit.SECONDS).build(new File("/Users/qinfuxiang/Downloads"));
-    private static final Histogram histogram = registry.histogram("search-result");
+            .convertDurationsTo(TimeUnit.SECONDS).build();
+    private static final Histogram histogram = new Histogram(new SlidingTimeWindowReservoir(30,TimeUnit.SECONDS));
 
     public static void main(String[] args) {
-        reporter.start(10,TimeUnit.SECONDS);
+        reporter.start(10, TimeUnit.SECONDS);
+
+        registry.register("SlidingWindowReservoir-Histogram", histogram);
 
         while (true) {
             doSearch();
@@ -30,13 +29,11 @@ public class CsvReporterExample {
         histogram.update(current().nextInt(10));
     }
 
-
     private static void randomSleep() {
         try {
-            TimeUnit.SECONDS.sleep(current().nextInt(500));
+            TimeUnit.SECONDS.sleep(current().nextInt(10));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }

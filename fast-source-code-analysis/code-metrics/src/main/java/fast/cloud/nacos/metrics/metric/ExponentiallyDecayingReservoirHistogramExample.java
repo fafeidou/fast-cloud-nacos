@@ -1,23 +1,23 @@
-package fast.cloud.nacos.metrics;
+package fast.cloud.nacos.metrics.metric;
 
-import com.codahale.metrics.ConsoleReporter;
-import com.codahale.metrics.Histogram;
-import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.*;
 
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-public class HistogramExample {
+public class ExponentiallyDecayingReservoirHistogramExample {
     private static final MetricRegistry registry = new MetricRegistry();
 
     private static final ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
             .convertRatesTo(TimeUnit.SECONDS)
             .convertDurationsTo(TimeUnit.SECONDS).build();
-    private static final Histogram histogram = registry.histogram("search-result");
+    private static final Histogram histogram = new Histogram(new ExponentiallyDecayingReservoir());
 
     public static void main(String[] args) {
         reporter.start(10, TimeUnit.SECONDS);
+
+        registry.register("ExponentiallyDecayingReservoir-Histogram", histogram);
 
         while (true) {
             doSearch();
@@ -36,5 +36,4 @@ public class HistogramExample {
             e.printStackTrace();
         }
     }
-
 }
