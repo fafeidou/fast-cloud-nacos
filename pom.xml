@@ -29,6 +29,26 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring-cloud-alibaba.version>0.2.1.RELEASE</spring-cloud-alibaba.version>
         <fabric8.maven.plugin.version>4.4.0</fabric8.maven.plugin.version>
+        <byte-buddy.version>1.10.16</byte-buddy.version>
+        <feign-core.version>10.1.0</feign-core.version>
+        <lettuce-core.version>5.1.4.RELEASE</lettuce-core.version>
+        <redisson.version>3.12.0</redisson.version>
+        <commons-io.version>2.6</commons-io.version>
+        <cat-client.version>3.0.0</cat-client.version>
+        <log4j.version>1.2.12</log4j.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <mysql-connector-java.version>5.1.6</mysql-connector-java.version>
+        <jaxen.version>1.1.6</jaxen.version>
+        <junit.version>4.10</junit.version>
+        <elasticsearch.version>6.2.4</elasticsearch.version>
+        <grpc-all.version>1.22.1</grpc-all.version>
+        <guice.version>4.0</guice.version>
+        <guava.version>23.6-jre</guava.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <protostuff-core.version>1.7.2</protostuff-core.version>
+        <protostuff-runtime.version>1.7.2</protostuff-runtime.version>
+        <objenesis.version>2.2</objenesis.version>
+        <hessian.version>3.3.6</hessian.version>
     </properties>
 
     <dependencies>
@@ -55,13 +75,13 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.10.16</version>
+            <version>${byte-buddy.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.10.16</version>
+            <version>${byte-buddy.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
