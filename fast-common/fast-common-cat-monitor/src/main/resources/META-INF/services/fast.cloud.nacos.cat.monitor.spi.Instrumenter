@@ -4,3 +4,9 @@ fast.cloud.nacos.cat.monitor.enhance.ThreadInstrumenter
 fast.cloud.nacos.cat.monitor.bootstrap.ContextTrampolineInitializer
 fast.cloud.nacos.cat.monitor.enhance.HttpClientInstrumenter
 fast.cloud.nacos.cat.monitor.enhance.RestTemplateInstrumenter
+
+#redis
+fast.cloud.nacos.cat.monitor.enhance.redis.JedisInstrumenter
+fast.cloud.nacos.cat.monitor.enhance.redis.LettuceChannelWriterInstrumenter
+fast.cloud.nacos.cat.monitor.enhance.redis.LettuceHandlerInvocationInstrumentation
+fast.cloud.nacos.cat.monitor.enhance.redis.RedissonInstrumenter

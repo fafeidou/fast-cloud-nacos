@@ -2,16 +2,13 @@ package fast.cloud.nacos.example.web.enums;
 
 import fast.cloud.nacos.example.web.enums.commons.EnumInterface;
 import fast.cloud.nacos.example.web.enums.commons.RegisterEnum;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.PostConstruct;
 import org.reflections.Reflections;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @Component
 public class EnumContext {
