@@ -1,18 +1,31 @@
 package fast.cloud.nacos.grpc.starter.spring;
 
 import com.alibaba.spring.beans.factory.annotation.AbstractAnnotationBeanPostProcessor;
-import fast.cloud.nacos.grpc.starter.annotation.GrpcService;
 import fast.cloud.nacos.grpc.starter.annotation.GrpcReference;
+import fast.cloud.nacos.grpc.starter.annotation.GrpcService;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.InjectionMetadata;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
 
-public class ReferenceAnnotationBeanPostProcessor extends AbstractAnnotationBeanPostProcessor {
+import java.lang.reflect.InvocationHandler;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ReferenceAnnotationBeanPostProcessor extends AbstractAnnotationBeanPostProcessor implements ApplicationContextAware {
 
     /**
      * The bean name of {@link ReferenceAnnotationBeanPostProcessor}
      */
     public static final String BEAN_NAME = "referenceAnnotationBeanPostProcessor";
+
+    private static final int CACHE_SIZE = Integer.getInteger(BEAN_NAME + ".cache.size", 32);
+
+    private final ConcurrentHashMap<String, InvocationHandler> localReferenceBeanInvocationHandlerCache =
+            new ConcurrentHashMap<>(CACHE_SIZE);
+
+    private ApplicationContext applicationContext;
 
     @SuppressWarnings("unchecked")
     public ReferenceAnnotationBeanPostProcessor() {
@@ -21,7 +34,7 @@ public class ReferenceAnnotationBeanPostProcessor extends AbstractAnnotationBean
 
 
     /**
-     * inject proxy object into the SOAReference identification
+     * inject proxy objectAnnotationInjectedBeanPostProcessor into the SOAReference identification
      */
     @Override
     protected Object doGetInjectedBean(AnnotationAttributes annotationAttributes, Object bean, String beanName, Class<?> injectedType, InjectionMetadata.InjectedElement injectedElement) {
@@ -37,7 +50,11 @@ public class ReferenceAnnotationBeanPostProcessor extends AbstractAnnotationBean
     protected String buildInjectedObjectCacheKey(AnnotationAttributes annotationAttributes, Object bean, String beanName, Class<?> injectedType, InjectionMetadata.InjectedElement injectedElement) {
         Assert.isTrue(injectedType.isInterface(), "@GrpcReference can only be specified on an interface");
         Assert.isTrue(injectedType.getAnnotation(GrpcService.class) != null, "@GrpcReference can only be specified on an interface what has @GrpcService Annotation");
-        return injectedType.getName() + "@Reference:" + annotationAttributes.hashCode();
+        return injectedType.getName() + "@GrpcReference:" + annotationAttributes.hashCode();
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

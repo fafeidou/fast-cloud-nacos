@@ -68,27 +68,27 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- ProtoStuff 序列化/反序列化 -->
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
-            <version>1.7.2</version>
+            <version>${protostuff-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
-            <version>1.7.2</version>
+            <version>${protostuff-runtime.version}</version>
         </dependency>
 
         <!-- 用于创建对象 -->
         <dependency>
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
-            <version>2.2</version>
+            <version>${objenesis.version}</version>
         </dependency>
 
         <!-- FastJSON 序列化/反序列化 -->
@@ -102,7 +102,7 @@
         <dependency>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>hessian</artifactId>
-            <version>3.3.6</version>
+            <version>${hessian.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
